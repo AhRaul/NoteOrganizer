@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">NoteOrganizer</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="title_notes">Заметки</string>
+    <string name="title_todo">Задачи</string>
+    <string name="title_settings">Настройки</string>
+
+    <string name="header_sample">Поездка в Лондон</string>
+    <string name="subheader_sample">
+        столица и крупнейший город Соединённого Королевства Великобритании и Северной Ирландии. Административно образует регион Англии Большой Лондон, разделённый на 33 самоуправляемых территории. Население составляет 8 908 081 чел.[2] (2018 г.) — это третий[4] по величине город Европы. Образует агломерацию Большой Лондон и более обширный метрополитенский район, являющиеся по численности населения в ЕС второй городской и первой региональной агломерациями, соответственно. Расположен на юго-востоке острова Великобритания, на равнине в устье Темзы, вблизи Северного моря. Главный политический, экономический и культурный центр Соединённого Королевства.
+    </string>
 </resources>
