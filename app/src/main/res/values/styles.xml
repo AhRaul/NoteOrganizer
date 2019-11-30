@@ -19,6 +19,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 <!--    sub styles      -->
+
+<!--    TEXT VIEWS  -->
     <style name="TextView">
 <!--        <item name="fontFamily"></item>-->
         <item name="paddingStart">4dp</item>
@@ -26,21 +28,35 @@
     </style>
 
     <style name="TextView.Header" parent="TextView">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:paddingTop">4dp</item>
     </style>
     <style name="TextView.SubHeader" parent="TextView">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
+    <style name="TextView.Title" parent="TextView.Header">
+        <item name="android:textSize">30sp</item>
+    </style>
 
+<!--    BOTTOM SHEET DIALOG STYLE -->
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
     <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet</item>
+    </style>
+
+    <!--    EXPAND ANCHOR   -->
+    <style name="ExpandView">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:background">@drawable/rounded_shape</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
 </resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/cancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_delete"
+                android:tint="@color/colorDivider" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/note_title"
+                    style="@style/TextView.Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Заголовок"
+                    android:inputType="textMultiLine|textCapSentences"
+                    tools:text="Необычный чай" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:layout_weight="1"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/note_text"
+                        style="@style/TextView.SubHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="top"
+                        android:hint="Введите заметку..."
+                        android:inputType="textMultiLine|textCapSentences"
+                        tools:text="Пришла идея выпить необычный чай в Москве, на станции метро Кропоткинская" />
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

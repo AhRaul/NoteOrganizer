@@ -1,5 +1,6 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,9 +52,10 @@ public class NotesFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.notes_write_fab:
-                NotesBottomDialogFragment addPhotoBottomDialogFragment =
-                        NotesBottomDialogFragment.newInstance();
-                addPhotoBottomDialogFragment.show(getFragmentManager(), "tag");
+                Intent intent = new Intent(getActivity(), SingleNoteActivity.class);
+                startActivity(intent);
+//                NotesBottomDialogFragment addPhotoBottomDialogFragment = new NotesBottomDialogFragment();
+//                addPhotoBottomDialogFragment.show(getFragmentManager(), "tag");
         }
     }
 
