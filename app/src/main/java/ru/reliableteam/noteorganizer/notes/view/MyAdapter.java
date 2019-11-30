@@ -1,7 +1,6 @@
-package ru.reliableteam.noteorganizer.ui.notes;
+package ru.reliableteam.noteorganizer.notes.view;
 
 
-import android.graphics.Point;
 import android.util.Log;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.notes.model.Note;
+import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
 
-class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         private NotesPresenter presenter;
 
         public MyAdapter(NotesPresenter presenter) {
@@ -39,15 +40,11 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             return position;
         }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private View itemView;
         private NotesPresenter presenter;
 
         private String CLASS_TAG = "MyViewHolder";
-
-//        private ImageView image = itemView.findViewById(R.id.image);
-//        private var width =  screenSize.x / if (isPortrait) 2 else 3 //for horizontal
-//        private var height: Int = screenSize.y / 3
 
         private TextView title;
         private TextView subtitle;

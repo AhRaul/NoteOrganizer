@@ -1,18 +1,16 @@
-package ru.reliableteam.noteorganizer.ui.notes;
+package ru.reliableteam.noteorganizer.notes.presenter;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
-
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.notes.model.Note;
+import ru.reliableteam.noteorganizer.notes.view.MyAdapter;
+import ru.reliableteam.noteorganizer.notes.view.NotesFragment;
 
 
-class NotesPresenter {
+public class NotesPresenter {
     private Context context;
     private NotesFragment fragmentView;
 

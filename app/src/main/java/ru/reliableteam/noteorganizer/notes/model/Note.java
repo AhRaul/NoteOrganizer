@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.ui.notes;
+package ru.reliableteam.noteorganizer.notes.model;
 
 public class Note {
     public String title;

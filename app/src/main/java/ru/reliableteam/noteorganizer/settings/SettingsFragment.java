@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.ui.settings;
+package ru.reliableteam.noteorganizer.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

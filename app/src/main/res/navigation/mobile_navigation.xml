@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/navigation_notes"
-        android:name="ru.reliableteam.noteorganizer.ui.notes.NotesFragment"
+        android:name="ru.reliableteam.noteorganizer.notes.view.NotesFragment"
         android:label="@string/title_notes"
         tools:layout="@layout/fragment_notes">
     </fragment>
     <fragment
         android:id="@+id/navigation_todos"
-        android:name="ru.reliableteam.noteorganizer.ui.todos.TodosFragment"
+        android:name="ru.reliableteam.noteorganizer.todos.TodosFragment"
         android:label="@string/title_todo"
         tools:layout="@layout/fragment_todos" />
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="ru.reliableteam.noteorganizer.ui.settings.SettingsFragment"
+        android:name="ru.reliableteam.noteorganizer.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

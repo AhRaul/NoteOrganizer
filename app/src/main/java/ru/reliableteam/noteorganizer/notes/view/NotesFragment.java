@@ -1,11 +1,9 @@
-package ru.reliableteam.noteorganizer.ui.notes;
+package ru.reliableteam.noteorganizer.notes.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowId;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
+
 
 public class NotesFragment extends Fragment {
 
