@@ -3,7 +3,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +35,8 @@
             android:orientation="vertical"
             android:paddingBottom="8dp"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp">
+            android:paddingRight="8dp"
+            android:layout_weight="1">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/note_title"
                     style="@style/TextView.Header"
@@ -65,5 +67,43 @@
                         tools:text="Пришла идея выпить необычный чай в Москве, на станции метро Кропоткинская" />
                 </ScrollView>
             </LinearLayout>
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:gravity="center"
+            android:layout_marginBottom="12dp"
+            android:id="@+id/toggle_button_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bold_style"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_format_bold_black_24"
+                app:iconGravity="textStart"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/italic_style"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_format_italic_24"
+                app:iconGravity="textStart"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/strike_style"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_strikethrough_s_24"
+                app:iconGravity="textStart"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/underline_style"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_format_underlined_24"
+                app:iconGravity="textStart"/>
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
         </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
