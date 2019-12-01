@@ -1,23 +1,16 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.text.HtmlCompat;
 
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextWatcher;
 import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,10 +18,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import ru.reliableteam.noteorganizer.R;
 
 // todo need text utils
-public class SingleNoteActivity extends AppCompatActivity implements View.OnClickListener, Button.OnFocusChangeListener {
+// todo need full text implementation
+public class SingleNoteActivity extends AppCompatActivity implements View.OnClickListener {
     private final String CLASS_TAG = "SingleNoteActivity";
     TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn, strikeBtn, underlineBtn;
+    ImageButton cancelBtn;
 
     private static class StyleState {
         static final StyleSpan BOLD = new StyleSpan(android.graphics.Typeface.BOLD);
@@ -40,7 +35,6 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
     }
     Spannable sb;
 
-    String noteTextS = "";
     private StyleSpan styleState = StyleState.REGULAR;
 
     @Override
@@ -66,7 +60,9 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
 
         underlineBtn = findViewById(R.id.underline_style);
         underlineBtn.setOnClickListener(this);
-        underlineBtn.setOnFocusChangeListener(this);
+
+        cancelBtn = findViewById(R.id.cancel_button);
+        cancelBtn.setOnClickListener(this);
     }
 
     private void setStyle() {
@@ -82,20 +78,13 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        Log.i(CLASS_TAG, hasFocus + " " + v.getId());
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bold_style:
-                // todo make bold
                 styleState = StyleState.BOLD;
                 setStyle();
                 break;
             case R.id.italic_style:
-                // todo make italic
                 styleState = StyleState.ITALIC;
                 setStyle();
                 break;
@@ -104,6 +93,9 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.underline_style:
                 // todo make underline
+                break;
+            case R.id.cancel_button:
+                this.finish();
                 break;
             default:
                 styleState = StyleState.REGULAR;
