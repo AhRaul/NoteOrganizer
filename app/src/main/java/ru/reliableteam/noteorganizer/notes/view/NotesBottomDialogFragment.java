@@ -1,7 +1,6 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -9,15 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -25,6 +18,15 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import ru.reliableteam.noteorganizer.R;
 
+/**
+ * if you want to open this fragment, uncomment rows in MainActivity
+ *
+ * Implementation of Bottom Sheet Dialog Fragment, that will expand to +- fullscreen sheet and
+ * offer creating new note (the analog of creating in SingleNoteFragment).
+ *
+ * Maybe we can implement this, and add EXPAND button, that will open single photo activity.
+ * "modern solutions"
+ */
 
 public class NotesBottomDialogFragment extends BottomSheetDialogFragment {
     private final String CLASS_TAG = "NotesBtmDialogFragment";

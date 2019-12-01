@@ -16,7 +16,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
 
-
+/**
+ *  Note List Fragment
+ */
 public class NotesFragment extends Fragment implements View.OnClickListener{
 
     private View root;

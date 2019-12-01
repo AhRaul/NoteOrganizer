@@ -13,6 +13,16 @@ import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
 
+/**
+ * Base Adapter for recycler.
+ *
+ * Implements Base methods of adapter for recycler view.
+ *
+ * Methods to add:
+ *  -   onClick in MyViewHolder to open Note
+ *  -   onLongClick to select Note for deleting it
+ */
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         private NotesPresenter presenter;
 
@@ -72,7 +82,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 image.setImageResource(note.cardImageUri);
             else
                 subtitle.setMaxLines(15);
-//        Picasso.get().load(sourceUrl).placeholder(R.drawable.placeholder).into(image)
         }
 
         public int getPos() { return getPosition(); }
@@ -80,7 +89,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         @Override
         public void onClick(View v) {
             Log.i(CLASS_TAG, "clicked " + getPos());
-//            presenter.clicked(getPos());
+            // todo add click interaction to open clicked item in SingleNoteActivity
+            // presenter.clicked(getPos)
+            // in presenter:
+            //      noteList.getNote(position).getId()
+            //      send this id to activity through extras or save in SharedPreferences and get
+            //      that id from SP in activity
         }
     }
 }
