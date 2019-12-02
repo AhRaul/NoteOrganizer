@@ -58,7 +58,6 @@ public class NotesFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.notes_write_fab:
                 presenter.clicked(NEW_NOTE);
-                viewNote();
                 break;
         }
     }
@@ -68,6 +67,14 @@ public class NotesFragment extends Fragment implements View.OnClickListener{
         startActivity(intent);
 //                NotesBottomDialogFragment addPhotoBottomDialogFragment = new NotesBottomDialogFragment();
 //                addPhotoBottomDialogFragment.show(getFragmentManager(), "tag");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        presenter.getNotes();
+//        presenter.notifyDatasetChanged();
+        System.out.println("ON RESUME");
     }
 
 }

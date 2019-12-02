@@ -9,8 +9,11 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import ru.reliableteam.noteorganizer.R;
@@ -25,7 +28,7 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
 
     TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn, strikeBtn, underlineBtn;
-    ImageButton cancelBtn;
+    ImageButton cancelBtn, saveBtn, deleteBtn;
 
     private static class StyleState {
         static final StyleSpan BOLD = new StyleSpan(android.graphics.Typeface.BOLD);
@@ -67,7 +70,15 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
 
         cancelBtn = findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener(this);
+
+        saveBtn = findViewById(R.id.save_button);
+        saveBtn.setOnClickListener(this);
+
+        deleteBtn = findViewById(R.id.delete_button);
+        deleteBtn.setOnClickListener(this);
+        deleteBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
     }
+
     private void getClickedNote() {
         presenter.getClickedNote();
     }
@@ -76,6 +87,12 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
     }
     public void setNoteText(String title) {
         noteText.setText(title);
+    }
+    public String getNoteTitle() {
+        return noteTitle.getText().toString();
+    }
+    public String getNoteText() {
+        return noteText.getText().toString();
     }
 
     private void setStyle() {
@@ -108,11 +125,26 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
                 // todo make underline
                 break;
             case R.id.cancel_button:
-                this.finish();
+                onBackPressed();
+                break;
+            case R.id.save_button:
+                // todo save note
+                presenter.saveNote();
+                showHint("Ваша заметка была сохранена!");
+                onBackPressed();
+                break;
+            case R.id.delete_button:
+                // todo delete note
+                presenter.deleteNote();
+                onBackPressed();
                 break;
             default:
                 styleState = StyleState.REGULAR;
                 setStyle();
         }
+    }
+
+    private void showHint(String hintText) {
+        Toast.makeText(this, hintText, Toast.LENGTH_LONG).show();
     }
 }

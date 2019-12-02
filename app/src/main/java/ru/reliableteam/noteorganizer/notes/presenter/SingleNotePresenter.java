@@ -26,4 +26,19 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
         view.setNoteText(note.body);
         view.setNoteTitle(note.title);
     }
+
+    public boolean isNewNote() { return appSettings.getClickedNoteId() == NEW_NOTE; }
+
+    public void deleteNote() {
+        super.deleteNote(note);
+    }
+    public void saveNote() {
+        if (isNewNote()) {
+            note.body = view.getNoteText();
+            note.title = view.getNoteTitle();
+            super.saveNote(note);
+        }
+        else
+            super.updateNote(note);
+    }
 }
