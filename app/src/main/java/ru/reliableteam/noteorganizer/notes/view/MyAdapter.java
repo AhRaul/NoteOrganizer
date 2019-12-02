@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.model.Note;
+import ru.reliableteam.noteorganizer.notes.presenter.INotesPresenter;
 import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
 
 /**
@@ -24,9 +27,9 @@ import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-        private NotesPresenter presenter;
+        private INotesPresenter presenter;
 
-        public MyAdapter(NotesPresenter presenter) {
+        public MyAdapter(INotesPresenter presenter) {
             this.presenter = presenter;
         }
 
@@ -52,7 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private View itemView;
-        private NotesPresenter presenter;
+        private INotesPresenter presenter;
 
         private String CLASS_TAG = "MyViewHolder";
 
@@ -60,7 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         private TextView subtitle;
         private ImageView image;
 
-        public MyViewHolder(View view, NotesPresenter presenter) {
+        public MyViewHolder(View view, INotesPresenter presenter) {
             super(view);
             this.itemView = view;
             this.presenter = presenter;
@@ -90,7 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public void onClick(View v) {
             Log.i(CLASS_TAG, "clicked " + getPos());
             // todo add click interaction to open clicked item in SingleNoteActivity
-            // presenter.clicked(getPos)
+             presenter.clicked(getPos());
             // in presenter:
             //      noteList.getNote(position).getId()
             //      send this id to activity through extras or save in SharedPreferences and get

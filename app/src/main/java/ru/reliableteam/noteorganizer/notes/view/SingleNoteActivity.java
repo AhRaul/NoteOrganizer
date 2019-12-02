@@ -14,11 +14,15 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.notes.presenter.SingleNotePresenter;
 
 // todo need text utils
 // todo need full text implementation
 public class SingleNoteActivity extends AppCompatActivity implements View.OnClickListener {
     private final String CLASS_TAG = "SingleNoteActivity";
+
+    private SingleNotePresenter presenter;
+
     TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn, strikeBtn, underlineBtn;
     ImageButton cancelBtn;
@@ -31,8 +35,7 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
         static final StyleSpan REGULAR = new StyleSpan(Typeface.NORMAL);
 
     }
-    Spannable sb;
-
+    private Spannable sb;
     private StyleSpan styleState = StyleState.REGULAR;
 
     @Override
@@ -40,7 +43,10 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_note);
 
+        presenter = new SingleNotePresenter(this);
+
         initUI();
+        getClickedNote();
     }
 
     private void initUI() {
@@ -61,6 +67,15 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
 
         cancelBtn = findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener(this);
+    }
+    private void getClickedNote() {
+        presenter.getClickedNote();
+    }
+    public void setNoteTitle(String title) {
+        noteTitle.setText(title);
+    }
+    public void setNoteText(String title) {
+        noteText.setText(title);
     }
 
     private void setStyle() {

@@ -9,6 +9,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 
 @Dao
@@ -18,7 +19,7 @@ public interface NoteDAO {
 
     // todo use single
     @Query("SELECT * FROM NOTE WHERE id = :id")
-    Note getById(long id);
+    Single<Note> getById(long id);
 
     @Insert
     void insert(Note note);

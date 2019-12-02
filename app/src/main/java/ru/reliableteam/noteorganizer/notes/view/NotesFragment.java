@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.notes.presenter.INotesPresenter;
 import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
 
 /**
@@ -24,7 +25,9 @@ public class NotesFragment extends Fragment implements View.OnClickListener{
     private View root;
     private RecyclerView recyclerView;
     private FloatingActionButton writeNewNote;
-    private NotesPresenter presenter;
+    private INotesPresenter presenter;
+
+    private final int NEW_NOTE = -1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,7 +35,7 @@ public class NotesFragment extends Fragment implements View.OnClickListener{
         root = inflater.inflate(R.layout.fragment_notes, container, false);
         writeNewNote = root.findViewById(R.id.notes_write_fab);
         writeNewNote.setOnClickListener(this);
-        presenter = new NotesPresenter(getContext(), this);
+        presenter = new NotesPresenter(this);
 
         initRecyclerView();
 
@@ -54,11 +57,17 @@ public class NotesFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.notes_write_fab:
-                Intent intent = new Intent(getActivity(), SingleNoteActivity.class);
-                startActivity(intent);
+                presenter.clicked(NEW_NOTE);
+                viewNote();
+                break;
+        }
+    }
+
+    public void viewNote() {
+        Intent intent = new Intent(getActivity(), SingleNoteActivity.class);
+        startActivity(intent);
 //                NotesBottomDialogFragment addPhotoBottomDialogFragment = new NotesBottomDialogFragment();
 //                addPhotoBottomDialogFragment.show(getFragmentManager(), "tag");
-        }
     }
 
 }
