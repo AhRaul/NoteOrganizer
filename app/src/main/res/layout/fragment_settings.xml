@@ -102,8 +102,7 @@
                     </com.google.android.material.chip.ChipGroup>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <View style="@style/Divider"
-                    android:layout_width="wrap_content" />
+                <View style="@style/Divider" />
                 <!--RELOAD GALLERY-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -153,6 +152,8 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="7"
+                        android:checked="true"
+                        app:useMaterialThemeColors="false"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -210,7 +211,8 @@
                         android:text="clean" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <View style="@style/Divider" />
+                <View style="@style/Divider"
+                    />
                 <!--CLEAN CACHE: LIKED PHOTOS-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

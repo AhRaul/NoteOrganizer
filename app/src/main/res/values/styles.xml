@@ -60,7 +60,8 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:background">@color/colorDivider</item>
+        <item name="android:background">?attr/colorOnSurface</item>
+        <item name="android:alpha">0.12</item>
     </style>
 
     <!-- Base application theme. -->
@@ -69,12 +70,11 @@
         <item name="elevationOverlayEnabled">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:statusBarColor">#ffffff</item>
         <item name="textColor">@color/colorPrimaryText</item>
-<!--        <item name="android:windowTranslucentNavigation">true</item>-->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 <!--     Base application theme. -->
@@ -92,10 +92,12 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccentDark</item>
         <item name="errorTextColor">@color/errorTextColorDark</item>
+
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/colorSurfaceDark</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="textColor">@color/colorOnBackgroundDark</item>
+
+<!--        <item name="textColor">@color/colorOnBackgroundDark</item>-->
     </style>
 </resources>
