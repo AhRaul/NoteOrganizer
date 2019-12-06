@@ -6,11 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.presenter.INotesPresenter;
 import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
@@ -24,6 +28,8 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private View root;
     private RecyclerView recyclerView;
     private FloatingActionButton writeNewNote;
+    private ImageButton sortNotes;
+    private TextInputEditText searchNoteTv;
     private INotesPresenter presenter;
 
     private final int NEW_NOTE = -1;
@@ -32,14 +38,26 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_notes, container, false);
-        writeNewNote = root.findViewById(R.id.notes_write_fab);
-
-        writeNewNote.setOnClickListener(this);
         presenter = new NotesPresenter(this);
 
+        initUI();
         initRecyclerView();
 
         return root;
+    }
+
+    private void initUI() {
+        writeNewNote = root.findViewById(R.id.notes_write_fab);
+
+        // todo повесить листенеры на сортировку
+        // данные берутся в presenter.notesList
+        // далее нотифаить об изменениях
+
+        // так же в серче (но придется уже через бд это делать)
+        sortNotes = root.findViewById(R.id.sort_notes);
+        searchNoteTv = root.findViewById(R.id.search_text_view);
+
+        writeNewNote.setOnClickListener(this);
     }
 
 
