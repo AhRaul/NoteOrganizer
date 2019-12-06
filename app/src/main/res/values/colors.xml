@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+<!--    <color name="colorPrimaryDark">#00574B</color>-->
     <color name="colorAccent">#D81B60</color>
     <color name="colorPrimaryText">#2a2a2a</color>
     <color name="colorSecondaryText">#5a5a5a</color>
-    <color name="colorDivider">#305a5a5a</color>
+    <color name="colorDivider">#5a5a5a</color>
+
+    <color name="colorSurfaceDark">#121212</color>
+    <color name="colorPrimaryDark">#03dac6</color>
+    <color name="colorAccentDark">#03dac6</color>
+    <color name="errorTextColorDark">#cf6679</color>
+    <color name="colorOnBackgroundDark">#cacaca</color>
+    <color name="colorDividerDark">#3a3a3a</color>
+    <color name="colorPrimaryTextDark">#9a9a9a</color>
+    <color name="colorSecondaryTextDark">#7a7a7a</color>
 </resources>

@@ -3,6 +3,8 @@ package ru.reliableteam.noteorganizer.entity.shared_prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import ru.reliableteam.noteorganizer.R;
+
 public class SharedPreferencesManager {
     private final String CLASS_TAG = "SharedPreferencesManager";
     private SharedPreferences sp;
@@ -17,6 +19,26 @@ public class SharedPreferencesManager {
     public void setClickedNoteId(int id) {
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("clickedNoteId", id);
+        editor.apply();
+    }
+
+    // theme
+    public int getAppTheme() {
+        return sp.getInt("appTheme", R.style.AppTheme);
+    }
+    public void setAppTheme(int appThemeId) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("appTheme", appThemeId);
+        editor.apply();
+    }
+
+    // autosync
+    public boolean isAutoSyncEnabled() {
+        return sp.getBoolean("isAutosycEnabled", false);
+    }
+    public void setAutoSyncEnabled(boolean isEnabled) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("isAutosycEnabled", isEnabled);
         editor.apply();
     }
 }

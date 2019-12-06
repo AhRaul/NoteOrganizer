@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Span;
 import ru.reliableteam.noteorganizer.notes.presenter.SingleNotePresenter;
 
@@ -51,6 +52,10 @@ public class SingleNoteActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferencesManager appSettings = new SharedPreferencesManager(this);
+        setTheme(appSettings.getAppTheme());
+
         setContentView(R.layout.activity_single_note);
 
         presenter = new SingleNotePresenter(this);

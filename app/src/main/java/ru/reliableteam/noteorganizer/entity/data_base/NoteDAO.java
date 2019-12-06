@@ -30,4 +30,10 @@ public interface NoteDAO {
     @Delete
     void delete(Note note);
 
+    @Query("SELECT COUNT(*) FROM NOTE")
+    Single<Integer> getNotesCount();
+
+    @Query("DELETE FROM NOTE")
+    void deleteAll();
+
 }

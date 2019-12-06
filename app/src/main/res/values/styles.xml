@@ -1,14 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-<!--    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">-->
-        <!-- Customize your theme here. -->
-<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
-<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-<!--        <item name="colorAccent">@color/colorAccent</item>-->
-<!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
-<!--    </style>-->
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -25,17 +16,17 @@
 <!--        <item name="fontFamily"></item>-->
         <item name="paddingStart">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
     </style>
 
     <style name="TextView.Header" parent="TextView">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:paddingTop">4dp</item>
     </style>
     <style name="TextView.SubHeader" parent="TextView">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
     <style name="TextView.Title" parent="TextView.Header">
         <item name="android:textSize">30sp</item>
@@ -46,6 +37,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="textColor">@color/colorOnBackgroundDark</item>
     </style>
     <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet</item>
@@ -59,17 +51,51 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
+    <!--    DIVIDER     -->
+    <style name="Divider">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@color/colorDivider</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+<!--         Customize your theme here.-->
+        <item name="elevationOverlayEnabled">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:statusBarColor">#ffffff</item>
+        <item name="textColor">@color/colorPrimaryText</item>
 <!--        <item name="android:windowTranslucentNavigation">true</item>-->
-        <!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
-
+<!--     Base application theme. -->
+    <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
+<!--         Customize your theme here. -->
+        <item name="colorSurface">@color/colorSurfaceDark</item>
+        <item name="background">@color/colorSurfaceDark</item>
+        <item name="colorOnPrimary">@android:color/black</item>
+        <item name="colorOnSecondary">@android:color/black</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundDark</item>
+        <item name="colorOnSurface">@color/colorOnBackgroundDark</item>
+        <item name="colorOnError">@android:color/black</item>
+        <item name="elevationOverlayEnabled">true</item>
+        <item name="elevationOverlayColor">?attr/colorOnSurface</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccentDark</item>
+        <item name="errorTextColor">@color/errorTextColorDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/colorSurfaceDark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="textColor">@color/colorOnBackgroundDark</item>
+    </style>
 </resources>

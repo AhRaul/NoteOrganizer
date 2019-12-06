@@ -28,6 +28,5 @@
         android:overScrollMode="ifContentScrolls"
         android:src="@android:drawable/ic_menu_edit"
         android:tint="@android:color/white"
-        android:foregroundTint="@color/colorPrimary"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
