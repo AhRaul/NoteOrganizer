@@ -9,7 +9,13 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp">
+        android:layout_margin="4dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#50afafaf"
+        app:strokeWidth="1dp"
+        app:cardCornerRadius="4dp"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        android:outlineSpotShadowColor="@android:color/transparent">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"/>
-<!--                android:src="@drawable/ic_launcher_background"/>-->
+
             <TextView
                 android:id="@+id/note_item_title"
                 android:layout_width="match_parent"

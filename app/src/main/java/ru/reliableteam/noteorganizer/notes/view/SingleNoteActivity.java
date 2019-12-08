@@ -36,7 +36,7 @@ public class SingleNoteActivity extends AppCompatActivity
     private SingleNotePresenter presenter;
 
     TextInputEditText noteText, noteTitle;
-    MaterialButton boldBtn, italicBtn, strikeBtn, underlineBtn;
+    MaterialButton boldBtn, italicBtn; //, strikeBtn, underlineBtn;
     ImageButton cancelBtn, saveBtn, deleteBtn;
     MaterialButtonToggleGroup toggleGroup;
 
@@ -86,11 +86,11 @@ public class SingleNoteActivity extends AppCompatActivity
         italicBtn = findViewById(R.id.italic_style);
         italicBtn.setOnClickListener(this);
 
-        strikeBtn = findViewById(R.id.strike_style);
-        strikeBtn.setOnClickListener(this);
+//        strikeBtn = findViewById(R.id.strike_style);
+//        strikeBtn.setOnClickListener(this);
 
-        underlineBtn = findViewById(R.id.underline_style);
-        underlineBtn.setOnClickListener(this);
+//        underlineBtn = findViewById(R.id.underline_style);
+//        underlineBtn.setOnClickListener(this);
 
         cancelBtn = findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener(this);
@@ -183,12 +183,12 @@ public class SingleNoteActivity extends AppCompatActivity
                 changeStyleState(isChecked ? StyleState.ITALIC : StyleState.REGULAR);
                 setTextStyle();
                 break;
-            case R.id.strike_style:
+//            case R.id.strike_style:
                 // todo make strike
-                break;
-            case R.id.underline_style:
+//                break;
+//            case R.id.underline_style:
                 // todo make underline
-                break;
+//                break;
         }
     }
 

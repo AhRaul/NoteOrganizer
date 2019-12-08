@@ -1,15 +1,44 @@
 <resources>
     <string name="app_name">NoteOrganizer</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="title_notes">Заметки</string>
-    <string name="title_todo">Задачи</string>
-    <string name="title_settings">Настройки</string>
+    <string name="app_version">1.0.0</string>
 
-    <string name="header_sample">Поездка в Лондон</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+
+
+<!--    SETTINGS FRAGMENT   -->
+    <string name="title_settings">Settings</string>
+    <string name="app_theme_hint">Select theme for app</string>
+    <string name="dark_theme_hint">Dark mode</string>
+    <string name="light_theme_hint">Light mode</string>
+    <string name="back_app_hint">Auto back-app to cloud</string>
+    <string name="last_update_hint">Last update: </string>
+    <string name="not_implemented_hint">not implemented</string>
+    <string name="clean_notes_cache_hint">Clean notes cache</string>
+    <string name="cache_size_hint">Cache size: </string>
+    <string name="clean">clean</string>
+    <string name="clean_todos_cache_hint">Clean todos cache</string>
+
+<!--    NOTES FRAGMENT   -->
+    <string name="title_notes">Notes</string>
+
+<!--    TODOS FRAGMENT   -->
+    <string name="title_todo">Todos</string>
+
+    <string name="header_sample">Trip to London</string>
     <string name="subheader_sample">
-        столица и крупнейший город Соединённого Королевства Великобритании и Северной Ирландии. Административно образует регион Англии Большой Лондон, разделённый на 33 самоуправляемых территории. Население составляет 8 908 081 чел.[2] (2018 г.) — это третий[4] по величине город Европы. Образует агломерацию Большой Лондон и более обширный метрополитенский район, являющиеся по численности населения в ЕС второй городской и первой региональной агломерациями, соответственно. Расположен на юго-востоке острова Великобритания, на равнине в устье Темзы, вблизи Северного моря. Главный политический, экономический и культурный центр Соединённого Королевства.
-    </string>
+            the capital and largest city of the United Kingdom of Great Britain and Northern Ireland. Administratively forms the region of England Greater London, divided into 33 self-governing territories. The population is 8 908 081 people [2] (2018) is the third [4] largest city in Europe. It forms the agglomeration Greater London and the larger metropolitan area, which are the EU population by the second urban and first regional agglomerations, respectively. Located in the southeast of the island of Great Britain, on a plain at the mouth of the Thames, near the North Sea. The main political, economic and cultural center of the United Kingdom.
+        </string>
+
+    <string name="search_view_hint">Search for notes</string>
+
+<!--    SINGLE NOTE ACTIVITY-->
+    <string name="delete">delete</string>
+    <string name="save">save</string>
+    <string name="note_title_hint">Title</string>
+    <string name="note_body_hint">Type the note here</string>
+
+
 </resources>
+
+

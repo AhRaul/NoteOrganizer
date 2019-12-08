@@ -7,7 +7,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
-                    android:text="NoteHujoute"
+                    android:text="@string/app_name"
                     android:textAlignment="center"
                     android:textSize="26dp"
                     android:textStyle="bold" />
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
-                    android:text="1.0.0"
+                    android:text="@string/app_version"
                     android:textAlignment="center"
                     android:textSize="16dp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
-                        android:text="Select theme for app" />
+                        android:text="@string/app_theme_hint" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/theme_mode_selection"
@@ -91,14 +91,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            android:text="Dark Mode" />
+                            android:text="@string/dark_theme_hint" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/light_mode_theme_selection"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Light mode" />
+                            android:text="@string/light_theme_hint" />
                     </com.google.android.material.chip.ChipGroup>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -120,7 +120,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
-                            android:text="Auto synchronization" />
+                            android:text="@string/back_app_hint" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
-                                android:text="Last update: " />
+                                android:text="@string/last_update_hint" />
 
                             <TextView
                                 android:id="@+id/last_sync_date"
@@ -140,21 +140,28 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="21/01/17" />
+                                tools:text="21/01/17"
+                                android:text="@string/not_implemented_hint"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/auto_synchronization_switcher"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
-                        android:layout_weight="7"
-                        android:checked="true"
-                        app:useMaterialThemeColors="false"
-                        />
+                        android:layout_weight="5"
+                        android:gravity="center"
+                        >
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/auto_synchronization_switcher"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            app:useMaterialThemeColors="false"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View style="@style/Divider" />
@@ -175,7 +182,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
-                            android:text="Clean Notes cache" />
+                            android:text="@string/clean_notes_cache_hint" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
@@ -187,7 +194,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
-                                android:text="Cache size: " />
+                                android:text="@string/cache_size_hint" />
 
                             <TextView
                                 android:id="@+id/notes_cache_size_tv"
@@ -195,7 +202,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="10 mb" />
+                                tools:text="10 mb"
+                                android:text="0 mb"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -207,8 +215,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
-                        android:layout_weight="7"
-                        android:text="clean" />
+                        android:layout_weight="5"
+                        android:text="@string/clean" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View style="@style/Divider"
@@ -230,7 +238,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
-                            android:text="Clean todos cache" />
+                            android:text="@string/clean_todos_cache_hint" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
@@ -242,7 +250,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
-                                android:text="Cache size: " />
+                                android:text="@string/cache_size_hint" />
 
                             <TextView
                                 android:id="@+id/todos_cache_size_tv"
@@ -250,7 +258,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="not implemented" />
+                                android:text="@string/not_implemented_hint" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -262,9 +270,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
-                        android:layout_weight="7"
+                        android:layout_weight="5"
                         android:enabled="false"
-                        android:text="clean" />
+                        android:text="@string/clean" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View

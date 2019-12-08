@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NoteOrganizer</string>
+    <string name="app_version">1.0.0</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Настройки</string>
+
+
+    <!--    SETTINGS FRAGMENT   -->
+    <string name="title_settings">Настройки</string>
+    <string name="app_theme_hint">Тема приложения</string>
+    <string name="dark_theme_hint">Темная тема</string>
+    <string name="light_theme_hint">Светлая тема</string>
+    <string name="back_app_hint">Авто-сохранение на облако</string>
+    <string name="last_update_hint">Последнее обновление: </string>
+    <string name="not_implemented_hint">не реализовано</string>
+    <string name="clean_notes_cache_hint">Очистить кеш заметок</string>
+    <string name="cache_size_hint">Размер кеша: </string>
+    <string name="clean">очистить</string>
+    <string name="clean_todos_cache_hint">Очистить кеш задач</string>
+
+    <!--    NOTES FRAGMENT   -->
+    <string name="title_notes">Заметки</string>
+
+    <!--    TODOS FRAGMENT   -->
+    <string name="title_todo">Задачи</string>
+
+    <string name="header_sample">Поездка в Лондон</string>
+    <string name="subheader_sample">
+        столица и крупнейший город Соединенного Королевства Великобритании и Северной Ирландии. Административно образует район Англии Большой Лондон, разделенный на 33 самоуправляющихся территории. Население составляет 8 908 081 человек [2] (2018) - третий [4] по величине город в Европе. Он образует агломерацию Большой Лондон и более крупную столичную территорию, которые составляют население ЕС по второй городской и первой региональной агломерациям соответственно. Расположен на юго-востоке острова Великобритания, на равнине в устье Темзы, недалеко от Северного моря. Главный политический, экономический и культурный центр Великобритании.
+    </string>
+
+    <string name="search_view_hint">Поиск заметок</string>
+
+    <!--    SINGLE NOTE ACTIVITY-->
+    <string name="delete">удалить</string>
+    <string name="save">сохранить</string>
+    <string name="note_title_hint">Заголовок</string>
+    <string name="note_body_hint">Введите текст тут</string>
+</resources>
