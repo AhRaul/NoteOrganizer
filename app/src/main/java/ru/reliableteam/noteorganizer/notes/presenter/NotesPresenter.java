@@ -36,7 +36,12 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     }
 
     public void getNotes() {
-        getFromDB(this);
+        String searchText = fragmentView.getSearchText();
+        if (searchText.equals(""))
+            getFromDB(this);
+        else
+            searchNotes(searchText);
+
     }
 
     @Override

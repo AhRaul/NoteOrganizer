@@ -40,6 +40,7 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private MaterialButton sortNotes;
     private INotesPresenter presenter;
     private LinearLayoutCompat sortLayout;
+    TextInputEditText searchNoteTv;
 
     private final int NEW_NOTE = -1;
 
@@ -65,7 +66,7 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
         ChipGroup sortGroup = root.findViewById(R.id.sort_group);
         sortGroup.setOnCheckedChangeListener(getOnCheckedChangeListener());
 
-        TextInputEditText searchNoteTv = root.findViewById(R.id.search_text_view);
+        searchNoteTv = root.findViewById(R.id.search_text_view);
         searchNoteTv.addTextChangedListener(getTextChangeListener());
 
         writeNewNote.setOnClickListener(this);
@@ -77,7 +78,6 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
 //        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(new MyAdapter(presenter));
-
         recyclerView.addOnScrollListener(getRecyclerScrollListener());
     }
 
@@ -107,6 +107,12 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
 //                NotesBottomDialogFragment addPhotoBottomDialogFragment = new NotesBottomDialogFragment();
 //                addPhotoBottomDialogFragment.show(getFragmentManager(), "tag");
+    }
+
+    public String getSearchText() {
+        if (searchNoteTv == null)
+            return "";
+        return searchNoteTv.getText().toString();
     }
 
     @Override
