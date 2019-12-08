@@ -1,6 +1,12 @@
 package ru.reliableteam.noteorganizer.notes.presenter;
 
 import android.content.Context;
+import android.os.Environment;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import ru.reliableteam.noteorganizer.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
@@ -82,7 +88,5 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     public void unsubscribe() {
         super.unsubscribe();
     }
-
-
 
 }

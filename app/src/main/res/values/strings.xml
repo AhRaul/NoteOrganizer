@@ -18,6 +18,8 @@
     <string name="cache_size_hint">Cache size: </string>
     <string name="clean">clean</string>
     <string name="clean_todos_cache_hint">Clean todos cache</string>
+    <string name="migrate_notes_hint">Save all notes to .txt format</string>
+    <string name="migrated_notes_dir_path_hint">dir: </string>
 
 <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>

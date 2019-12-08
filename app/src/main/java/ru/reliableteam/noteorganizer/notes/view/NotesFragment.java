@@ -1,7 +1,6 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,8 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -19,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -103,10 +99,9 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     }
 
     public void viewNote() {
+//        presenter.saveToDir();
         Intent intent = new Intent(getActivity(), SingleNoteActivity.class);
         startActivity(intent);
-//                NotesBottomDialogFragment addPhotoBottomDialogFragment = new NotesBottomDialogFragment();
-//                addPhotoBottomDialogFragment.show(getFragmentManager(), "tag");
     }
 
     public String getSearchText() {

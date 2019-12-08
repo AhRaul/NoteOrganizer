@@ -41,4 +41,14 @@ public class SharedPreferencesManager {
         editor.putBoolean("isAutosycEnabled", isEnabled);
         editor.apply();
     }
+
+    // data directory
+    public String getAppDataDirectory() {
+        return sp.getString("appDataDirectory", "");
+    }
+    public void setAppDataDirectory(String path) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("appDataDirectory", path);
+        editor.apply();
+    }
 }

@@ -117,6 +117,19 @@ public class NoteDaoImpl {
                         Throwable::printStackTrace
                 );
     }
+    protected void migrate(BasePresenter presenter) {
+        disposable = noteDao.getAll()
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        list -> {
+                            MigrationManager manager = new MigrationManager(getAppSettings());
+                            for (Note note : list) {
+                                manager.saveToDir(note);
+                                presenter.notifyDatasetChanged();
+                            }
+                        }
+                );
+    }
 
     protected void unsubscribe() {
         disposable.dispose();

@@ -14,6 +14,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.util.Random;
+
 import ru.reliableteam.noteorganizer.MainActivity;
 import ru.reliableteam.noteorganizer.R;
 
@@ -21,9 +23,9 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
     private final String CLASS_TAG = "SettingsFragment";
     private View root;
     private ChipGroup themeSelector;
-    private TextView lastSyncDate, notesCacheSize, todosCacheSize;
+    private TextView lastSyncDate, notesCacheSize, todosCacheSize, appDirPath;
     private SwitchMaterial autoSyncSwitcher;
-    private MaterialButton cleanNotesCache, cleanTodosCache;
+    private MaterialButton cleanNotesCache, cleanTodosCache, migrateToTxt;
 
     private SettingsPresenter presenter;
 
@@ -31,7 +33,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_settings, container, false);
         presenter = new SettingsPresenter(getContext(), this);
-        presenter.getNotesCacheSize();
+//        presenter.getNotesCacheSize();
 
         initUI();
 
@@ -48,13 +50,22 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         autoSyncSwitcher.setChecked(presenter.isAutoSyncEnabled());
 
         lastSyncDate = root.findViewById(R.id.last_sync_date);
+
         notesCacheSize = root.findViewById(R.id.notes_cache_size_tv);
+        setNotesCacheSize(presenter.getNotesCacheSize());
+
         todosCacheSize = root.findViewById(R.id.todos_cache_size_tv);
 
         cleanNotesCache = root.findViewById(R.id.notes_cache_size_clean_btn);
         cleanNotesCache.setOnClickListener(this);
 
         cleanTodosCache = root.findViewById(R.id.todos_photos_cache_size_clean_btn);
+
+        appDirPath = root.findViewById(R.id.app_dir_path);
+        setAppDirPath(presenter.getAppDirPath());
+
+        migrateToTxt = root.findViewById(R.id.migrate_to_txt);
+        migrateToTxt.setOnClickListener(this);
     }
 
     @Override
@@ -65,8 +76,13 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
     }
 
     @Override
-    public void setNotesCacheSize(int size) {
-        notesCacheSize.setText(size + " mb");
+    public void setNotesCacheSize(String size) {
+        notesCacheSize.setText(size);
+    }
+
+    public void setAppDirPath(String path) {
+        String prefix = getResources().getString(R.string.migrated_notes_dir_path_hint);
+        appDirPath.setText(prefix + " " + path);
     }
 
     @Override
@@ -74,6 +90,9 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         switch (v.getId()) {
             case R.id.notes_cache_size_clean_btn:
                 presenter.cleanNotesCache();
+                break;
+            case R.id.migrate_to_txt:
+                presenter.saveToTxt();
                 break;
         }
     }

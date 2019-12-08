@@ -6,9 +6,16 @@ import android.widget.CompoundButton;
 
 import com.google.android.material.chip.ChipGroup;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.format.FormatStyle;
+
 import ru.reliableteam.noteorganizer.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
+import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.presenter.BasePresenter;
 
 public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
@@ -37,18 +44,48 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
         return appSettings.isAutoSyncEnabled();
     }
 
-    public void getNotesCacheSize() {
-        getNotesCount(this);
+    public String getNotesCacheSize() {
+        File f = new File(appSettings.getAppDataDirectory());
+        File[] allFiles = f.listFiles();
+        long space = 0;
+        for (File tmp : allFiles)
+            space += tmp.length();
+
+        if (space == 0)
+            return "0 bytes";
+
+        if (space / 1024 == 0)
+            return String.format("%.0f bytes", space / 1.0);
+
+        if (space / 1024 / 1024 == 0) {
+            return String.format("%.3f kb", space / 1024.0);
+        }
+
+        return String.format("%.3f mb", space / 1024.0 / 1024.0);
     }
 
     @Override
     public void notifyDatasetChanged() {
-        view.setNotesCacheSize(notesCacheSize);
+        view.setNotesCacheSize(getNotesCacheSize());
     }
 
     public void cleanNotesCache() {
-        deleteNotes(this);
+        File dir = new File(appSettings.getAppDataDirectory());
+        File[] files = dir.listFiles();
+        for (File f : files)
+            f.delete();
+
+        notifyDatasetChanged();
     }
+
+    public String getAppDirPath() {
+        return appSettings.getAppDataDirectory().replace("/storage/emulated/0/", "");
+    }
+
+    public void saveToTxt() {
+        migrate(this);
+    }
+
     // todo refactor
     public ChipGroup.OnCheckedChangeListener themeChangeListener() {
         return new ChipGroup.OnCheckedChangeListener() {

@@ -1,7 +1,13 @@
 package ru.reliableteam.noteorganizer.entity;
 
+import android.Manifest;
 import android.app.Application;
+import android.os.Environment;
+
 import androidx.room.Room;
+
+import java.io.File;
+
 import ru.reliableteam.noteorganizer.entity.data_base.DataBase;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 
@@ -17,7 +23,6 @@ import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManage
 public class AppConfig extends Application {
 
     public static AppConfig instance;
-
     private DataBase database;
     private SharedPreferencesManager appSettings;
 
@@ -28,6 +33,7 @@ public class AppConfig extends Application {
         database = Room.databaseBuilder(this, DataBase.class, "database")
                 .build();
         appSettings = new SharedPreferencesManager(this);
+        createDirectory();
     }
 
     public static AppConfig getInstance() {
@@ -38,4 +44,15 @@ public class AppConfig extends Application {
         return database;
     }
     public SharedPreferencesManager getAppSettings() { return appSettings; }
+
+    private void createDirectory() {
+        System.out.println("CREATING DIR");
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File myDirectory = new File(storageDir, "/ru.reliableteam.noteorganaizer");
+        appSettings.setAppDataDirectory(myDirectory.getAbsolutePath());
+
+        if(!myDirectory.exists()) {
+            myDirectory.mkdir();
+        }
+    }
 }

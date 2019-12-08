@@ -19,6 +19,8 @@
     <string name="cache_size_hint">Размер кеша: </string>
     <string name="clean">очистить</string>
     <string name="clean_todos_cache_hint">Очистить кеш задач</string>
+    <string name="migrate_notes_hint">Сохранить заметки в .txt формат</string>
+    <string name="migrated_notes_dir_path_hint">путь: </string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Заметки</string>
