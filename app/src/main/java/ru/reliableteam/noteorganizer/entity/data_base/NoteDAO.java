@@ -17,7 +17,9 @@ public interface NoteDAO {
     @Query("SELECT * FROM NOTE")
     Flowable<List<Note>> getAll();
 
-    // todo use single
+    @Query("SELECT * FROM NOTE WHERE (title LIKE :what) OR (body like :what)")
+    Flowable<List<Note>> getAll(String what);
+
     @Query("SELECT * FROM NOTE WHERE id = :id")
     Single<Note> getById(long id);
 

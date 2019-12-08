@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_menu_edit"
-        android:tint="@android:color/white"
-        app:layout_scrollFlags="scroll|enterAlways" />
+        android:src="@drawable/baseline_create_24"
+        app:layout_scrollFlags="scroll|enterAlways"
+        style="@style/FloatingActionButton"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -66,6 +66,14 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     }
 
     @Override
+    public void searchNotes(String s) {
+        if (s.length() == 0)
+            getNotes();
+        else
+            search(this, s);
+    }
+
+    @Override
     public void unsubscribe() {
         super.unsubscribe();
     }

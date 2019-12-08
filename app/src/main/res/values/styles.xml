@@ -100,4 +100,9 @@
 
 <!--        <item name="textColor">@color/colorOnBackgroundDark</item>-->
     </style>
+
+    <style name="FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="tint">?attr/colorAccent</item>
+    </style>
 </resources>

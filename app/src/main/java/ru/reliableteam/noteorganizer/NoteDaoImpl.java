@@ -33,9 +33,7 @@ public class NoteDaoImpl {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(
-                        () ->  {
-                            System.out.println("SUCCEEDED");
-                        },
+                        () ->  System.out.println("SUCCEEDED"),
                         Throwable::printStackTrace
                 );
     }
@@ -60,15 +58,17 @@ public class NoteDaoImpl {
     }
 
     protected void getFromDB(BasePresenter presenter) {
-        disposable = noteDao.getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                list -> {
-                    notesList.clear();
-                    notesList.addAll(list);
-                    System.out.println(notesList.size());
-                    presenter.notifyDatasetChanged();
-                },
-                Throwable::printStackTrace
-        );
+        disposable = noteDao.getAll()
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    list -> {
+                        notesList.clear();
+                        notesList.addAll(list);
+                        System.out.println(notesList.size());
+                        presenter.notifyDatasetChanged();
+                    },
+                    Throwable::printStackTrace
+                );
     }
 
     protected void getNote(int id, BasePresenter presenter) {
@@ -82,7 +82,6 @@ public class NoteDaoImpl {
                 Throwable::printStackTrace
         );
     }
-
     protected void getNotesCount(BasePresenter presenter) {
         disposable = noteDao.getNotesCount()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -101,6 +100,18 @@ public class NoteDaoImpl {
                 .subscribe(
                         () -> {
                             notesCacheSize = 0;
+                            presenter.notifyDatasetChanged();
+                        },
+                        Throwable::printStackTrace
+                );
+    }
+    protected void search(BasePresenter presenter, String what) {
+        disposable = noteDao.getAll("%" + what + "%")
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        list -> {
+                            notesList.clear();
+                            notesList.addAll(list);
                             presenter.notifyDatasetChanged();
                         },
                         Throwable::printStackTrace

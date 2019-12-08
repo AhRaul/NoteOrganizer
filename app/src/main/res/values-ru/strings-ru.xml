@@ -22,6 +22,9 @@
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Заметки</string>
+    <string name="sort_by_hint">Сортировать по:</string>
+    <string name="chip_sort_by_date">По дате</string>
+    <string name="chip_sort_by_title">По заголовку</string>
 
     <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Задачи</string>

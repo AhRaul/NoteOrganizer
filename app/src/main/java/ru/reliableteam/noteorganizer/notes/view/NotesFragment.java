@@ -1,17 +1,26 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -28,9 +37,9 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private View root;
     private RecyclerView recyclerView;
     private FloatingActionButton writeNewNote;
-    private ImageButton sortNotes;
-    private TextInputEditText searchNoteTv;
+    private MaterialButton sortNotes;
     private INotesPresenter presenter;
+    private LinearLayoutCompat sortLayout;
 
     private final int NEW_NOTE = -1;
 
@@ -49,13 +58,15 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private void initUI() {
         writeNewNote = root.findViewById(R.id.notes_write_fab);
 
-        // todo повесить листенеры на сортировку
-        // данные берутся в presenter.notesList
-        // далее нотифаить об изменениях
+        sortLayout = root.findViewById(R.id.sort_layout);
+        sortNotes = root.findViewById(R.id.sort_notes_button);
+        sortNotes.setOnClickListener(this);
 
-        // так же в серче (но придется уже через бд это делать)
-        sortNotes = root.findViewById(R.id.sort_notes);
-        searchNoteTv = root.findViewById(R.id.search_text_view);
+        ChipGroup sortGroup = root.findViewById(R.id.sort_group);
+        sortGroup.setOnCheckedChangeListener(getOnCheckedChangeListener());
+
+        TextInputEditText searchNoteTv = root.findViewById(R.id.search_text_view);
+        searchNoteTv.addTextChangedListener(getTextChangeListener());
 
         writeNewNote.setOnClickListener(this);
     }
@@ -71,7 +82,9 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     }
 
     public void notifyDataChanged() {
-        recyclerView.getAdapter().notifyDataSetChanged();
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter != null)
+            adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -80,7 +93,13 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
             case R.id.notes_write_fab:
                 presenter.clicked(NEW_NOTE);
                 break;
+            case R.id.sort_notes_button:
+                setSortLayoutVisibility();
         }
+    }
+
+    private void setSortLayoutVisibility() {
+        sortLayout.setVisibility(sortNotes.isChecked() ? View.VISIBLE : View.GONE);
     }
 
     public void viewNote() {
@@ -97,6 +116,11 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
         System.out.println("ON RESUME");
     }
 
+
+    // todo потом перенесем в другой presenter (листенеры)
+    /*
+    ----------------------------------------------------------------------------------------------------
+     */
     private RecyclerView.OnScrollListener getRecyclerScrollListener() {
         return new RecyclerView.OnScrollListener() {
             @Override
@@ -115,6 +139,41 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
                 int fabVisibility = writeNewNote.getVisibility();
                 if (newState == 0 && fabVisibility != View.VISIBLE) // seemed to stop
                     writeNewNote.show();
+            }
+        };
+    }
+
+    private TextWatcher getTextChangeListener() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                presenter.searchNotes(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+    }
+
+    private ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener() {
+        return new ChipGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ChipGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.sort_by_date:
+                        // todo sort by date
+                        System.out.println("SORT BY DATE");
+                        break;
+                    case  R.id.sort_by_title:
+                        // todo sort by title
+                        System.out.println("SORT BY TITLE");
+                        break;
+                    default:
+                        // todo sort by date
+                        System.out.println("DEFAULT: SORT BY DATE");
+                }
+
             }
         };
     }
