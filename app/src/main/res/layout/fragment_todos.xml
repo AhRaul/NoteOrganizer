@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".todos.TodosFragment"
-    android:fitsSystemWindows="true">
-    <androidx.recyclerview.widget.RecyclerView
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary">
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/todo_item"
-        tools:itemCount="10"
-        />
+        android:layout_height="wrap_content"
+        android:text="todos"
+        android:background="@color/colorAccent"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

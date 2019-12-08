@@ -74,7 +74,7 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
 
     private void initRecyclerView() {
         recyclerView = root.findViewById(R.id.notes_rv);
-        recyclerView.setHasFixedSize(false);
+//        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(new MyAdapter(presenter));
 
