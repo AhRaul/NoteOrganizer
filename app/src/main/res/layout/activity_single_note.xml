@@ -76,7 +76,8 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/note_title_hint"
                     android:inputType="textMultiLine|textCapSentences"
-                    tools:text="Необычный чай" />
+                    tools:text="Необычный чай"
+                    android:imeOptions="flagNoExtractUi"/>
 
                 <ScrollView
                     android:layout_width="match_parent"
@@ -94,7 +95,9 @@
                         android:gravity="top"
                         android:hint="@string/note_body_hint"
                         android:inputType="textMultiLine|textCapSentences"
-                        tools:text="Пришла идея выпить необычный чай в Москве, на станции метро Кропоткинская" />
+                        tools:text="Пришла идея выпить необычный чай в Москве, на станции метро Кропоткинская"
+                        android:imeOptions="flagNoExtractUi"/>
+
                 </ScrollView>
             </LinearLayout>
 

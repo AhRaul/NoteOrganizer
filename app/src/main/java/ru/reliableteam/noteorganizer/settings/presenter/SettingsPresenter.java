@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.settings;
+package ru.reliableteam.noteorganizer.settings.presenter;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,17 +6,13 @@ import android.widget.CompoundButton;
 
 import com.google.android.material.chip.ChipGroup;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.format.FormatStyle;
 
 import ru.reliableteam.noteorganizer.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
-import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.presenter.BasePresenter;
+import ru.reliableteam.noteorganizer.settings.view.ISettingsView;
 
 public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
     private final String CLASS_TAG = "SettingsPresenter";

@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.settings;
+package ru.reliableteam.noteorganizer.settings.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +14,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
-import java.util.Random;
-
 import ru.reliableteam.noteorganizer.MainActivity;
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
 public class SettingsFragment extends Fragment implements ISettingsView, View.OnClickListener {
     private final String CLASS_TAG = "SettingsFragment";
@@ -33,7 +32,6 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_settings, container, false);
         presenter = new SettingsPresenter(getContext(), this);
-//        presenter.getNotesCacheSize();
 
         initUI();
 

@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.settings;
+package ru.reliableteam.noteorganizer.settings.view;
 
 public interface ISettingsView {
     void reloadActivity();

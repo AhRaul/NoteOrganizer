@@ -36,13 +36,14 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private MaterialButton sortNotes;
     private INotesPresenter presenter;
     private LinearLayoutCompat sortLayout;
-    TextInputEditText searchNoteTv;
+    private TextInputEditText searchNoteTv;
 
     private final int NEW_NOTE = -1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        System.out.println("ON CREATE");
         root = inflater.inflate(R.layout.fragment_notes, container, false);
         presenter = new NotesPresenter(this);
 
