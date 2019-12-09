@@ -22,7 +22,7 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
     }
 
     @Override
-    public void notifyDatasetChanged() {
+    public void notifyDatasetChanged(int messageId) {
         view.setNoteText(note.body);
         view.setNoteTitle(note.title);
     }
@@ -36,6 +36,7 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
         if (isNewNote()) {
             note.body = view.getNoteText();
             note.title = view.getNoteTitle();
+            note.dataTime = System.currentTimeMillis();
             super.saveNote(note);
         }
         else

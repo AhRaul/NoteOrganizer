@@ -20,7 +20,7 @@ public class MigrationManager {
         StringBuffer text = new StringBuffer();
         text.append(note.dataTime).append("\n").append(note.title).append("\n\n").append(note.body);
 
-        File f = new File(appSettings.getAppDataDirectory(), note.title + ".txt");
+        File f = new File(appSettings.getAppDataDirectory(), note.title + "_" + note.dataTime + ".txt");
         f.setWritable(true);
         try {
             f.createNewFile();

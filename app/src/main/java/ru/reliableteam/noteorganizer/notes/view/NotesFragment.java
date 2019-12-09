@@ -1,5 +1,6 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,14 +9,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -34,9 +39,13 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private FloatingActionButton writeNewNote;
     private MaterialButton sortNotes;
-    private INotesPresenter presenter;
-    private LinearLayoutCompat sortLayout;
+    private ImageButton closeBtn, deleteBtn, migrateBtn;
     private TextInputEditText searchNoteTv;
+
+    private INotesPresenter presenter;
+
+    private LinearLayoutCompat sortLayout;
+    private ConstraintLayout extraOptionsLayout;
 
     private final int NEW_NOTE = -1;
 
@@ -55,24 +64,30 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
 
     private void initUI() {
         writeNewNote = root.findViewById(R.id.notes_write_fab);
+        writeNewNote.setOnClickListener(this);
 
         sortLayout = root.findViewById(R.id.sort_layout);
         sortNotes = root.findViewById(R.id.sort_notes_button);
         sortNotes.setOnClickListener(this);
-
         ChipGroup sortGroup = root.findViewById(R.id.sort_group);
         sortGroup.setOnCheckedChangeListener(getOnCheckedChangeListener());
 
         searchNoteTv = root.findViewById(R.id.search_text_view);
         searchNoteTv.addTextChangedListener(getTextChangeListener());
 
-        writeNewNote.setOnClickListener(this);
+        extraOptionsLayout = root.findViewById(R.id.extra_options_group);
+        closeBtn = root.findViewById(R.id.close_button);
+        deleteBtn = root.findViewById(R.id.delete_button);
+        migrateBtn = root.findViewById(R.id.migrate_to_txt);
+
+        closeBtn.setOnClickListener(this);
+        deleteBtn.setOnClickListener(this);
+        migrateBtn.setOnClickListener(this);
     }
 
 
     private void initRecyclerView() {
         recyclerView = root.findViewById(R.id.notes_rv);
-//        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(new MyAdapter(presenter));
         recyclerView.addOnScrollListener(getRecyclerScrollListener());
@@ -92,6 +107,18 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.sort_notes_button:
                 setSortLayoutVisibility();
+            case R.id.close_button:
+                presenter.changeState();
+                // change state
+                break;
+            case R.id.delete_button:
+                presenter.deleteNotes();
+                // todo delete selected
+                break;
+            case R.id.migrate_to_txt:
+                presenter.migrateSelectedNotes();
+                // todo migrate selected
+                break;
         }
     }
 
@@ -99,16 +126,51 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
         sortLayout.setVisibility(sortNotes.isChecked() ? View.VISIBLE : View.GONE);
     }
 
+    public void setExtraOptionsLayoutVisibility(boolean isVisible) {
+        extraOptionsLayout.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
     public void viewNote() {
-//        presenter.saveToDir();
         Intent intent = new Intent(getActivity(), SingleNoteActivity.class);
         startActivity(intent);
+    }
+    public void setSelected(boolean isSelected, int position) {
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager == null)
+            return;
+        MaterialCardView cardView = (MaterialCardView) manager.findViewByPosition(position);
+        if (cardView != null) {
+            cardView.setStrokeColor(getCardColor(isSelected));
+            cardView.setSelected(isSelected);
+        }
+    }
+    public void toDefaultStyle() {
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager == null)
+            return;
+        int count = manager.getItemCount();
+        for (int position = 0; position < count; position++) {
+            MaterialCardView cardView = (MaterialCardView) manager.findViewByPosition(position);
+            if (cardView.isSelected()) {
+                cardView.setStrokeColor(getCardColor(false));
+                cardView.setSelected(false);
+            }
+        }
+    }
+
+    private int getCardColor(boolean isSelected) {
+        return isSelected ? getResources().getColor(R.color.cardStrokeSelected) : getResources().getColor(R.color.cardStrokeDefault);
     }
 
     public String getSearchText() {
         if (searchNoteTv == null)
             return "";
         return searchNoteTv.getText().toString();
+    }
+
+    public void showToast(int messageId) {
+        String s = getResources().getString(messageId);
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -22,10 +23,11 @@ public class NoteDaoImpl {
     private NoteDAO noteDao = persistenceManager.getNoteDao();
     private Disposable disposable = null;
 
-    protected int notesCacheSize = 0;
+    private int NO_MESSAGE = 0;
 
     // class vars
     protected ArrayList<Note> notesList = new ArrayList<>();
+    protected List<Note> selectedNotes = new ArrayList<>();
     protected Note note = new Note("", "", 0);
 
     protected void saveNote(Note note) {
@@ -65,7 +67,7 @@ public class NoteDaoImpl {
                         notesList.clear();
                         notesList.addAll(list);
                         System.out.println(notesList.size());
-                        presenter.notifyDatasetChanged();
+                        presenter.notifyDatasetChanged(NO_MESSAGE);
                     },
                     Throwable::printStackTrace
                 );
@@ -77,30 +79,18 @@ public class NoteDaoImpl {
                 .subscribe(
                 foundNote -> {
                     this.note = foundNote;
-                    presenter.notifyDatasetChanged();
+                    presenter.notifyDatasetChanged(NO_MESSAGE);
                 },
                 Throwable::printStackTrace
         );
     }
-    protected void getNotesCount(BasePresenter presenter) {
-        disposable = noteDao.getNotesCount()
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        count -> {
-                            notesCacheSize = count;
-                            System.out.println("DB SIZE = " + notesCacheSize);
-                            presenter.notifyDatasetChanged();
-                        },
-                        Throwable::printStackTrace
-                );
-    }
-    protected void deleteNotes(BasePresenter presenter) {
-        disposable = Completable.fromAction( () -> noteDao.deleteAll() )
+    protected void deleteSelectedNote(BasePresenter presenter, Note note) {
+        disposable = Completable.fromAction( () -> noteDao.delete(note) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> {
-                            notesCacheSize = 0;
-                            presenter.notifyDatasetChanged();
+                            selectedNotes.remove(note);
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
                         },
                         Throwable::printStackTrace
                 );
@@ -112,7 +102,7 @@ public class NoteDaoImpl {
                         list -> {
                             notesList.clear();
                             notesList.addAll(list);
-                            presenter.notifyDatasetChanged();
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
                         },
                         Throwable::printStackTrace
                 );
@@ -121,18 +111,26 @@ public class NoteDaoImpl {
         disposable = noteDao.getAll()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        list -> {
-                            MigrationManager manager = new MigrationManager(getAppSettings());
-                            for (Note note : list) {
-                                manager.saveToDir(note);
-                                presenter.notifyDatasetChanged();
-                            }
-                        }
+                        list -> migration(list, presenter),
+                        Throwable::printStackTrace
                 );
+    }
+    protected void migrateSelected(BasePresenter presenter) {
+        migration(selectedNotes, presenter);
+        selectedNotes.clear();
+        presenter.notifyDatasetChanged(R.string.migrated_hint);
     }
 
     protected void unsubscribe() {
         disposable.dispose();
     }
     protected SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
+
+    private void migration(List<Note> list, BasePresenter presenter) {
+        MigrationManager manager = new MigrationManager(getAppSettings());
+        for (Note note : list) {
+            manager.saveToDir(note);
+            presenter.notifyDatasetChanged(NO_MESSAGE);
+        }
+    }
 }

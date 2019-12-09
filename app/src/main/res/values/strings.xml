@@ -20,12 +20,14 @@
     <string name="clean_todos_cache_hint">Clean todos cache</string>
     <string name="migrate_notes_hint">Save all notes to .txt format</string>
     <string name="migrated_notes_dir_path_hint">dir: </string>
+    <string name="cleaned_hint">Cache was cleaned</string>
 
-<!--    NOTES FRAGMENT   -->
+    <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>
     <string name="sort_by_hint">Sort by:</string>
     <string name="chip_sort_by_date">By date</string>
     <string name="chip_sort_by_title">By title</string>
+    <string name="migrated_hint">Data was saved as TXT files. Way to directory can be find in settings.</string>
 
 <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Todos</string>

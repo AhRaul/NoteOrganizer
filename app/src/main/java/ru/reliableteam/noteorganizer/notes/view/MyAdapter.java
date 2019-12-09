@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.card.MaterialCardView;
+
 import java.util.List;
 
 import ru.reliableteam.noteorganizer.R;
@@ -53,7 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             return position;
         }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private View itemView;
         private INotesPresenter presenter;
 
@@ -70,6 +72,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             init();
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         private void init() {
@@ -92,12 +95,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         @Override
         public void onClick(View v) {
             Log.i(CLASS_TAG, "clicked " + getPos());
-            // todo add click interaction to open clicked item in SingleNoteActivity
-             presenter.clicked(getPos());
-            // in presenter:
-            //      noteList.getNote(position).getId()
-            //      send this id to activity through extras or save in SharedPreferences and get
-            //      that id from SP in activity
+            presenter.clicked(getPos());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            System.out.println(getPos());
+            presenter.longClicked(getPos(), itemView);
+            return true;
         }
     }
 }

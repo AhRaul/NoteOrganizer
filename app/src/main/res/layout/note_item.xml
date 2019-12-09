@@ -1,53 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_margin="4dp"
+    android:outlineAmbientShadowColor="@android:color/transparent"
+    android:outlineSpotShadowColor="@android:color/transparent"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp"
+    app:strokeColor="@color/cardStrokeDefault"
+    app:strokeWidth="1dp">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        app:cardElevation="4dp"
-        app:strokeColor="#50afafaf"
-        app:strokeWidth="1dp"
-        app:cardCornerRadius="4dp"
-        android:outlineAmbientShadowColor="@android:color/transparent"
-        android:outlineSpotShadowColor="@android:color/transparent">
-        <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/note_item_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp"
-            android:layout_margin="4dp">
-            <ImageView
-                android:id="@+id/note_item_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/note_item_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="@string/header_sample"
-                style="@style/TextView.Header"
-                android:maxLines="1"
-                />
-            <TextView
-                android:id="@+id/note_item_subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="@string/subheader_sample"
-                style="@style/TextView.SubHeader"
-                android:ellipsize="end"
-                android:maxLines="5"
-                 />
+        <TextView
+            android:id="@+id/note_item_title"
+            style="@style/TextView.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            tools:text="@string/header_sample" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/note_item_subtitle"
+            style="@style/TextView.SubHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="5"
+            tools:text="@string/subheader_sample" />
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</com.google.android.material.card.MaterialCardView>

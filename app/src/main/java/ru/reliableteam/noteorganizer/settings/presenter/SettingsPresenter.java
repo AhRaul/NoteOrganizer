@@ -61,7 +61,7 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
     }
 
     @Override
-    public void notifyDatasetChanged() {
+    public void notifyDatasetChanged(int messageId) {
         view.setNotesCacheSize(getNotesCacheSize());
     }
 
@@ -71,7 +71,7 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
         for (File f : files)
             f.delete();
 
-        notifyDatasetChanged();
+        notifyDatasetChanged(R.string.cleaned_hint);
     }
 
     public String getAppDirPath() {

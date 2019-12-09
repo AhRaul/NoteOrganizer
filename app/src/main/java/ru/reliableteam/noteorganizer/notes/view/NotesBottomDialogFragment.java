@@ -44,17 +44,17 @@ public class NotesBottomDialogFragment extends BottomSheetDialogFragment {
         BottomSheetDialog bottomSheet = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
         //inflating layout
-        View view = View.inflate(getContext(), R.layout.fragment_bottom_note, null);
-        appBarLayout = view.findViewById(R.id.appBarLayout);
-        extraSpace = view.findViewById(R.id.extraSpace);
-        noteLayout = view.findViewById(R.id.note_layout);
-        noteText = view.findViewById(R.id.note_text);
-        noteTitle = view.findViewById(R.id.note_title);
+//        View view = View.inflate(getContext(), R.layout.fragment_bottom_note, null);
+//        appBarLayout = view.findViewById(R.id.appBarLayout);
+//        extraSpace = view.findViewById(R.id.extraSpace);
+//        noteLayout = view.findViewById(R.id.note_layout);
+//        noteText = view.findViewById(R.id.note_text);
+//        noteTitle = view.findViewById(R.id.note_title);
 
         //setting layout with bottom sheet
-        bottomSheet.setContentView(view);
+//        bottomSheet.setContentView(view);
 
-        bottomSheetBehavior = BottomSheetBehavior.from((View) (view.getParent()));
+//        bottomSheetBehavior = BottomSheetBehavior.from((View) (view.getParent()));
 
         //setting Peek at the 16:9 ratio keyline of its parent.
         bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);

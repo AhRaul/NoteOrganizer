@@ -21,12 +21,15 @@
     <string name="clean_todos_cache_hint">Очистить кеш задач</string>
     <string name="migrate_notes_hint">Сохранить заметки в .txt формат</string>
     <string name="migrated_notes_dir_path_hint">путь: </string>
+    <string name="cleaned_hint">Кэш очищен</string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Заметки</string>
     <string name="sort_by_hint">Сортировать по:</string>
     <string name="chip_sort_by_date">По дате</string>
     <string name="chip_sort_by_title">По заголовку</string>
+    <string name="migrated_hint">Данные были переведены в формат .TXT. Путь к файлам можно найти на вкладке Настройки.</string>
+
 
     <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Задачи</string>

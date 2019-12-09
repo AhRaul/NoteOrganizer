@@ -1,5 +1,5 @@
 package ru.reliableteam.noteorganizer.notes.presenter;
 
 public interface BasePresenter {
-    void notifyDatasetChanged();
+    void notifyDatasetChanged(int messageId);
 }
