@@ -1,6 +1,5 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -47,8 +46,6 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private LinearLayoutCompat sortLayout;
     private ConstraintLayout extraOptionsLayout;
 
-    private final int NEW_NOTE = -1;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -89,7 +86,7 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     private void initRecyclerView() {
         recyclerView = root.findViewById(R.id.notes_rv);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(new MyAdapter(presenter));
+        recyclerView.setAdapter(new NotesRecyclerAdapter(presenter));
         recyclerView.addOnScrollListener(getRecyclerScrollListener());
     }
 
@@ -103,27 +100,26 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.notes_write_fab:
-                presenter.clicked(NEW_NOTE);
+                presenter.createNewNote();
                 break;
             case R.id.sort_notes_button:
-                setSortLayoutVisibility();
+                presenter.enableSort();
+                break;
             case R.id.close_button:
-                presenter.changeState();
-                // change state
+                presenter.disableMultiSelection();
                 break;
             case R.id.delete_button:
                 presenter.deleteNotes();
-                // todo delete selected
                 break;
             case R.id.migrate_to_txt:
                 presenter.migrateSelectedNotes();
-                // todo migrate selected
                 break;
         }
     }
 
-    private void setSortLayoutVisibility() {
-        sortLayout.setVisibility(sortNotes.isChecked() ? View.VISIBLE : View.GONE);
+    public void setSortLayoutVisibility(boolean isVisible) {
+        sortNotes.setChecked(isVisible);
+        sortLayout.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 
     public void setExtraOptionsLayoutVisibility(boolean isVisible) {
@@ -177,7 +173,6 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     public void onResume(){
         super.onResume();
         presenter.getNotes();
-        System.out.println("ON RESUME");
     }
 
 

@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.reliableteam.noteorganizer.BaseActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Span;
@@ -29,7 +31,7 @@ import ru.reliableteam.noteorganizer.notes.presenter.SingleNotePresenter;
 
 // todo need text utils
 // todo need full text implementation
-public class SingleNoteActivity extends AppCompatActivity
+public class SingleNoteActivity extends BaseActivity
         implements View.OnClickListener, MaterialButtonToggleGroup.OnButtonCheckedListener {
     private final String CLASS_TAG = "SingleNoteActivity";
 
@@ -62,6 +64,8 @@ public class SingleNoteActivity extends AppCompatActivity
 
         initUI();
         getClickedNote();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     private void initUI() {
@@ -153,7 +157,7 @@ public class SingleNoteActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel_button:
-                onBackPressed();
+                this.finish();
                 break;
             case R.id.save_button:
                 // todo save note
@@ -238,4 +242,11 @@ public class SingleNoteActivity extends AppCompatActivity
     private void showHint(String hintText) {
         Toast.makeText(this, hintText, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        hideKeyBoard();
+    }
+
 }

@@ -9,14 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.card.MaterialCardView;
-
-import java.util.List;
-
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.presenter.INotesPresenter;
-import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
 
 /**
  * Base Adapter for recycler.
@@ -28,17 +23,17 @@ import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
  *  -   onLongClick to select Note for deleting it
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdapter.NotesViewHolder> {
         private INotesPresenter presenter;
 
-        public MyAdapter(INotesPresenter presenter) {
+        public NotesRecyclerAdapter(INotesPresenter presenter) {
             this.presenter = presenter;
         }
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public NotesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item, parent, false);
-            return new MyViewHolder(view, presenter);
+            return new NotesViewHolder(view, presenter);
         }
 
         @Override
@@ -47,7 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(NotesViewHolder holder, int position) {
             presenter.bindView(holder);
         }
         @Override
@@ -55,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             return position;
         }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public class NotesViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
         private View itemView;
         private INotesPresenter presenter;
 
@@ -65,14 +60,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         private TextView subtitle;
         private ImageView image;
 
-        public MyViewHolder(View view, INotesPresenter presenter) {
+        public NotesViewHolder(View view, INotesPresenter presenter) {
             super(view);
             this.itemView = view;
             this.presenter = presenter;
 
             init();
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(shortClickListener);
+            itemView.setOnLongClickListener(longClickListener);
         }
 
         private void init() {
@@ -80,7 +75,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             subtitle = itemView.findViewById(R.id.note_item_subtitle);
             image = itemView.findViewById(R.id.note_item_image);
         }
-
+        @Override
         public void setNote(Note note) {
             title.setText(note.title);
             subtitle.setText(note.body);
@@ -89,20 +84,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             else
                 subtitle.setMaxLines(15);
         }
-
-        public int getPos() { return getPosition(); }
-
         @Override
-        public void onClick(View v) {
-            Log.i(CLASS_TAG, "clicked " + getPos());
-            presenter.clicked(getPos());
-        }
+        public int getPos() { return getLayoutPosition(); }
 
-        @Override
-        public boolean onLongClick(View v) {
+        private final View.OnLongClickListener longClickListener = v -> {
             System.out.println(getPos());
             presenter.longClicked(getPos(), itemView);
             return true;
-        }
+        };
+        private final View.OnClickListener shortClickListener = v -> {
+            Log.i(CLASS_TAG, "clicked " + getPos());
+            presenter.clicked(getPos());
+        };
     }
 }

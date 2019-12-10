@@ -1,12 +1,11 @@
 package ru.reliableteam.noteorganizer.notes.presenter;
 
 import android.view.View;
-import java.util.ArrayList;
-import java.util.List;
-import ru.reliableteam.noteorganizer.NoteDaoImpl;
+import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
-import ru.reliableteam.noteorganizer.notes.view.MyAdapter;
+import ru.reliableteam.noteorganizer.notes.view.IViewHolder;
+import ru.reliableteam.noteorganizer.notes.view.NotesRecyclerAdapter;
 import ru.reliableteam.noteorganizer.notes.view.NotesFragment;
 
 /**
@@ -29,8 +28,8 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     private NotesFragment fragmentView;
     private SharedPreferencesManager appSettings;
 
-    enum State { SELECTION, DEFAULT }
-    private State state = State.DEFAULT;
+    enum State {MULTI_SELECTION, SINGLE_SELECTION}
+    private State state = State.SINGLE_SELECTION;
 
     public NotesPresenter(NotesFragment view) {
         this.fragmentView = view;
@@ -44,7 +43,6 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
             getFromDB(this);
         else
             searchNotes(searchText);
-
     }
 
     @Override
@@ -56,7 +54,7 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     }
 
     @Override
-    public void bindView(MyAdapter.MyViewHolder viewHolder) {
+    public void bindView(IViewHolder viewHolder) {
         int position = viewHolder.getPos();
         Note note = notesList.get(position);
         viewHolder.setNote(note);
@@ -69,12 +67,19 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
 
     @Override
     public void clicked(int position) {
-        System.out.println("clicked = " + position + " state = " + state);
-        if (state == State.DEFAULT)
+        if (state == State.SINGLE_SELECTION)
             viewNote(position);
         else
             selectNote(position);
     }
+    @Override
+    public void createNewNote() {
+        disableSort();
+        disableMultiSelection();
+        appSettings.setClickedNoteId(NEW_NOTE);
+        fragmentView.viewNote();
+    }
+
     private void viewNote(int position) {
         if (position == NEW_NOTE)
             appSettings.setClickedNoteId(NEW_NOTE);
@@ -87,25 +92,19 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     private void selectNote(int position) {
         Note note = notesList.get(position);
         if (selectedNotes.contains(note)) {
-            System.out.println("remove note");
             selectedNotes.remove(note);
             fragmentView.setSelected(false, position);
-            System.out.println("selected list size = " + selectedNotes.size());
         }
         else {
-            System.out.println("add note");
             selectedNotes.add(note);
             fragmentView.setSelected(true, position);
-            System.out.println("selected list size = " + selectedNotes.size());
         }
     }
 
     @Override
     public void longClicked(int position, View v) {
-        System.out.println("state = " + state);
-        if (state != State.SELECTION) {
-            changeState();
-            fragmentView.setExtraOptionsLayoutVisibility(true);
+        if (state != State.MULTI_SELECTION) {
+            enableMultiSelection();
             selectNote(position);
         }
     }
@@ -119,13 +118,41 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     }
 
     @Override
-    public void changeState() {
-        if (state == State.DEFAULT)
-            state = State.SELECTION;
-        else {
-            state = State.DEFAULT;
-            fragmentView.setExtraOptionsLayoutVisibility(false);
-            fragmentView.toDefaultStyle();
+    public void enableSort(){
+        disableMultiSelection();
+        fragmentView.setSortLayoutVisibility(true);
+        fragmentView.setExtraOptionsLayoutVisibility(false);
+        changeStateTo(State.SINGLE_SELECTION);
+        updateByState();
+    }
+
+    @Override
+    public void disableSort() {
+        fragmentView.setSortLayoutVisibility(false);
+        changeStateTo(State.SINGLE_SELECTION);
+        updateByState();
+    }
+
+    @Override
+    public void enableMultiSelection() {
+        disableSort();
+        fragmentView.setExtraOptionsLayoutVisibility(true);
+        changeStateTo(State.MULTI_SELECTION);
+    }
+
+    @Override
+    public void disableMultiSelection() {
+        fragmentView.setExtraOptionsLayoutVisibility(false);
+        changeStateTo(State.SINGLE_SELECTION);
+        fragmentView.toDefaultStyle();
+        updateByState();
+    }
+
+    private void changeStateTo(State newState) {
+        state = newState;
+    }
+    private void updateByState() {
+        if (state == State.SINGLE_SELECTION) {
             selectedNotes.clear();
         }
     }
@@ -139,13 +166,10 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     public void deleteNotes() {
         for (Note note : selectedNotes)
             deleteSelectedNote(this, note);
-        changeState();
     }
 
     @Override
     public void migrateSelectedNotes() {
-//        for (Note note : selectedNotes)
-            migrateSelected(this);
-        changeState();
+        migrateSelected(this);
     }
 }

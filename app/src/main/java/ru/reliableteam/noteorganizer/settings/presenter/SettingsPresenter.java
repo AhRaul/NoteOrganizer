@@ -8,10 +8,10 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.io.File;
 
-import ru.reliableteam.noteorganizer.NoteDaoImpl;
+import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
-import ru.reliableteam.noteorganizer.notes.presenter.BasePresenter;
+import ru.reliableteam.noteorganizer.entity.BasePresenter;
 import ru.reliableteam.noteorganizer.settings.view.ISettingsView;
 
 public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
