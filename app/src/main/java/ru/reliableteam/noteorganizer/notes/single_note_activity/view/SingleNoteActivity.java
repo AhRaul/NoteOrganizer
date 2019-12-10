@@ -31,7 +31,7 @@ public class SingleNoteActivity extends BaseActivity
 
     TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn; //, strikeBtn, underlineBtn;
-    ImageButton cancelBtn, saveBtn, deleteBtn;
+    ImageButton cancelBtn, saveBtn, deleteBtn, shareBtn;
     MaterialButtonToggleGroup toggleGroup;
 
     private static class StyleState {
@@ -97,6 +97,10 @@ public class SingleNoteActivity extends BaseActivity
         deleteBtn = findViewById(R.id.delete_button);
         deleteBtn.setOnClickListener(this);
         deleteBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
+
+        shareBtn = findViewById(R.id.share_button);
+        shareBtn.setOnClickListener(this);
+
     }
 
     private void getClickedNote() {
@@ -164,6 +168,9 @@ public class SingleNoteActivity extends BaseActivity
                 break;
             case R.id.note_text:
                 onSelectionChanged();
+                break;
+            case R.id.share_button:
+                presenter.shareNote();
                 break;
         }
     }

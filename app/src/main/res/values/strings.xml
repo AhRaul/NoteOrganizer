@@ -44,6 +44,8 @@
     <string name="save">save</string>
     <string name="note_title_hint">Title</string>
     <string name="note_body_hint">Type the note here</string>
+    <string name="share">share</string>
+    <string name="send_to">Share your note..</string>
 
 
 </resources>
