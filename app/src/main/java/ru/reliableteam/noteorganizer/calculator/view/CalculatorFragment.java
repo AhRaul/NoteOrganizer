@@ -1,6 +1,5 @@
 package ru.reliableteam.noteorganizer.calculator.view;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.calculator.presenter.CalcPresenter;
 
 
 public class CalculatorFragment extends DialogFragment implements View.OnClickListener {
-
-    private FragmentManager fm;
 
     private View calc;
     private Button btnBracketLeft;
@@ -52,19 +47,14 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
 
     private CalcPresenter calcPresenter;
 
-//    public CalculatorFragment(FragmentManager fm) {
-//        this.fm = fm;
-//        this.calcPresenter = new CalcPresenter();
-//    }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         calc = inflater.inflate(R.layout.fragment_calculator, container, false);
-//        Drawable back  = getActivity().getWindow().getDecorView().getBackground();
-//        calc.setBackground(back);
+        calcPresenter = new CalcPresenter();
+
         initUI();
+
         return calc;
     }
 
@@ -123,7 +113,6 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.btn_cancel_calc:
                 getDialog().dismiss();
-//                close();
                 break;
             case R.id.btn_clear:
                 calcPresenter.setExpress("");
@@ -146,16 +135,6 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
                 tvExpress.setText(calcPresenter.getExpress());
                 break;
         }
-    }
-
-    public void open(){
-        fm.beginTransaction()
-        .add(R.id.fragment_calc,this)
-                .commit();
-    }
-
-    private void close(){
-        fm.beginTransaction().remove(this).commit();
     }
 
 }
