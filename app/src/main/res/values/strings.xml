@@ -15,5 +15,5 @@
     <string name="left_bracket">(</string>
     <string name="right_bracket">)</string>
     <string name="clear">C</string>
-    -<string name="back_space">-<![CDATA[<--]]></string>
+    -<string name="back_space"><![CDATA[<--]]></string>
 </resources>
