@@ -7,14 +7,13 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import ru.reliableteam.noteorganizer.MigrationManager;
+import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.utils.MigrationManager;
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.entity.AppConfig;
 import ru.reliableteam.noteorganizer.entity.data_base.NoteDAO;
 import ru.reliableteam.noteorganizer.entity.data_base.PersistenceManager;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
-import ru.reliableteam.noteorganizer.entity.BasePresenter;
 
 public class NoteDaoImpl {
     private PersistenceManager persistenceManager = new PersistenceManager();

@@ -1,20 +1,12 @@
-package ru.reliableteam.noteorganizer.notes.view;
-
-import androidx.appcompat.app.AppCompatActivity;
+package ru.reliableteam.noteorganizer.notes.single_note_activity.view;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextWatcher;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.*;
@@ -27,7 +19,7 @@ import ru.reliableteam.noteorganizer.BaseActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Span;
-import ru.reliableteam.noteorganizer.notes.presenter.SingleNotePresenter;
+import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.SingleNotePresenter;
 
 // todo need text utils
 // todo need full text implementation

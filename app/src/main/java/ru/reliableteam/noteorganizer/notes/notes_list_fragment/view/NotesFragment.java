@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.notes.view;
+package ru.reliableteam.noteorganizer.notes.notes_list_fragment.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +25,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.notes.presenter.INotesPresenter;
-import ru.reliableteam.noteorganizer.notes.presenter.NotesPresenter;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.INotesPresenter;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.NotesPresenter;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.NotesRecyclerAdapter;
+import ru.reliableteam.noteorganizer.notes.single_note_activity.view.SingleNoteActivity;
 
 /**
  *  Note List Fragment

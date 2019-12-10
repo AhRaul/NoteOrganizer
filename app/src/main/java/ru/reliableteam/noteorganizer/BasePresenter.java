@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.entity;
+package ru.reliableteam.noteorganizer;
 
 public interface BasePresenter {
     void notifyDatasetChanged(int messageId);

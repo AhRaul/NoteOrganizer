@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.notes.view;
+package ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler;
 
 import ru.reliableteam.noteorganizer.notes.model.Note;
 

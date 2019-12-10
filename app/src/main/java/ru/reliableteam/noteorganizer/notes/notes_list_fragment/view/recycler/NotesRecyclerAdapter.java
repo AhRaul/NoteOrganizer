@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.notes.view;
+package ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler;
 
 
 import android.util.Log;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.model.Note;
-import ru.reliableteam.noteorganizer.notes.presenter.INotesPresenter;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.INotesPresenter;
 
 /**
  * Base Adapter for recycler.

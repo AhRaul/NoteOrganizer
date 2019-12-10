@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:name=".entity.AppConfig"
         >
-        <activity android:name=".notes.view.SingleNoteActivity"></activity>
+        <activity android:name=".notes.single_note_activity.view.SingleNoteActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

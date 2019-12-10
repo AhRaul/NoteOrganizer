@@ -1,12 +1,11 @@
-package ru.reliableteam.noteorganizer.notes.presenter;
+package ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter;
 
 import android.view.View;
 import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
-import ru.reliableteam.noteorganizer.notes.view.IViewHolder;
-import ru.reliableteam.noteorganizer.notes.view.NotesRecyclerAdapter;
-import ru.reliableteam.noteorganizer.notes.view.NotesFragment;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.IViewHolder;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.NotesFragment;
 
 /**
  * Base Notes Presenter

@@ -1,9 +1,9 @@
-package ru.reliableteam.noteorganizer.notes.presenter;
+package ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter;
 
 import android.view.View;
 
-import ru.reliableteam.noteorganizer.entity.BasePresenter;
-import ru.reliableteam.noteorganizer.notes.view.IViewHolder;
+import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.IViewHolder;
 
 public interface INotesPresenter extends BasePresenter {
     void getNotes ();

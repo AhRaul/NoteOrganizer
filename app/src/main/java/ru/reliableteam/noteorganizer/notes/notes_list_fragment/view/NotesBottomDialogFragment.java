@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.notes.view;
+package ru.reliableteam.noteorganizer.notes.notes_list_fragment.view;
 
 import android.app.Dialog;
 import android.content.res.Resources;
@@ -15,8 +15,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
-
-import ru.reliableteam.noteorganizer.R;
 
 /**
  * if you want to open this fragment, uncomment rows in MainActivity

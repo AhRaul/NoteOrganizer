@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer;
+package ru.reliableteam.noteorganizer.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
