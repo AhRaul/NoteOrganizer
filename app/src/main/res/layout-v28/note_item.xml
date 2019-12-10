@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    android:outlineAmbientShadowColor="@android:color/transparent"
+    android:outlineSpotShadowColor="@android:color/transparent"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp"
     app:strokeColor="@color/cardStrokeDefault"

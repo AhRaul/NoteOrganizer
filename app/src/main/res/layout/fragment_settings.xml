@@ -35,7 +35,7 @@
                     android:padding="4dp"
                     android:text="@string/app_name"
                     android:textAlignment="center"
-                    android:textSize="26dp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -44,7 +44,7 @@
                     android:padding="4dp"
                     android:text="@string/app_version"
                     android:textAlignment="center"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.google.android.material.card.MaterialCardView>
 
@@ -76,7 +76,6 @@
                         style="@style/TextView.Header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left"
                         android:text="@string/app_theme_hint" />
 
                     <com.google.android.material.chip.ChipGroup
@@ -120,7 +119,6 @@
                             style="@style/TextView.Header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
                             android:text="@string/back_app_hint" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -132,7 +130,6 @@
                                 style="@style/TextView.SubHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="left"
                                 android:text="@string/last_update_hint" />
 
                             <TextView
@@ -182,7 +179,6 @@
                             style="@style/TextView.Header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
                             android:text="@string/clean_notes_cache_hint" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -194,7 +190,6 @@
                                 style="@style/TextView.SubHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="left"
                                 android:text="@string/cache_size_hint" />
 
                             <TextView
@@ -238,7 +233,6 @@
                             style="@style/TextView.Header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
                             android:text="@string/clean_todos_cache_hint" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -250,7 +244,6 @@
                                 style="@style/TextView.SubHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="left"
                                 android:text="@string/cache_size_hint" />
 
                             <TextView
@@ -314,7 +307,6 @@
                             style="@style/TextView.Header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="left"
                             android:text="@string/migrate_notes_hint" />
 
                             <TextView
@@ -322,7 +314,6 @@
                                 style="@style/TextView.SubHeader"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="left"
                                 android:singleLine="false"
                                 android:text="@string/migrated_notes_dir_path_hint" />
 

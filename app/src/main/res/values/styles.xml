@@ -18,6 +18,7 @@
         <item name="android:paddingBottom">4dp</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_gravity">start</item>
     </style>
 
     <style name="TextView.Header" parent="TextView">
