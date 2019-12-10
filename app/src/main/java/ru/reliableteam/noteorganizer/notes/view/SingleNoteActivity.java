@@ -1,6 +1,7 @@
 package ru.reliableteam.noteorganizer.notes.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.calculator.view.CalculatorFragment;
 import ru.reliableteam.noteorganizer.notes.presenter.SingleNotePresenter;
 
 // todo need text utils
@@ -28,7 +30,9 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
 
     TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn, strikeBtn, underlineBtn;
-    ImageButton cancelBtn, saveBtn, deleteBtn;
+    ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn;
+
+    CalculatorFragment calculatorFragment;
 
     private static class StyleState {
         static final StyleSpan BOLD = new StyleSpan(android.graphics.Typeface.BOLD);
@@ -47,6 +51,8 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_single_note);
 
         presenter = new SingleNotePresenter(this);
+
+        calculatorFragment = new CalculatorFragment(getSupportFragmentManager());
 
         initUI();
         getClickedNote();
@@ -77,6 +83,9 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
         deleteBtn = findViewById(R.id.delete_button);
         deleteBtn.setOnClickListener(this);
         deleteBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
+
+        calcBtn = findViewById(R.id.calc_button);
+        calcBtn.setOnClickListener(this);
     }
 
     private void getClickedNote() {
@@ -137,6 +146,9 @@ public class SingleNoteActivity extends AppCompatActivity implements View.OnClic
                 // todo delete note
                 presenter.deleteNote();
                 onBackPressed();
+                break;
+            case R.id.calc_button:
+                calculatorFragment.open();
                 break;
             default:
                 styleState = StyleState.REGULAR;

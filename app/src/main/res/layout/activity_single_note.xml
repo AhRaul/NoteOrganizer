@@ -53,8 +53,24 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/outline_save_24"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/calc_button"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <ImageButton
+                android:id="@+id/calc_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_calc_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -135,4 +151,11 @@
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_calc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
