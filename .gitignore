@@ -63,3 +63,7 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+/app/.idea/
+/app/gradle/wrapper/
+/app/gradlew
+/app/gradlew.bat

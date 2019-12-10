@@ -46,4 +46,8 @@
     <string name="save">сохранить</string>
     <string name="note_title_hint">Заголовок</string>
     <string name="note_body_hint">Введите текст тут</string>
+    <string name="left_bracket">(</string>
+    <string name="right_bracket">)</string>
+    <string name="clear">C</string>
+    -<string name="back_space"><![CDATA[<--]]></string>
 </resources>
