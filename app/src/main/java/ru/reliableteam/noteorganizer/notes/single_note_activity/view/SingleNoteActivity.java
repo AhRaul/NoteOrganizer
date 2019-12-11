@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.reliableteam.noteorganizer.BaseActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.calculator.view.CalculatorFragment;
 import ru.reliableteam.noteorganizer.BaseActivity;
@@ -33,7 +34,7 @@ public class SingleNoteActivity extends BaseActivity
 
     TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn; //, strikeBtn, underlineBtn;
-    ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn;
+    ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn;
     MaterialButtonToggleGroup toggleGroup;
 
     private static class StyleState {
@@ -103,6 +104,10 @@ public class SingleNoteActivity extends BaseActivity
 
         calcBtn = findViewById(R.id.calc_button);
         calcBtn.setOnClickListener(this);
+
+        shareBtn = findViewById(R.id.share_button);
+        shareBtn.setOnClickListener(this);
+
     }
 
     private void getClickedNote() {
@@ -173,6 +178,9 @@ public class SingleNoteActivity extends BaseActivity
                 break;
             case R.id.calc_button:
                 calculatorFragment.show(getSupportFragmentManager(), "calculator");
+                break;
+            case R.id.share_button:
+                presenter.shareNote();
                 break;
         }
     }
