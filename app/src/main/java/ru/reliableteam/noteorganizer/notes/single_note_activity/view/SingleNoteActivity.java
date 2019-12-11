@@ -2,7 +2,10 @@ package ru.reliableteam.noteorganizer.notes.single_note_activity.view;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Spannable;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,7 +26,6 @@ import ru.reliableteam.noteorganizer.notes.model.Span;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.SingleNotePresenter;
 
 // todo need text utils
-// todo need full text implementation
 public class SingleNoteActivity extends BaseActivity
         implements View.OnClickListener, MaterialButtonToggleGroup.OnButtonCheckedListener {
     private final String CLASS_TAG = "SingleNoteActivity";
@@ -75,6 +77,7 @@ public class SingleNoteActivity extends BaseActivity
         };
         noteText.setSpannableFactory(spannableFactory);
         noteText.setOnClickListener(this);
+        noteText.addTextChangedListener(getTextChangeListener());
 
         toggleGroup = findViewById(R.id.toggle_style_button_group);
         toggleGroup.addOnButtonCheckedListener(this);
@@ -144,12 +147,12 @@ public class SingleNoteActivity extends BaseActivity
                 sb.removeSpan(s);
             }
 
-            sb.setSpan(new StyleSpan(styleState), startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            sb.setSpan(new StyleSpan(styleState), startSelection, endSelection, Spanned.SPAN_MARK_MARK);// Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 
             // recover span
             for (Span span : spanList)
                 if (span.start != startSelection && span.end != endSelection)
-                    sb.setSpan(new StyleSpan(span.style), span.start, span.end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                    sb.setSpan(new StyleSpan(span.style), span.start, span.end, Spanned.SPAN_MARK_MARK);//Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         }
         noteText.setText(sb);
         noteText.setSelection(endSelection);
@@ -162,13 +165,12 @@ public class SingleNoteActivity extends BaseActivity
                 this.finish();
                 break;
             case R.id.save_button:
-                // todo save note
                 presenter.saveNote();
                 showHint("Ваша заметка была сохранена!");
                 onBackPressed();
                 break;
             case R.id.delete_button:
-                // todo delete note
+                showHint("Ваша заметка была удалена!");
                 presenter.deleteNote();
                 onBackPressed();
                 break;
@@ -188,19 +190,19 @@ public class SingleNoteActivity extends BaseActivity
     public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
         switch (checkedId) {
             case R.id.bold_style:
+                System.out.println("BOLD");
                 changeStyleState(isChecked ? StyleState.BOLD : StyleState.REGULAR);
                 setTextStyle();
                 break;
             case R.id.italic_style:
+                System.out.println("ITALIC");
                 changeStyleState(isChecked ? StyleState.ITALIC : StyleState.REGULAR);
                 setTextStyle();
                 break;
-//            case R.id.strike_style:
-                // todo make strike
-//                break;
-//            case R.id.underline_style:
-                // todo make underline
-//                break;
+            default:
+                changeStyleState(StyleState.REGULAR);
+                setTextStyle();
+                break;
         }
     }
 
@@ -209,46 +211,79 @@ public class SingleNoteActivity extends BaseActivity
         Spannable sb = noteText.getText();
         int startSelection = noteText.getSelectionStart();
         System.out.println("selection changed : " + startSelection);
-        StyleSpan[] ss = sb.getSpans(startSelection - 1, startSelection + 1, StyleSpan.class);
-            if (ss.length > 0) {
-                for (StyleSpan s : ss) {
-                    changeStyleState(s.getStyle());
-                }
-            } else {
-                changeStyleState(StyleState.REGULAR);
+
+        Editable text = noteText.getText();
+        StyleSpan[] ss = new StyleSpan[]{};
+
+        if (startSelection < 1)
+            return;
+
+        if (text.charAt(startSelection - 1) == ' ')
+            ss = sb.getSpans(startSelection, startSelection + 1, StyleSpan.class);
+        else
+            ss = sb.getSpans(startSelection - 1, startSelection, StyleSpan.class);
+        if (ss.length > 0) {
+            for (StyleSpan s : ss) {
+                System.out.println(s.getStyle());
+                changeStyleState(s.getStyle());
             }
-            setCheckedButtons();
+        } else {
+            changeStyleState(StyleState.REGULAR);
+        }
+        setCheckedButtons();
     }
 
     public void setCheckedButtons() {
-        System.out.println("style = " + styleState);
-        System.out.println("clear checked");
+        System.out.println("prev style = " + styleState);
         switch (styleState) {
             case StyleState.BOLD:
-                toggleGroup.clearChecked();
                 toggleGroup.check(R.id.bold_style);
                 break;
             case StyleState.BOLD_ITALIC:
-                toggleGroup.clearChecked();
                 toggleGroup.check(R.id.bold_style);
                 toggleGroup.check(R.id.italic_style);
                 break;
             case StyleState.ITALIC:
-                toggleGroup.clearChecked();
                 toggleGroup.check(R.id.italic_style);
                 break;
             default:
                 toggleGroup.clearChecked();
                 styleState = StyleState.REGULAR;
+                break;
         }
-        System.out.println("style = " + styleState);
+        System.out.println("new style = " + styleState);
     }
+
     private void changeStyleState(int newStyleState) {
         styleState = newStyleState;
     }
 
     private void showHint(String hintText) {
         Toast.makeText(this, hintText, Toast.LENGTH_LONG).show();
+    }
+
+    private StyleSpan getStyle() {
+        System.out.println("get style() " + styleState);
+        return new StyleSpan(styleState);
+    }
+    private TextWatcher getTextChangeListener() {
+
+        return new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                StyleSpan styleSpan = getStyle();
+                if (s.length() > 1) {
+                    s.setSpan(styleSpan, s.length() - 1, s.length(), Spanned.SPAN_MARK_MARK);
+                }
+            }
+        };
     }
 
     @Override
