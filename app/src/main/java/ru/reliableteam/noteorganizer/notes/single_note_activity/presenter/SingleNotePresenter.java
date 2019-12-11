@@ -10,6 +10,7 @@ import ru.reliableteam.noteorganizer.notes.single_note_activity.view.SingleNoteA
 
 public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
 
+    private static final int MAX_SIZE = 1000000;
     private final String MIME_TYPE_DEFAULT = "text/plain";
 
     private SingleNoteActivity view;
@@ -80,7 +81,7 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
 
     private void getTextFromIntent(Intent outterIntent) {
         String sharedText = outterIntent.getStringExtra(Intent.EXTRA_TEXT);
-        if (sharedText != null) {
+        if (sharedText != null && sharedText.length() < MAX_SIZE) {
            view.setNoteText(sharedText);
         }
     }
