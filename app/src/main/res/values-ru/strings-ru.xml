@@ -50,4 +50,7 @@
     <string name="right_bracket">)</string>
     <string name="clear">C</string>
     -<string name="back_space"><![CDATA[<--]]></string>
+    <string name="share">Поделиться</string>
+    <string name="send_to">Поделиться своей заметкой</string>
+
 </resources>
