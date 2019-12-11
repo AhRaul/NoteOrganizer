@@ -13,7 +13,7 @@
 
 <!--    TEXT VIEWS  -->
     <style name="TextView">
-<!--        <item name="fontFamily"></item>-->
+        <item name="android:fontFamily">@font/roboto</item>
         <item name="paddingStart">4dp</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:layout_marginLeft">8dp</item>
@@ -31,6 +31,16 @@
     </style>
     <style name="TextView.Title" parent="TextView.Header">
         <item name="android:textSize">26sp</item>
+    </style>
+    <style name="TextView.Calculator" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">22dp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+    <style name="TextView.Calculator.Number" parent="TextView.Calculator">
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+    <style name="TextView.Calculator.Actions" parent="TextView.Calculator">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 <!--    BOTTOM SHEET DIALOG STYLE -->

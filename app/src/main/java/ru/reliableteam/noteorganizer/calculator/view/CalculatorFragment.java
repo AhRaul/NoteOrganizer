@@ -17,6 +17,7 @@ import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.calculator.presenter.CalcPresenter;
 
 
+// todo вылетает при клике на TextView
 public class CalculatorFragment extends DialogFragment implements View.OnClickListener {
 
     private View calc;
@@ -122,7 +123,6 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
                 calcPresenter.deleteSimbol();
                 tvExpress.setText(calcPresenter.getExpress());
                 break;
-
             case R.id.btn_equally:
                 String result = calcPresenter.getResult();
                 tvResult.setText(result);
