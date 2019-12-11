@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.calculator.view;
+package ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.calculator.presenter.CalcPresenter;
+import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter.CalcPresenter;
 
 
 // todo вылетает при клике на TextView

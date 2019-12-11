@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.calculator.model;
+package ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.model;
 
 import java.util.Stack;
 

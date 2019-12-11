@@ -17,8 +17,7 @@ import java.util.List;
 
 import ru.reliableteam.noteorganizer.BaseActivity;
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.calculator.view.CalculatorFragment;
-import ru.reliableteam.noteorganizer.BaseActivity;
+import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view.CalculatorFragment;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Span;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.SingleNotePresenter;

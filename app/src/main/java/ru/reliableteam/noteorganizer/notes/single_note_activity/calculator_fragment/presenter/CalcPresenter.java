@@ -1,6 +1,6 @@
-package ru.reliableteam.noteorganizer.calculator.presenter;
+package ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter;
 
-import ru.reliableteam.noteorganizer.calculator.model.CalculatorModel;
+import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.model.CalculatorModel;
 
 public class CalcPresenter {
 
