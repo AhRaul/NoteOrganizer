@@ -56,13 +56,16 @@ public class SingleNoteActivity extends BaseActivity
 
         setContentView(R.layout.activity_single_note);
 
+
         presenter = new SingleNotePresenter(this);
+
         calculatorFragment = new CalculatorFragment();//getSupportFragmentManager());
 
         initUI();
         getClickedNote();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        presenter.checkSharedIntent();
     }
 
     private void initUI() {

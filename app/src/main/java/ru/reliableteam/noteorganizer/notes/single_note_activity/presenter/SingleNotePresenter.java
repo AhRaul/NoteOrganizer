@@ -9,11 +9,14 @@ import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManage
 import ru.reliableteam.noteorganizer.notes.single_note_activity.view.SingleNoteActivity;
 
 public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
+
+    private final String MIME_TYPE_DEFAULT = "text/plain";
+
     private SingleNoteActivity view;
     private SharedPreferencesManager appSettings;
     private final int NEW_NOTE = -1;
 
-    public SingleNotePresenter (SingleNoteActivity activity) {
+    public SingleNotePresenter(SingleNoteActivity activity) {
         this.view = activity;
         appSettings = getAppSettings();
     }
@@ -31,11 +34,14 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
         view.setNoteTitle(note.title);
     }
 
-    public boolean isNewNote() { return appSettings.getClickedNoteId() == NEW_NOTE; }
+    public boolean isNewNote() {
+        return appSettings.getClickedNoteId() == NEW_NOTE;
+    }
 
     public void deleteNote() {
         super.deleteNote(note);
     }
+
     public void saveNote() {
         note.body = view.getNoteText();
         note.title = view.getNoteTitle();
@@ -57,5 +63,25 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
         view.startActivity(Intent.createChooser(shareIntent,
                 view.getResources().getText(R.string.send_to)));
 
+    }
+
+    public void checkSharedIntent() {
+        Intent externalIntent = view.getIntent();
+
+        String action = externalIntent.getAction();
+        String type = externalIntent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (MIME_TYPE_DEFAULT.equals(type)) {
+                getTextFromIntent(externalIntent);
+            }
+        }
+    }
+
+    private void getTextFromIntent(Intent outterIntent) {
+        String sharedText = outterIntent.getStringExtra(Intent.EXTRA_TEXT);
+        if (sharedText != null) {
+           view.setNoteText(sharedText);
+        }
     }
 }
