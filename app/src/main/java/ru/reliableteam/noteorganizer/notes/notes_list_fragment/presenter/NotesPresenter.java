@@ -1,11 +1,16 @@
 package ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter;
 
 import android.view.View;
+
+import java.util.Collections;
+import java.util.Comparator;
+
 import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.IViewHolder;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.NotesFragment;
+import ru.reliableteam.noteorganizer.utils.SortListComparator;
 
 /**
  * Base Notes Presenter
@@ -23,12 +28,15 @@ import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.NotesFragmen
 public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     private String CLASS_TAG = "RecyclerViewPresenter";
     private final int NEW_NOTE = -1;
+    private final int NO_MESSAGE = 0;
 
     private NotesFragment fragmentView;
     private SharedPreferencesManager appSettings;
 
     enum State {MULTI_SELECTION, SINGLE_SELECTION}
     private State state = State.SINGLE_SELECTION;
+
+    private Comparator<Note> comparator = SortListComparator.getDateComparator();
 
     public NotesPresenter(NotesFragment view) {
         this.fragmentView = view;
@@ -46,7 +54,7 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
 
     @Override
     public void notifyDatasetChanged(int messageId) {
-        if (messageId == 0)
+        if (messageId == NO_MESSAGE)
             fragmentView.notifyDataChanged();
         else
             fragmentView.showToast(messageId);
@@ -133,6 +141,29 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     }
 
     @Override
+    public void sortByTitle() {
+        comparator = SortListComparator.getNameComparator();
+        sort();
+    }
+
+    @Override
+    public void sortByDate() {
+        comparator = SortListComparator.getDateComparator();
+        sort();
+    }
+
+    @Override
+    public void sortByDefault() {
+        comparator = SortListComparator.getNumberComparator();
+        sort();
+    }
+
+    private void sort() {
+        Collections.sort(notesList, comparator);
+        notifyDatasetChanged(NO_MESSAGE);
+    }
+
+    @Override
     public void enableMultiSelection() {
         disableSort();
         fragmentView.setExtraOptionsLayoutVisibility(true);
@@ -165,6 +196,7 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     public void deleteNotes() {
         for (Note note : selectedNotes)
             deleteSelectedNote(this, note);
+        fragmentView.toDefaultStyle();
     }
 
     @Override

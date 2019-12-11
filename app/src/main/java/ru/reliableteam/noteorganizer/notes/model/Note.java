@@ -15,11 +15,11 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Note {
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public Integer id;
     public String title;
     public String body;
-    public int cardImageUri;
-    public long dataTime;
+    public Integer cardImageUri;
+    public Long dataTime;
 
     public Note(String title, String body, int cardImageUri) {
         this.title = title;
@@ -37,4 +37,5 @@ public class Note {
 //                ", dataTime=" + dataTime +
                 '}';
     }
+
 }

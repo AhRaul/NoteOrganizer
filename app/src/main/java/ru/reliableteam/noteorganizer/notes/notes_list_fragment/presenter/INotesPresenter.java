@@ -19,4 +19,8 @@ public interface INotesPresenter extends BasePresenter {
     void createNewNote();
     void deleteNotes();
     void migrateSelectedNotes();
+
+    void sortByTitle();
+    void sortByDate();
+    void sortByDefault();
 }

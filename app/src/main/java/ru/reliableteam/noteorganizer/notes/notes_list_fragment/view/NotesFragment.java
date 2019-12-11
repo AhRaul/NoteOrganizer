@@ -105,7 +105,10 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
                 presenter.createNewNote();
                 break;
             case R.id.sort_notes_button:
-                presenter.enableSort();
+                if (sortNotes.isChecked())
+                    presenter.enableSort();
+                else
+                    presenter.disableSort();
                 break;
             case R.id.close_button:
                 presenter.disableMultiSelection();
@@ -224,15 +227,18 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
                 switch (checkedId) {
                     case R.id.sort_by_date:
                         // todo sort by date
+                        presenter.sortByDate();
                         System.out.println("SORT BY DATE");
                         break;
                     case  R.id.sort_by_title:
+                        presenter.sortByTitle();
                         // todo sort by title
                         System.out.println("SORT BY TITLE");
                         break;
                     default:
+                        presenter.sortByDefault();
                         // todo sort by date
-                        System.out.println("DEFAULT: SORT BY DATE");
+                        System.out.println("DEFAULT: SORT BY ID");
                 }
 
             }
