@@ -28,6 +28,7 @@
     <string name="chip_sort_by_date">By date</string>
     <string name="chip_sort_by_title">By title</string>
     <string name="migrated_hint">Data was saved as TXT files. Way to directory can be find in settings.</string>
+    <string name="choose_title_hint">Choose notes</string>
 
 <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Todos</string>

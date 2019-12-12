@@ -31,6 +31,7 @@ public class AppConfig extends Application {
         super.onCreate();
         instance = this;
         database = Room.databaseBuilder(this, DataBase.class, "database")
+                .fallbackToDestructiveMigration()
                 .build();
         appSettings = new SharedPreferencesManager(this);
         createDirectory();
