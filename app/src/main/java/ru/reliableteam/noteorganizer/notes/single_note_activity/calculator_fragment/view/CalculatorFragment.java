@@ -101,9 +101,7 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
         btnEqually = calc.findViewById(R.id.btn_equally);
         btnEqually.setOnClickListener(this);
         tvExpress = calc.findViewById(R.id.tv_express);
-        tvExpress.setOnClickListener(this);
         tvResult = calc.findViewById(R.id.tv_result);
-        tvResult.setOnClickListener(this);
 
         cancelBtn = calc.findViewById(R.id.btn_cancel_calc);
         cancelBtn.setOnClickListener(this);
@@ -111,6 +109,7 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        String result;
         switch (v.getId()) {
             case R.id.btn_cancel_calc:
                 getDialog().dismiss();
@@ -121,20 +120,47 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
                 break;
             case R.id.btn_del_num:
                 calcPresenter.deleteSimbol();
+                if (calcPresenter.getExpress().length() > 20){
+                    tvExpress.setTextSize(16);
+                } else {
+                    tvExpress.setTextSize(24);
+                }
                 tvExpress.setText(calcPresenter.getExpress());
                 break;
             case R.id.btn_equally:
-                String result = calcPresenter.getResult();
+                result = calcPresenter.getResult();
+                if (result.length() > 16){
+                    tvResult.setTextSize(24);
+                }
                 tvResult.setText(result);
-                calcPresenter.setExpress(result);
+                if (isNumeric(result)){
+                    calcPresenter.setExpress(result);
+                }
                 break;
             default:
                 Button b = calc.findViewById(v.getId());
                 calcPresenter.buildExpress(b.getText().toString());
                 calcPresenter.correctExpress();
+                result = calcPresenter.getExpress();
+                if (result.length() > 20){
+                    tvExpress.setTextSize(16);
+                } else {
+                    tvExpress.setTextSize(24);
+                }
+                calcPresenter.limitLenForExpress();
                 tvExpress.setText(calcPresenter.getExpress());
                 break;
         }
     }
+
+    private boolean isNumeric(String s) throws NumberFormatException{
+        try {
+            Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 
 }

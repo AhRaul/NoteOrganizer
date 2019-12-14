@@ -31,6 +31,17 @@ public class CalculatorModel {
                 strArray = nextDouble(express);
                 express = strArray[0];
                 stack.push(strArray[1]);
+                if (!express.isEmpty()) {
+                    currentChar = express.charAt(0);
+                    if (currentChar == 'E') {
+                        express = express.substring(1);
+                        strArray = nextDouble(express);
+                        express = strArray[0];
+                        double arg1 = Double.parseDouble(stack.pop());
+                        double arg2 = Double.parseDouble(strArray[1]);
+                        stack.push(Double.toString(arg1*Math.pow(10.0,arg2)));
+                    }
+                }
             } else {
                 switch (currentChar) {
                     case 'x':
@@ -80,6 +91,7 @@ public class CalculatorModel {
         while (!stack.empty()) {
             mirrorExpress.push(stack.pop());
         }
+        if (mirrorExpress.empty()) return "";
         result = calculateExpress(mirrorExpress);
         return result;
     }

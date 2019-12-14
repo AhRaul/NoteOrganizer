@@ -6,6 +6,7 @@ public class CalcPresenter {
 
     CalculatorModel calculator;
     StringBuilder express;
+    private final int LIMIT_LEN  = 25; //ограничение числа вводимых символов;
 
     public CalcPresenter() {
         express = new StringBuilder();
@@ -13,12 +14,27 @@ public class CalcPresenter {
     }
 
     public String getResult(){
+        char currentChar;
+        String exp = express.toString();
+        if (!exp.equals("")) {
+            currentChar = exp.charAt(exp.length() - 1);
+            if (currentChar == '-' || currentChar == '+' || currentChar == 'x' || currentChar == '/') {
+                setExpress(exp.substring(0, exp.length() - 1));
+            }
+        }
         calculator.calcResult(express.toString());
         return calculator.getResult();
     }
 
     public void correctExpress(){
         setExpress(getCorrectExpress(express.toString()));
+    }
+
+    public void limitLenForExpress(){
+
+        if (express.length() == LIMIT_LEN){
+            setExpress(express.substring(0,LIMIT_LEN - 1));
+        }
     }
 
     private String getCorrectExpress(String inExpress){
