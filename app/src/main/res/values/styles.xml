@@ -27,15 +27,15 @@
     </style>
 
     <style name="TextView.Header" parent="TextView">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingTop">4dp</item>
     </style>
     <style name="TextView.SubHeader" parent="TextView">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
     <style name="TextView.Title" parent="TextView.Header">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">28sp</item>
     </style>
     <style name="TextView.Calculator" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textSize">22dp</item>

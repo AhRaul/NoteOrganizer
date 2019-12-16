@@ -144,20 +144,20 @@
                 app:icon="@drawable/baseline_format_italic_24"
                 app:iconGravity="textStart"/>
 <!-- todo underline, strike -->
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/strike_style"-->
-<!--                style="?attr/materialButtonOutlinedStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:icon="@drawable/baseline_strikethrough_s_24"-->
-<!--                app:iconGravity="textStart"/>-->
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/underline_style"-->
-<!--                style="?attr/materialButtonOutlinedStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:icon="@drawable/baseline_format_underlined_24"-->
-<!--                app:iconGravity="textStart"/>-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/strike_style"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_strikethrough_s_24"
+                app:iconGravity="textStart"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/underline_style"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_format_underlined_24"
+                app:iconGravity="textStart"/>
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
         </LinearLayout>

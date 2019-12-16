@@ -3,10 +3,13 @@ package ru.reliableteam.noteorganizer.notes.single_note_activity.view;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.ParcelableSpan;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -34,14 +37,16 @@ public class SingleNoteActivity extends BaseActivity
     CalculatorFragment calculatorFragment;
 
     TextInputEditText noteText, noteTitle;
-    MaterialButton boldBtn, italicBtn; //, strikeBtn, underlineBtn;
+    MaterialButton boldBtn, italicBtn, underlineBtn, strikeBtn;
     ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn;
     MaterialButtonToggleGroup toggleGroup;
 
     private static class StyleState {
         static final int BOLD = Typeface.BOLD; // 1
         static final int ITALIC = Typeface.ITALIC; // 2
-        static final int BOLD_ITALIC = Typeface.BOLD_ITALIC; // 3
+//        static final int BOLD_ITALIC = Typeface.BOLD_ITALIC; // 3
+        static final int UNDERLINE = 4;//new UnderlineSpan();
+        static final int STRIKE = 5;//new StrikethroughSpan();
         static final int REGULAR = Typeface.NORMAL; // 0
     }
 
@@ -59,7 +64,7 @@ public class SingleNoteActivity extends BaseActivity
 
         presenter = new SingleNotePresenter(this);
 
-        calculatorFragment = new CalculatorFragment();//getSupportFragmentManager());
+        calculatorFragment = new CalculatorFragment();
 
         initUI();
         getClickedNote();
@@ -91,11 +96,11 @@ public class SingleNoteActivity extends BaseActivity
         italicBtn = findViewById(R.id.italic_style);
         italicBtn.setOnClickListener(this);
 
-//        strikeBtn = findViewById(R.id.strike_style);
-//        strikeBtn.setOnClickListener(this);
+        strikeBtn = findViewById(R.id.strike_style);
+        strikeBtn.setOnClickListener(this);
 
-//        underlineBtn = findViewById(R.id.underline_style);
-//        underlineBtn.setOnClickListener(this);
+        underlineBtn = findViewById(R.id.underline_style);
+        underlineBtn.setOnClickListener(this);
 
         cancelBtn = findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener(this);
@@ -161,6 +166,14 @@ public class SingleNoteActivity extends BaseActivity
         noteText.setSelection(endSelection);
     }
 
+    private void setStyle(boolean isChecked, int state) {
+        if (!isChecked && styleState == state)
+            changeStyleState(StyleState.REGULAR);
+        if (isChecked)
+            changeStyleState(state);
+        setTextStyle();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -191,24 +204,33 @@ public class SingleNoteActivity extends BaseActivity
 
     @Override
     public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+        System.out.println(isChecked);
         switch (checkedId) {
             case R.id.bold_style:
                 System.out.println("BOLD");
-                changeStyleState(isChecked ? StyleState.BOLD : StyleState.REGULAR);
-                setTextStyle();
+                setStyle(isChecked, StyleState.BOLD);
                 break;
             case R.id.italic_style:
                 System.out.println("ITALIC");
-                changeStyleState(isChecked ? StyleState.ITALIC : StyleState.REGULAR);
-                setTextStyle();
+                setStyle(isChecked, StyleState.ITALIC);
+                break;
+            case R.id.underline_style:
+                System.out.println("UNDERLINE");
+                setStyle(isChecked, StyleState.UNDERLINE);
+                break;
+            case R.id.strike_style:
+                System.out.println("STRIKE");
+                setStyle(isChecked, StyleState.STRIKE);
                 break;
             default:
+                System.out.println("REGULAR");
                 changeStyleState(StyleState.REGULAR);
                 setTextStyle();
                 break;
         }
     }
 
+    // todo remake with underline and strike
     protected void onSelectionChanged() {
         System.out.println("selected");
         Spannable sb = noteText.getText();
@@ -242,12 +264,14 @@ public class SingleNoteActivity extends BaseActivity
             case StyleState.BOLD:
                 toggleGroup.check(R.id.bold_style);
                 break;
-            case StyleState.BOLD_ITALIC:
-                toggleGroup.check(R.id.bold_style);
-                toggleGroup.check(R.id.italic_style);
-                break;
             case StyleState.ITALIC:
                 toggleGroup.check(R.id.italic_style);
+                break;
+            case StyleState.UNDERLINE:
+                toggleGroup.check(R.id.underline_style);
+                break;
+            case StyleState.STRIKE:
+                toggleGroup.check(R.id.strike_style);
                 break;
             default:
                 toggleGroup.clearChecked();
@@ -265,9 +289,17 @@ public class SingleNoteActivity extends BaseActivity
         Toast.makeText(this, hintText, Toast.LENGTH_LONG).show();
     }
 
-    private StyleSpan getStyle() {
+    private ParcelableSpan getStyle() {
         System.out.println("get style() " + styleState);
-        return new StyleSpan(styleState);
+        ParcelableSpan span = null;
+        if (styleState == StyleState.UNDERLINE)
+            span = new UnderlineSpan();
+        else if (styleState == StyleState.STRIKE)
+            span = new StrikethroughSpan();
+        else
+            span = new StyleSpan(styleState);
+
+        return span;
     }
     private TextWatcher getTextChangeListener() {
 
@@ -281,7 +313,7 @@ public class SingleNoteActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-                StyleSpan styleSpan = getStyle();
+                ParcelableSpan styleSpan = getStyle();
                 if (s.length() > 1) {
                     s.setSpan(styleSpan, s.length() - 1, s.length(), Spanned.SPAN_MARK_MARK);
                 }
