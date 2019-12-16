@@ -4,50 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:layout_marginTop="4dp">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <CheckBox
+        android:id="@+id/todo_item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="12dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/todo_item_title"
+        style="@style/TextView.Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-<!--    header item-->
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/todo_item_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/todo_item_textview"
-                style="@style/TextView.Header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                tools:text="todo" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/todo_subitem_expand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@android:drawable/arrow_down_float"
-                android:backgroundTint="@android:color/transparent"
-                android:tint="@color/colorPrimary"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-<!--     sub list-->
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/todo_sublist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="24dp"
-            >
-            <include layout="@layout/todo_subitem"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
+        android:maxLines="2"
+        tools:text="todo"
+        android:ellipsize="end"
+        android:layout_gravity="center"/>
 </androidx.appcompat.widget.LinearLayoutCompat>
