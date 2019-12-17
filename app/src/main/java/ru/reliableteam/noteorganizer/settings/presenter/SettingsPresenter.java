@@ -86,9 +86,6 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
         return new ChipGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ChipGroup group, int checkedId) {
-                if (clickedOnChecked(group, checkedId))
-                    return;
-
                 if (isRechecked(checkedId))
                     return;
 
@@ -99,13 +96,6 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
             }
             private boolean isRechecked(int checkedId) {
                 return checkedId == lastCheckedId;
-            }
-            private boolean clickedOnChecked(ChipGroup group, int checkedId) {
-                if (checkedId == -1) {
-                    group.check(lastCheckedId);
-                    return true;
-                }
-                return false;
             }
             private void updateAppTheme(int checkedId) {
                 int themeId = R.style.AppTheme;

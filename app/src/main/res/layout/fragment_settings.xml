@@ -83,7 +83,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        app:singleSelection="true">
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/dark_mode_theme_selection"
