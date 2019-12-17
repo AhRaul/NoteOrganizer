@@ -18,7 +18,7 @@ import ru.reliableteam.noteorganizer.MainActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
-public class SettingsFragment extends Fragment implements ISettingsView, View.OnClickListener {
+public class SettingsFragment extends Fragment implements ISettingsView {
     private final String CLASS_TAG = "SettingsFragment";
     private View root;
     private ChipGroup themeSelector;
@@ -39,33 +39,41 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
     }
 
     private void initUI() {
+        initThemeSelection();
+        initAutoSyncSelection();
+        initNoteCacheSizeSettings();
+        initTodosCacheSizeSettings();
+        initNotesMigrationSettings();
+    }
+    private void initThemeSelection() {
         themeSelector = root.findViewById(R.id.theme_mode_selection);
         themeSelector.setOnCheckedChangeListener(presenter.themeChangeListener());
         themeSelector.check(presenter.getThemeId());
-
+    }
+    private void initAutoSyncSelection() {
         autoSyncSwitcher = root.findViewById(R.id.auto_synchronization_switcher);
         autoSyncSwitcher.setOnCheckedChangeListener(presenter.autosyncChangeListener());
         autoSyncSwitcher.setChecked(presenter.isAutoSyncEnabled());
 
         lastSyncDate = root.findViewById(R.id.last_sync_date);
-
+    }
+    private void initNoteCacheSizeSettings() {
         notesCacheSize = root.findViewById(R.id.notes_cache_size_tv);
         setNotesCacheSize(presenter.getNotesCacheSize());
-
-        todosCacheSize = root.findViewById(R.id.todos_cache_size_tv);
-
         cleanNotesCache = root.findViewById(R.id.notes_cache_size_clean_btn);
-        cleanNotesCache.setOnClickListener(this);
-
+        cleanNotesCache.setOnClickListener( v -> presenter.cleanNotesCache() );
+    }
+    private void initTodosCacheSizeSettings() {
+        todosCacheSize = root.findViewById(R.id.todos_cache_size_tv);
         cleanTodosCache = root.findViewById(R.id.todos_photos_cache_size_clean_btn);
-
+    }
+    private void initNotesMigrationSettings() {
         appDirPath = root.findViewById(R.id.app_dir_path);
         setAppDirPath(presenter.getAppDirPath());
 
         migrateToTxt = root.findViewById(R.id.migrate_to_txt);
-        migrateToTxt.setOnClickListener(this);
+        migrateToTxt.setOnClickListener( v -> presenter.saveToTxt() );
     }
-
     @Override
     public void reloadActivity(){
         Intent intent = new Intent(getContext(), MainActivity.class);
@@ -78,20 +86,8 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         notesCacheSize.setText(size);
     }
 
-    public void setAppDirPath(String path) {
+    private void setAppDirPath(String path) {
         String prefix = getResources().getString(R.string.migrated_notes_dir_path_hint);
         appDirPath.setText(prefix + " " + path);
-    }
-
-    @Override
-    public void onClick (View v) {
-        switch (v.getId()) {
-            case R.id.notes_cache_size_clean_btn:
-                presenter.cleanNotesCache();
-                break;
-            case R.id.migrate_to_txt:
-                presenter.saveToTxt();
-                break;
-        }
     }
 }
