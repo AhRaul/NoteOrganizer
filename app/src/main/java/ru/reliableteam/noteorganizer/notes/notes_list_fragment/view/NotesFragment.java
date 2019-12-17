@@ -33,7 +33,7 @@ import ru.reliableteam.noteorganizer.notes.single_note_activity.view.SingleNoteA
 /**
  *  Note List Fragment
  */
-public class NotesFragment extends Fragment implements View.OnClickListener {
+public class NotesFragment extends Fragment {
     private final String CLASS_TAG = "NotesFragment";
 
     private View root;
@@ -62,28 +62,41 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
+        initWriteNoteFab();
+        initSortLayoutAndGroup();
+        initSearchNoteLayout();
+        initExtraOptionsLayout();
+    }
+    private void initWriteNoteFab() {
         writeNewNote = root.findViewById(R.id.notes_write_fab);
-        writeNewNote.setOnClickListener(this);
-
+        writeNewNote.setOnClickListener( v -> presenter.createNewNote() );
+    }
+    private void initSortLayoutAndGroup() {
         sortLayout = root.findViewById(R.id.sort_layout);
         sortNotes = root.findViewById(R.id.sort_notes_button);
-        sortNotes.setOnClickListener(this);
+        sortNotes.setOnClickListener( v -> {
+                    if (sortNotes.isChecked())
+                        presenter.enableSort();
+                    else
+                        presenter.disableSort();
+                }
+        );
         ChipGroup sortGroup = root.findViewById(R.id.sort_group);
         sortGroup.setOnCheckedChangeListener(getOnCheckedChangeListener());
-
+    }
+    private void initSearchNoteLayout() {
         searchNoteTv = root.findViewById(R.id.search_text_view);
         searchNoteTv.addTextChangedListener(getTextChangeListener());
-
+    }
+    private void initExtraOptionsLayout() {
         extraOptionsLayout = root.findViewById(R.id.extra_options_group);
         closeBtn = root.findViewById(R.id.close_button);
         deleteBtn = root.findViewById(R.id.delete_button);
         migrateBtn = root.findViewById(R.id.migrate_to_txt);
-
-        closeBtn.setOnClickListener(this);
-        deleteBtn.setOnClickListener(this);
-        migrateBtn.setOnClickListener(this);
+        closeBtn.setOnClickListener( v -> presenter.disableMultiSelection() );
+        deleteBtn.setOnClickListener( v -> presenter.deleteNotes());
+        migrateBtn.setOnClickListener( v -> presenter.migrateSelectedNotes());
     }
-
 
     private void initRecyclerView() {
         recyclerView = root.findViewById(R.id.notes_rv);
@@ -96,30 +109,6 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter != null)
             adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.notes_write_fab:
-                presenter.createNewNote();
-                break;
-            case R.id.sort_notes_button:
-                if (sortNotes.isChecked())
-                    presenter.enableSort();
-                else
-                    presenter.disableSort();
-                break;
-            case R.id.close_button:
-                presenter.disableMultiSelection();
-                break;
-            case R.id.delete_button:
-                presenter.deleteNotes();
-                break;
-            case R.id.migrate_to_txt:
-                presenter.migrateSelectedNotes();
-                break;
-        }
     }
 
     public void setSortLayoutVisibility(boolean isVisible) {
@@ -226,21 +215,15 @@ public class NotesFragment extends Fragment implements View.OnClickListener {
             public void onCheckedChanged(ChipGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.sort_by_date:
-                        // todo sort by date
                         presenter.sortByDate();
-                        System.out.println("SORT BY DATE");
                         break;
                     case  R.id.sort_by_title:
                         presenter.sortByTitle();
-                        // todo sort by title
-                        System.out.println("SORT BY TITLE");
                         break;
                     default:
                         presenter.sortByDefault();
-                        // todo sort by date
-                        System.out.println("DEFAULT: SORT BY ID");
+                        break;
                 }
-
             }
         };
     }
