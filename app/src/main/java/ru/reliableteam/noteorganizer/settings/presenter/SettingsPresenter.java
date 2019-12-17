@@ -82,18 +82,32 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
         migrate(this);
     }
 
-    // todo refactor
     public ChipGroup.OnCheckedChangeListener themeChangeListener() {
         return new ChipGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ChipGroup group, int checkedId) {
-                if (checkedId == -1) {
-                    group.check(lastCheckedId);
-                    return;
-                }
-                if (checkedId == lastCheckedId)
+                if (clickedOnChecked(group, checkedId))
                     return;
 
+                if (isRechecked(checkedId))
+                    return;
+
+                updateAppTheme(checkedId);
+
+                lastCheckedId = checkedId;
+                view.reloadActivity();
+            }
+            private boolean isRechecked(int checkedId) {
+                return checkedId == lastCheckedId;
+            }
+            private boolean clickedOnChecked(ChipGroup group, int checkedId) {
+                if (checkedId == -1) {
+                    group.check(lastCheckedId);
+                    return true;
+                }
+                return false;
+            }
+            private void updateAppTheme(int checkedId) {
                 int themeId = R.style.AppTheme;
                 switch (checkedId) {
                     case R.id.light_mode_theme_selection:
@@ -103,11 +117,7 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
                         themeId = R.style.AppThemeDark;
                         break;
                 }
-                Log.i(CLASS_TAG, lastCheckedId + " " + checkedId);
-                lastCheckedId = checkedId;
                 appSettings.setAppTheme(themeId);
-
-                view.reloadActivity();
             }
         };
     }
