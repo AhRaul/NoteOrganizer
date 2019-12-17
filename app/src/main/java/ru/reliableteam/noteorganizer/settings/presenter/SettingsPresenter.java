@@ -113,12 +113,6 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
     }
 
     public CompoundButton.OnCheckedChangeListener autosyncChangeListener() {
-        return new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                appSettings.setAutoSyncEnabled(isChecked);
-                Log.i(CLASS_TAG, appSettings.isAutoSyncEnabled() + "");
-            }
-        };
+        return (buttonView, isChecked) -> appSettings.setAutoSyncEnabled(isChecked);
     }
 }
