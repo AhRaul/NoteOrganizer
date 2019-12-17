@@ -11,13 +11,12 @@ import ru.reliableteam.noteorganizer.BasePresenter;
 import ru.reliableteam.noteorganizer.utils.MigrationManager;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.data_base.NoteDAO;
-import ru.reliableteam.noteorganizer.entity.data_base.PersistenceManager;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 
 public class NoteDaoImpl {
-    private PersistenceManager persistenceManager = new PersistenceManager();
-    private NoteDAO noteDao = persistenceManager.getNoteDao();
+    private AppConfig appConfig = AppConfig.getInstance();
+    private NoteDAO noteDao = appConfig.getDatabase().getNoteDao();
     private Disposable disposable = null;
 
     private int NO_MESSAGE = 0;

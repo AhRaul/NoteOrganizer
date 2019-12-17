@@ -22,7 +22,7 @@ import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManage
 
 public class AppConfig extends Application {
 
-    public static AppConfig instance;
+    private static AppConfig instance;
     private DataBase database;
     private SharedPreferencesManager appSettings;
 

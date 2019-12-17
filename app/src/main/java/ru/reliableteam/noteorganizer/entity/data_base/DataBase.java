@@ -7,5 +7,5 @@ import ru.reliableteam.noteorganizer.notes.model.Note;
 
 @Database(entities = {Note.class}, version = 1)
 public abstract class DataBase extends RoomDatabase {
-    public abstract NoteDAO noteDao();
+    public abstract NoteDAO getNoteDao();
 }
