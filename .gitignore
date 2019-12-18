@@ -41,6 +41,8 @@ captures/
 .idea/dictionaries
 .idea/libraries
 .idea/caches
+.idea/misc.xml
+.idea/modules.xml
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
@@ -67,3 +69,4 @@ fastlane/readme.md
 /app/gradle/wrapper/
 /app/gradlew
 /app/gradlew.bat
+/app/
