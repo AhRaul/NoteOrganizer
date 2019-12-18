@@ -1,10 +1,15 @@
 package ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.Collections;
 import java.util.Comparator;
 
+import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
@@ -19,12 +24,9 @@ import ru.reliableteam.noteorganizer.utils.SortListComparator;
  * to interact with data.
  *
  * Generates sample data.
- * Methods to add:
- *  -   database (insert, add, update, delete)
- *  -   async data getting and setting
  */
 
-
+// todo decide how to divide into 3 presenters: base list presenter, sort presenter, extra-options presenter
 public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     private String CLASS_TAG = "RecyclerViewPresenter";
     private final int NEW_NOTE = -1;
@@ -100,11 +102,11 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
         Note note = notesList.get(position);
         if (selectedNotes.contains(note)) {
             selectedNotes.remove(note);
-            fragmentView.setSelected(false, position);
+            fragmentView.setCardSelected(false, position);
         }
         else {
             selectedNotes.add(note);
-            fragmentView.setSelected(true, position);
+            fragmentView.setCardSelected(true, position);
         }
     }
 
@@ -140,20 +142,17 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
         updateByState();
     }
 
-    @Override
-    public void sortByTitle() {
+    private void sortByTitle() {
         comparator = SortListComparator.getNameComparator();
         sort();
     }
 
-    @Override
-    public void sortByDate() {
+    private void sortByDate() {
         comparator = SortListComparator.getDateComparator();
         sort();
     }
 
-    @Override
-    public void sortByDefault() {
+    private void sortByDefault() {
         comparator = SortListComparator.getNumberComparator();
         sort();
     }
@@ -174,7 +173,7 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     public void disableMultiSelection() {
         fragmentView.setExtraOptionsLayoutVisibility(false);
         changeStateTo(State.SINGLE_SELECTION);
-        fragmentView.toDefaultStyle();
+        fragmentView.setCardsToDefaultStyle();
         updateByState();
     }
 
@@ -196,11 +195,43 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     public void deleteNotes() {
         for (Note note : selectedNotes)
             deleteSelectedNote(this, note);
-        fragmentView.toDefaultStyle();
+        fragmentView.setCardsToDefaultStyle();
     }
 
     @Override
     public void migrateSelectedNotes() {
         migrateSelected(this);
+    }
+
+
+    // LISTENERS
+    @Override
+    public TextWatcher getTextChangeListener() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchNotes(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+    }
+    @Override
+    public ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener() {
+        return (group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.sort_by_date:
+                    sortByDate();
+                    break;
+                case  R.id.sort_by_title:
+                    sortByTitle();
+                    break;
+                default:
+                    sortByDefault();
+                    break;
+            }
+        };
     }
 }

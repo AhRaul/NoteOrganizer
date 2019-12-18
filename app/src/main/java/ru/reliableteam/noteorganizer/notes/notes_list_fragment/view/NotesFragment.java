@@ -85,11 +85,11 @@ public class NotesFragment extends Fragment {
                 }
         );
         ChipGroup sortGroup = root.findViewById(R.id.sort_group);
-        sortGroup.setOnCheckedChangeListener(getOnCheckedChangeListener());
+        sortGroup.setOnCheckedChangeListener(presenter.getOnCheckedChangeListener());
     }
     private void initSearchNoteLayout() {
         searchNoteTv = root.findViewById(R.id.search_text_view);
-        searchNoteTv.addTextChangedListener(getTextChangeListener());
+        searchNoteTv.addTextChangedListener(presenter.getTextChangeListener());
     }
     private void initExtraOptionsLayout() {
         extraOptionsLayout = root.findViewById(R.id.extra_options_group);
@@ -129,30 +129,39 @@ public class NotesFragment extends Fragment {
         Intent intent = new Intent(getActivity(), SingleNoteActivity.class);
         startActivity(intent);
     }
-    public void setSelected(boolean isSelected, int position) {
-        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (manager == null)
-            return;
+    // card styles
+    private void setCardStyle(boolean isSelected, int position, RecyclerView.LayoutManager manager) {
         MaterialCardView cardView = (MaterialCardView) manager.findViewByPosition(position);
         if (cardView != null) {
             cardView.setStrokeColor(getCardColor(isSelected));
             cardView.setSelected(isSelected);
         }
     }
-    public void toDefaultStyle() {
+    public void setCardSelected(boolean isSelected, int position) {
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
         if (manager == null)
             return;
+
+        setCardStyle(isSelected, position, manager);
+    }
+    public void setCardsToDefaultStyle() {
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager == null)
+            return;
+
+        convertListItemsToDefaultStyle(manager);
+    }
+    private void convertListItemsToDefaultStyle(RecyclerView.LayoutManager manager) {
         int count = manager.getItemCount();
-        for (int position = 0; position < count; position++) {
-            MaterialCardView cardView = (MaterialCardView) manager.findViewByPosition(position);
-            if (cardView.isSelected()) {
-                cardView.setStrokeColor(getCardColor(false));
-                cardView.setSelected(false);
-            }
+        for (int i = 0; i < count; i++) {
+            setCardSelected(false, i);
+//            MaterialCardView cardView = (MaterialCardView) manager.findViewByPosition(i);
+//            if (cardView != null && cardView.isSelected()) {
+//                cardView.setStrokeColor(getCardColor(false));
+//                cardView.setSelected(false);
+//            }
         }
     }
-
     private int getCardColor(boolean isSelected) {
         return isSelected ? getResources().getColor(R.color.cardStrokeSelected) : getResources().getColor(R.color.cardStrokeDefault);
     }
@@ -168,10 +177,6 @@ public class NotesFragment extends Fragment {
         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
-    // todo потом перенесем в другой presenter (листенеры)
-    /*
-    ----------------------------------------------------------------------------------------------------
-     */
     private RecyclerView.OnScrollListener getRecyclerScrollListener() {
         return new RecyclerView.OnScrollListener() {
             @Override
@@ -180,48 +185,14 @@ public class NotesFragment extends Fragment {
                 int fabVisibility = writeNewNote.getVisibility();
                 if (dy != 0 && fabVisibility == View.VISIBLE)
                     writeNewNote.hide();
-
-                Log.i(CLASS_TAG, "dy = " + dy);
             }
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Log.i(CLASS_TAG, "new state = " + newState);
+                int STATE_STOP = 0;
                 int fabVisibility = writeNewNote.getVisibility();
-                if (newState == 0 && fabVisibility != View.VISIBLE) // seemed to stop
+                if (newState == STATE_STOP && fabVisibility != View.VISIBLE)
                     writeNewNote.show();
-            }
-        };
-    }
-
-    private TextWatcher getTextChangeListener() {
-        return new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                presenter.searchNotes(s.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable s) {}
-        };
-    }
-
-    private ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener() {
-        return new ChipGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ChipGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.sort_by_date:
-                        presenter.sortByDate();
-                        break;
-                    case  R.id.sort_by_title:
-                        presenter.sortByTitle();
-                        break;
-                    default:
-                        presenter.sortByDefault();
-                        break;
-                }
             }
         };
     }
