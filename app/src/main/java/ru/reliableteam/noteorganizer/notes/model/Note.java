@@ -20,6 +20,7 @@ public class Note {
     public String body;
     public Integer cardImageUri;
     public Long dataTime;
+    public Long noteColor;
 
     public Note(String title, String body, int cardImageUri) {
         this.title = title;
@@ -34,7 +35,8 @@ public class Note {
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 ", cardImageUri=" + cardImageUri +
-//                ", dataTime=" + dataTime +
+                ", dataTime=" + dataTime +
+                ", noteColor=" + noteColor +
                 '}';
     }
 

@@ -167,13 +167,6 @@ public class NotesFragment extends Fragment {
         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        presenter.getNotes();
-    }
-
-
     // todo потом перенесем в другой presenter (листенеры)
     /*
     ----------------------------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 
 import ru.reliableteam.noteorganizer.notes.model.Note;
 
-@Database(entities = {Note.class}, version = 1)
+@Database(entities = {Note.class}, version = 2)
 public abstract class DataBase extends RoomDatabase {
     public abstract NoteDAO getNoteDao();
 }
