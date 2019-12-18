@@ -76,7 +76,8 @@ public class NotesFragment extends Fragment {
     private void initSortLayoutAndGroup() {
         sortLayout = root.findViewById(R.id.sort_layout);
         sortNotes = root.findViewById(R.id.sort_notes_button);
-        sortNotes.setOnClickListener( v -> {
+        sortNotes.setOnClickListener(
+                v -> {
                     if (sortNotes.isChecked())
                         presenter.enableSort();
                     else
@@ -97,7 +98,7 @@ public class NotesFragment extends Fragment {
         migrateBtn = root.findViewById(R.id.migrate_to_txt);
         closeBtn.setOnClickListener( v -> presenter.disableMultiSelection() );
         deleteBtn.setOnClickListener( v -> presenter.deleteNotes());
-        migrateBtn.setOnClickListener( v -> presenter.migrateSelectedNotes());
+        migrateBtn.setOnClickListener( v -> presenter.migrateSelectedNotes() );
     }
 
     private void initRecyclerView() {
