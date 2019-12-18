@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -29,6 +30,7 @@ import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.INotesP
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.NotesPresenter;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.NotesRecyclerAdapter;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.view.SingleNoteActivity;
+import ru.reliableteam.noteorganizer.utils.ScreenUtil;
 
 /**
  *  Note List Fragment
@@ -100,7 +102,9 @@ public class NotesFragment extends Fragment {
 
     private void initRecyclerView() {
         recyclerView = root.findViewById(R.id.notes_rv);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        int spanCount = ScreenUtil.getDisplayColumns(getActivity());
+        RecyclerView.LayoutManager manager = new StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(new NotesRecyclerAdapter(presenter));
         recyclerView.addOnScrollListener(getRecyclerScrollListener());
     }
