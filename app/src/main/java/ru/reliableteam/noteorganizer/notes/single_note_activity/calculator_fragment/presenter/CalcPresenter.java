@@ -40,6 +40,7 @@ public class CalcPresenter {
     private String getCorrectExpress(String inExpress){
         int leng = inExpress.length();
         if (leng == 0) return "";
+        if (!isCorrectNumeric(inExpress)) return inExpress.substring(0,leng-1);
         if (leng == 1) {
             char currentChar = inExpress.charAt(0);
             if (currentChar == 'x' || currentChar == '/' || currentChar == ')'){
@@ -89,6 +90,21 @@ public class CalcPresenter {
             }
         }
         return inExpress;
+    }
+
+    private boolean isCorrectNumeric(String express){
+        char currentChar = express.charAt(express.length() - 1);
+        if (currentChar == '.') {
+            express = express.substring(0,express.length()-1);
+            while (!express.isEmpty() && currentChar >= '0' && currentChar <= '9' || currentChar == '.') {
+                currentChar = express.charAt(express.length()-1);
+                if (currentChar == '.'){
+                    return false;
+                }
+                express = express.substring(0,express.length()-1);
+            }
+        }
+        return true;
     }
 
     public StringBuilder buildExpress(String s){

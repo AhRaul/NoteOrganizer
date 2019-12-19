@@ -182,6 +182,7 @@ public class SingleNoteActivity extends BaseActivity
                 break;
             case R.id.calc_button:
                 calculatorFragment.show(getSupportFragmentManager(), "calculator");
+                calculatorFragment.setTvOutResult(noteText);
                 break;
             case R.id.share_button:
                 presenter.shareNote();
