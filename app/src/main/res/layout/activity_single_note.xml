@@ -148,7 +148,6 @@
                 android:layout_height="wrap_content"
                 app:icon="@drawable/baseline_format_italic_24"
                 app:iconGravity="textStart"/>
-<!-- todo underline, strike -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/strike_style"
                 style="?attr/materialButtonOutlinedStyle"
