@@ -47,14 +47,14 @@ public class SortListComparator {
     private static class DateComparator implements Comparator<Note> {
         @Override
         public int compare(Note o1, Note o2) {
-            return o1.dataTime > o2.dataTime ? 1 : 0;
+            return Long.compare(o1.dataTime, o2.dataTime);
         }
     }
 
     private static class NumberComparator implements Comparator<Note> {
         @Override
         public int compare(Note o1, Note o2) {
-            return o1.id > o2.id ? 1 : 0;
+            return Long.compare(o1.id, o2.id);
         }
     }
 
