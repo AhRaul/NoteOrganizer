@@ -32,7 +32,7 @@ public class AppConfig extends Application {
         instance = this;
         database = Room.databaseBuilder(this, DataBase.class, "database")
                 .allowMainThreadQueries()
-                .addMigrations(NoteDaoMigrations.MIGRATION_1_2)
+                .addMigrations(Migrations.MIGRATION_1_2)
                 .build();
         appSettings = new SharedPreferencesManager(this);
         createDirectory();
