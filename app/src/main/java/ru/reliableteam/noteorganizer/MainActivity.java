@@ -27,11 +27,6 @@ public class MainActivity extends BaseActivity {
         hideKeyBoard();
     }
 
-    private void setAppTheme() {
-        SharedPreferencesManager appSettings = new SharedPreferencesManager(this);
-        setTheme(appSettings.getAppTheme());
-    }
-
     private void setAppNavigation(){
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

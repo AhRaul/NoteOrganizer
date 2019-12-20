@@ -32,8 +32,7 @@ import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.TextSp
 
 // todo need text utils
 public class SingleNoteActivity extends BaseActivity
-        implements View.OnClickListener, MaterialButtonToggleGroup.OnButtonCheckedListener,
-        StyleState {
+        implements MaterialButtonToggleGroup.OnButtonCheckedListener, StyleState {
     private final String CLASS_TAG = "SingleNoteActivity";
 
     private SingleNotePresenter presenter;
@@ -49,25 +48,29 @@ public class SingleNoteActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferencesManager appSettings = new SharedPreferencesManager(this);
-        setTheme(appSettings.getAppTheme());
-
+        setAppTheme();
         setContentView(R.layout.activity_single_note);
+        hideKeyBoard();
 
-
-        presenter = new SingleNotePresenter(this);
-        spanPresenter = new TextSpanPresenter(this);
-
+        initPresenters();
         calculatorFragment = new CalculatorFragment();
 
         initUI();
         getClickedNote();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         presenter.checkSharedIntent();
     }
 
+    private void initPresenters() {
+        presenter = new SingleNotePresenter(this);
+        spanPresenter = new TextSpanPresenter(this);
+    }
     private void initUI() {
+        initNoteTextUI();
+        initTextDecorationUI();
+        initNoteInteractOptionsUI();
+    }
+    private void initNoteTextUI() {
         noteTitle = findViewById(R.id.note_title);
         noteText = findViewById(R.id.note_text);
 
@@ -78,40 +81,35 @@ public class SingleNoteActivity extends BaseActivity
             }
         };
         noteText.setSpannableFactory(spannableFactory);
-        noteText.setOnClickListener(this);
+        noteText.setOnClickListener( v -> onSelectionChanged() );
         noteText.addTextChangedListener(getTextChangeListener());
 
+    }
+    private void initTextDecorationUI() {
         toggleGroup = findViewById(R.id.toggle_style_button_group);
         toggleGroup.addOnButtonCheckedListener(this);
 
         boldBtn = findViewById(R.id.bold_style);
-        boldBtn.setOnClickListener(this);
-
         italicBtn = findViewById(R.id.italic_style);
-        italicBtn.setOnClickListener(this);
-
         strikeBtn = findViewById(R.id.strike_style);
-        strikeBtn.setOnClickListener(this);
-
         underlineBtn = findViewById(R.id.underline_style);
-        underlineBtn.setOnClickListener(this);
-
+    }
+    private void initNoteInteractOptionsUI() {
         cancelBtn = findViewById(R.id.cancel_button);
-        cancelBtn.setOnClickListener(this);
+        cancelBtn.setOnClickListener( v -> this.finish() );
 
         saveBtn = findViewById(R.id.save_button);
-        saveBtn.setOnClickListener(this);
+        saveBtn.setOnClickListener( saveNote );
 
         deleteBtn = findViewById(R.id.delete_button);
-        deleteBtn.setOnClickListener(this);
+        deleteBtn.setOnClickListener( deleteNote );
         deleteBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
 
         calcBtn = findViewById(R.id.calc_button);
-        calcBtn.setOnClickListener(this);
+        calcBtn.setOnClickListener( v -> calculatorFragment.show(getSupportFragmentManager(), "calculator") );
 
         shareBtn = findViewById(R.id.share_button);
-        shareBtn.setOnClickListener(this);
-
+        shareBtn.setOnClickListener( v -> presenter.shareNote() );
     }
 
     private void getClickedNote() {
@@ -141,35 +139,16 @@ public class SingleNoteActivity extends BaseActivity
         noteText.setSelection(endSelection);
     }
 
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cancel_button:
-                this.finish();
-                break;
-            case R.id.save_button:
-                presenter.saveNote();
-                showHint("Ваша заметка была сохранена!");
-                onBackPressed();
-                break;
-            case R.id.delete_button:
-                showHint("Ваша заметка была удалена!");
-                presenter.deleteNote();
-                onBackPressed();
-                break;
-            case R.id.note_text:
-                onSelectionChanged();
-                break;
-            case R.id.calc_button:
-                calculatorFragment.show(getSupportFragmentManager(), "calculator");
-                break;
-            case R.id.share_button:
-                presenter.shareNote();
-                break;
-        }
-    }
+    private final View.OnClickListener saveNote = v -> {
+        presenter.saveNote();
+        showHint(getResources().getString(R.string.saved_note_hint));
+        onBackPressed();
+    };
+    private final View.OnClickListener deleteNote = v -> {
+        showHint(getResources().getString(R.string.deleted_note_hint));
+        presenter.deleteNote();
+        onBackPressed();
+    };
 
     @Override
     public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
