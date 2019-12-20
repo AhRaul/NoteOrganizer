@@ -106,7 +106,10 @@ public class SingleNoteActivity extends BaseActivity
         deleteBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
 
         calcBtn = findViewById(R.id.calc_button);
-        calcBtn.setOnClickListener( v -> calculatorFragment.show(getSupportFragmentManager(), "calculator") );
+        calcBtn.setOnClickListener( v -> {
+            calculatorFragment.show(getSupportFragmentManager(), "calculator");
+            calculatorFragment.setTvOutResult(noteText);
+        } );
 
         shareBtn = findViewById(R.id.share_button);
         shareBtn.setOnClickListener( v -> presenter.shareNote() );

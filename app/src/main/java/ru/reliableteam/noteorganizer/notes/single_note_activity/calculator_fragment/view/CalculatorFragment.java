@@ -13,14 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter.CalcPresenter;
+import ru.reliableteam.noteorganizer.notes.single_note_activity.view.SingleNoteActivity;
 
 
 // todo вылетает при клике на TextView
 public class CalculatorFragment extends DialogFragment implements View.OnClickListener {
 
     private View calc;
+
+    TextInputEditText tvOutResult;
+
+    public void setTvOutResult(TextInputEditText tvOutResult) {
+        this.tvOutResult = tvOutResult;
+    }
+
     private Button btnBracketLeft;
     private Button btnBracketRight;
     private Button btnClear;
@@ -41,12 +51,14 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
     private  Button btnMinus;
     private  Button btnSeparator;
     private  Button btnEqually;
+    private  Button btnSetResultAndQuit;
     private  TextView tvExpress;
     private  TextView tvResult;
 
     private ImageButton cancelBtn;
 
     private CalcPresenter calcPresenter;
+
 
     @Nullable
     @Override
@@ -100,6 +112,8 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
         btnSeparator.setOnClickListener(this);
         btnEqually = calc.findViewById(R.id.btn_equally);
         btnEqually.setOnClickListener(this);
+        btnSetResultAndQuit = calc.findViewById(R.id.btn_set_result);
+        btnSetResultAndQuit.setOnClickListener(this);
         tvExpress = calc.findViewById(R.id.tv_express);
         tvResult = calc.findViewById(R.id.tv_result);
 
@@ -112,6 +126,22 @@ public class CalculatorFragment extends DialogFragment implements View.OnClickLi
         String result;
         switch (v.getId()) {
             case R.id.btn_cancel_calc:
+                getDialog().dismiss();
+                break;
+            case R.id.btn_set_result:
+                String text = tvOutResult.getText().toString();
+                StringBuilder stringBuilder = new StringBuilder();
+                int idx = tvOutResult.getSelectionEnd();;
+                if (text.isEmpty()) stringBuilder.append(tvResult.getText().toString());
+                if (text.length() >= 1) {
+                    String textBeforeIndex = text.substring(0, idx);
+                    String textAfterIndex = text.substring(tvOutResult.getSelectionEnd());
+                    stringBuilder.append(textBeforeIndex)
+                            .append(tvResult.getText().toString())
+                            .append(textAfterIndex);
+                }
+                tvOutResult.setText(stringBuilder.toString());
+                tvOutResult.setSelection(idx+tvResult.getText().toString().length());
                 getDialog().dismiss();
                 break;
             case R.id.btn_clear:
