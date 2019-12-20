@@ -18,12 +18,6 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <ImageView
-            android:id="@+id/note_item_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop" />
-
         <TextView
             android:id="@+id/note_item_title"
             style="@style/TextView.Header"
@@ -40,6 +34,17 @@
             android:ellipsize="end"
             android:maxLines="5"
             tools:text="@string/subheader_sample" />
+
+        <TextView
+            android:id="@+id/note_item_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20/12/2019"
+            style="@style/TextView.SubHeader"
+            android:layout_gravity="end"
+            android:layout_marginTop="4dp"
+            android:textSize="10dp"
+            />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

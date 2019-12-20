@@ -12,6 +12,7 @@ import android.widget.TextView;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.INotesPresenter;
+import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 /**
  * Base Adapter for recycler.
@@ -58,7 +59,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
 
         private TextView title;
         private TextView subtitle;
-        private ImageView image;
+        private TextView date;
 
         public NotesViewHolder(View view, INotesPresenter presenter) {
             super(view);
@@ -66,35 +67,30 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
             this.presenter = presenter;
 
             init();
-            itemView.setOnClickListener(shortClickListener);
-            itemView.setOnLongClickListener(longClickListener);
         }
-
         private void init() {
+            initItemViewFields();
+            initItemViewClickListeners();
+        }
+        private void initItemViewFields() {
             title = itemView.findViewById(R.id.note_item_title);
             subtitle = itemView.findViewById(R.id.note_item_subtitle);
-            image = itemView.findViewById(R.id.note_item_image);
+            date = itemView.findViewById(R.id.note_item_data);
+        }
+        private void initItemViewClickListeners() {
+            itemView.setOnClickListener( v -> presenter.clicked(getPos()) );
+            itemView.setOnLongClickListener( v -> {
+                presenter.longClicked(getPos(), itemView);
+                return true;
+            });
         }
         @Override
         public void setNote(Note note) {
             title.setText(note.title);
             subtitle.setText(note.body);
-            if (note.cardImageUri != 0)
-                image.setImageResource(note.cardImageUri);
-            else
-                subtitle.setMaxLines(15);
+            date.setText(DateUtils.dateToString(note.dataTime));
         }
         @Override
         public int getPos() { return getLayoutPosition(); }
-
-        private final View.OnLongClickListener longClickListener = v -> {
-            System.out.println(getPos());
-            presenter.longClicked(getPos(), itemView);
-            return true;
-        };
-        private final View.OnClickListener shortClickListener = v -> {
-            Log.i(CLASS_TAG, "clicked " + getPos());
-            presenter.clicked(getPos());
-        };
     }
 }

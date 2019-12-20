@@ -1,5 +1,6 @@
 package ru.reliableteam.noteorganizer.todos.model;
 
+
 public class Todo {
     public Long id;
     public Long createDate;
@@ -15,5 +16,18 @@ public class Todo {
         title = "";
         description = "";
         isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "id=" + id +
+                ", createDate=" + createDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", parentId=" + parentId +
+                ", isDone=" + isDone +
+                '}';
     }
 }

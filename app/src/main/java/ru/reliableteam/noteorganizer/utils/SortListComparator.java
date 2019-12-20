@@ -47,7 +47,7 @@ public class SortListComparator {
     private static class DateComparator implements Comparator<Note> {
         @Override
         public int compare(Note o1, Note o2) {
-            return o2.dataTime.compareTo(o1.dataTime);
+            return o1.dataTime.compareTo(o2.dataTime);
         }
     }
 
