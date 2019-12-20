@@ -34,6 +34,9 @@
 
 <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Todos</string>
+    <string name="missed_todo_hint">Missed</string>
+    <string name="current_todo_hint">Current</string>
+    <string name="done_todo_hint">Done</string>
 
     <string name="header_sample">Trip to London</string>
     <string name="subheader_sample">

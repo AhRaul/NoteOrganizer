@@ -13,12 +13,12 @@ public class SharedPreferencesManager {
         sp = context.getSharedPreferences("app_settings", Context.MODE_PRIVATE);
     }
 
-    public int getClickedNoteId() {
-        return sp.getInt("clickedNoteId", -1);
+    public long getClickedNoteId() {
+        return sp.getLong("clickedNoteId", -1);
     }
-    public void setClickedNoteId(int id) {
+    public void setClickedNoteId(long id) {
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("clickedNoteId", id);
+        editor.putLong("clickedNoteId", id);
         editor.apply();
     }
 

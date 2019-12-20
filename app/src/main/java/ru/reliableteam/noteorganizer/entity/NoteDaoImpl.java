@@ -24,7 +24,7 @@ public class NoteDaoImpl {
     // class vars
     protected ArrayList<Note> notesList = new ArrayList<>();
     protected List<Note> selectedNotes = new ArrayList<>();
-    protected Note note = new Note("", "", 0);
+    protected Note note = new Note();
 
     protected void saveNote(Note note) {
         disposable = Completable.fromAction( () -> noteDao.insert(note) )
@@ -69,7 +69,7 @@ public class NoteDaoImpl {
                 );
     }
 
-    protected void getNote(int id, BasePresenter presenter) {
+    protected void getNote(long id, BasePresenter presenter) {
         disposable = noteDao.getById(id)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

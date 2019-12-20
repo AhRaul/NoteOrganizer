@@ -53,7 +53,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
-        <item name="textColor">@color/colorOnBackgroundDark</item>
+        <item name="android:textColor">@color/colorOnBackgroundDark</item>
     </style>
     <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet</item>
@@ -90,7 +90,7 @@
         <item name="android:windowLightStatusBar">true</item>
 <!--        <item name="android:windowTranslucentStatus">false</item>-->
         <item name="android:statusBarColor">#ffffff</item>
-        <item name="textColor">@color/colorPrimaryText</item>
+<!--        <item name="textColor">@color/colorPrimaryText</item>-->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 <!--     Base application theme. -->
@@ -120,5 +120,21 @@
     <style name="FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">?attr/colorSurface</item>
         <item name="tint">?attr/colorAccent</item>
+    </style>
+    <style name="ButtonTodoChooser.Done" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@drawable/chooser_done_background_tint_statelist</item>
+        <item name="iconTint">@drawable/chooser_done_statelist</item>
+    </style>
+    <style name="ButtonTodoChooser.Missed" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@drawable/chooser_missed_background_tint_statelist</item>
+        <item name="android:textColor">@drawable/chooser_missed_statelist</item>
+        <item name="iconTint">@drawable/chooser_missed_statelist</item>
+        <item name="strokeColor">@drawable/chooser_missed_statelist_stroke_color</item>
+    </style>
+    <style name="ButtonTodoChooser.Current" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@drawable/chooser_current_background_tint_statelist</item>
+        <item name="android:textColor">@drawable/chooser_current_statelist</item>
+        <item name="iconTint">@drawable/chooser_current_statelist</item>
+        <item name="strokeColor">@drawable/chooser_current_statelist_stroke_color</item>
     </style>
 </resources>

@@ -23,7 +23,7 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
     }
 
     public void getClickedNote() {
-        int id = appSettings.getClickedNoteId();
+        long id = appSettings.getClickedNoteId();
         if (id != NEW_NOTE) {
             getNote(id, this);
         }

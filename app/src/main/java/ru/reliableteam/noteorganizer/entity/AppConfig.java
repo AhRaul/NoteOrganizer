@@ -5,6 +5,8 @@ import android.app.Application;
 import android.os.Environment;
 
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.RoomOpenHelper;
 
 import java.io.File;
 
@@ -30,10 +32,13 @@ public class AppConfig extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
         database = Room.databaseBuilder(this, DataBase.class, "database")
-                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .addMigrations(Migrations.MIGRATION_1_2)
+//                .allowMainThreadQueries()
                 .build();
+
         appSettings = new SharedPreferencesManager(this);
         createDirectory();
     }

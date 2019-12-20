@@ -6,6 +6,7 @@
     <color name="colorPrimaryText">#2a2a2a</color>
     <color name="colorSecondaryText">#5a5a5a</color>
     <color name="colorDivider">#cacaca</color>
+    <color name="colorCurrentTodos">#FF8C00</color>
 
     <color name="cardStrokeDefault">#50afafaf</color>
     <color name="cardStrokeSelected">#008577</color>

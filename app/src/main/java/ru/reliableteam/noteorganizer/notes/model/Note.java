@@ -1,6 +1,8 @@
 package ru.reliableteam.noteorganizer.notes.model;
 
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,18 +17,12 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Note {
     @PrimaryKey(autoGenerate = true)
-    public Integer id;
+    public long id;
     public String title;
     public String body;
-    public Integer cardImageUri;
-    public Long dataTime;
-    public Long noteColor;
-
-    public Note(String title, String body, int cardImageUri) {
-        this.title = title;
-        this.body = body;
-        this.cardImageUri = cardImageUri;
-    }
+    public int cardImageUri;
+    public long dataTime;
+//    public int noteColor = 0;
 
     @Override
     public String toString() {
@@ -36,7 +32,7 @@ public class Note {
                 ", body='" + body + '\'' +
                 ", cardImageUri=" + cardImageUri +
                 ", dataTime=" + dataTime +
-                ", noteColor=" + noteColor +
+//                ", noteColor=" + noteColor +
                 '}';
     }
 

@@ -26,7 +26,7 @@ public class TodoPresenter implements ITodoPresenter {
     public void getTodos() {
         Todo todo = new Todo();
         todo.title = "title";
-        int n = 10;
+        int n = 20;
         while (n-- > 0)
             todos.add(todo);
         view.notifyDataChanged();

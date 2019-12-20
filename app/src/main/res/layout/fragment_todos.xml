@@ -1,19 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
-    <TextView
+    tools:context=".notes.notes_list_fragment.view.NotesFragment"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#50ac0000"
-        android:text="will be implemented soon"
-        style="@style/TextView.Title"
-        android:gravity="center"/>
+        android:background="@android:color/transparent"
+        app:elevation="0dp"
+        >
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@android:color/transparent">
+            <include layout="@layout/todos_app_bar" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todos_rv"
         android:layout_width="match_parent"
@@ -23,4 +31,14 @@
         tools:itemCount="5"
         tools:listitem="@layout/todo_item" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_todo_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/baseline_create_24"
+        app:layout_scrollFlags="scroll|enterAlways"
+        style="@style/FloatingActionButton"
+        />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

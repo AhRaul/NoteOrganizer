@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+<!--    <TextView-->
+<!--        style="@style/TextView.Title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Select states" />-->
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:singleSelection="true"
+        android:gravity="center">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/todos_done"
+            style="@style/ButtonTodoChooser.Done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done_todo_hint"
+            app:iconGravity="textStart"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/todos_current"
+            style="@style/ButtonTodoChooser.Current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/current_todo_hint"
+            app:iconGravity="textStart"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/todos_missed"
+            style="@style/ButtonTodoChooser.Missed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/missed_todo_hint"
+            app:iconGravity="textStart"
+            />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

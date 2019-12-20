@@ -108,6 +108,8 @@ public class NotesFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(new NotesRecyclerAdapter(presenter));
         recyclerView.addOnScrollListener(getRecyclerScrollListener());
+
+        presenter.getNotes();
     }
 
     public void notifyDataChanged() {

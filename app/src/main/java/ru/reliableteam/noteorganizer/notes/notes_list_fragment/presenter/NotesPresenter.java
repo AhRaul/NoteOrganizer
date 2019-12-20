@@ -43,7 +43,7 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     public NotesPresenter(NotesFragment view) {
         this.fragmentView = view;
         appSettings = getAppSettings();
-        getNotes();
+//        getNotes();
     }
 
     public void getNotes() {
