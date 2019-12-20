@@ -90,7 +90,7 @@
             android:layout_weight="1">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/note_title"
-                    style="@style/TextView.Header"
+                    style="@style/TextView.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -98,6 +98,10 @@
                     android:inputType="textMultiLine|textCapSentences"
                     tools:text="Необычный чай"
                     android:imeOptions="flagNoExtractUi"/>
+            <View
+                style="@style/Divider"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"/>
 
                 <ScrollView
                     android:layout_width="match_parent"
@@ -127,7 +131,8 @@
             android:id="@+id/toggle_style_button_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:singleSelection="true">
+            app:singleSelection="true"
+            android:visibility="gone">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bold_style"

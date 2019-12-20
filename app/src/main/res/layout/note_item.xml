@@ -23,7 +23,8 @@
             style="@style/TextView.Header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
+            android:maxLines="2"
+            android:ellipsize="end"
             tools:text="@string/header_sample" />
 
         <TextView
@@ -39,11 +40,11 @@
             android:id="@+id/note_item_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20/12/2019"
+            tools:text="20/12/2019"
             style="@style/TextView.SubHeader"
             android:layout_gravity="end"
             android:layout_marginTop="4dp"
-            android:textSize="10dp"
+            android:textSize="12sp"
             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
