@@ -50,4 +50,7 @@ dependencies {
     // todos expansion panel
     implementation 'com.github.florent37:expansionpanel:1.2.2'
 
+    //dagger
+    implementation 'com.google.dagger:dagger:2.23.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
 }

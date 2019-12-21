@@ -3,6 +3,8 @@ package ru.reliableteam.noteorganizer.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -16,6 +18,7 @@ import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManage
 import ru.reliableteam.noteorganizer.notes.model.Note;
 
 public class NoteDaoImpl {
+
     private PersistenceManager persistenceManager = new PersistenceManager();
     private NoteDAO noteDao = persistenceManager.getNoteDao();
     private Disposable disposable = null;

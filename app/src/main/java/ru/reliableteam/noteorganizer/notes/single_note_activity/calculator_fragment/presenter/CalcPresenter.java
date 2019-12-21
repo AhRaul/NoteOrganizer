@@ -1,15 +1,17 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter;
 
+import javax.inject.Inject;
+
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.model.CalculatorModel;
 
 public class CalcPresenter {
-
+    @Inject
     CalculatorModel calculator;
+
     StringBuilder express;
 
     public CalcPresenter() {
         express = new StringBuilder();
-        calculator = new CalculatorModel();
     }
 
     public String getResult(){
