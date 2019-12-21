@@ -22,7 +22,7 @@ public class Note {
     public String body;
     public int cardImageUri;
     public long dataTime;
-//    public int noteColor = 0;
+    public int noteColor = 0;
 
     @Override
     public String toString() {
@@ -32,7 +32,7 @@ public class Note {
                 ", body='" + body + '\'' +
                 ", cardImageUri=" + cardImageUri +
                 ", dataTime=" + dataTime +
-//                ", noteColor=" + noteColor +
+                ", noteColor=" + noteColor +
                 '}';
     }
 

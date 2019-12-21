@@ -3,18 +3,18 @@ package ru.reliableteam.noteorganizer.todos.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.view.TodosFragment;
 import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
 
-public class TodoPresenter implements ITodoPresenter {
+public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
 
     private List<Todo> todos = new ArrayList<>();
     private TodosFragment view;
 
     public TodoPresenter(TodosFragment view) {
         this.view = view;
-//        getTodos();
     }
 
     @Override
@@ -24,12 +24,7 @@ public class TodoPresenter implements ITodoPresenter {
 
     @Override
     public void getTodos() {
-        Todo todo = new Todo();
-        todo.title = "title";
-        int n = 20;
-        while (n-- > 0)
-            todos.add(todo);
-        view.notifyDataChanged();
+        getAll(this);
     }
 
     @Override
@@ -46,7 +41,10 @@ public class TodoPresenter implements ITodoPresenter {
 
     @Override
     public void saveTodo() {
-
+        // get title
+        // get description
+        // get enddate
+        // get createdate
     }
 
     @Override

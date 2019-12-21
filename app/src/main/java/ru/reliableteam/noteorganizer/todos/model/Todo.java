@@ -1,13 +1,17 @@
 package ru.reliableteam.noteorganizer.todos.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity
 public class Todo {
-    public Long id;
-    public Long createDate;
-    public Long endDate;
+    @PrimaryKey(autoGenerate = true)
+    public long id;
+    public long createDate;
+    public long endDate;
     public String title;
     public String description;
-    public Long parentId;
+    public long parentId;
     public boolean isDone;
 
     public Todo() {

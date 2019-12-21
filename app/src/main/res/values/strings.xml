@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
 
 
-<!--    SETTINGS FRAGMENT   -->
+    <!--    SETTINGS FRAGMENT   -->
     <string name="title_settings">Settings</string>
     <string name="app_theme_hint">Select theme for app</string>
     <string name="dark_theme_hint">Dark mode</string>
@@ -32,11 +32,12 @@
     <string name="saved_note_hint">Your note was saved!</string>
     <string name="deleted_note_hint">Your note was deleted!</string>
 
-<!--    TODOS FRAGMENT   -->
+    <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Todos</string>
     <string name="missed_todo_hint">Missed</string>
     <string name="current_todo_hint">Current</string>
     <string name="done_todo_hint">Done</string>
+    <string name="saved_todo_hint">Your todo was saved</string>
 
     <string name="header_sample">Trip to London</string>
     <string name="subheader_sample">
@@ -45,7 +46,7 @@
 
     <string name="search_view_hint">Search for notes</string>
 
-<!--    SINGLE NOTE ACTIVITY-->
+    <!--    SINGLE NOTE ACTIVITY-->
     <string name="delete">delete</string>
     <string name="save">save</string>
     <string name="note_title_hint">Title</string>
@@ -53,7 +54,8 @@
     <string name="left_bracket">(</string>
     <string name="right_bracket">)</string>
     <string name="clear">C</string>
-    -<string name="back_space"><![CDATA[<--]]></string>
+    -
+    <string name="back_space"><![CDATA[<--]]></string>
     <string name="share">Share</string>
     <string name="send_to">Share your note..</string>
 

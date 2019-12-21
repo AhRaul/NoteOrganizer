@@ -38,6 +38,7 @@
     <string name="missed_todo_hint">Пропущены</string>
     <string name="current_todo_hint">Текущие</string>
     <string name="done_todo_hint">Выполнены</string>
+    <string name="saved_todo_hint">Ваша задача сохранена</string>
 
     <string name="header_sample">Поездка в Лондон</string>
     <string name="subheader_sample">
