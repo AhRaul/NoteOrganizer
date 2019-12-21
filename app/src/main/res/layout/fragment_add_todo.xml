@@ -3,14 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_hideable="true"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:orientation="vertical">
+
+        <View
+            android:background="@drawable/rounded_shape"
+            android:layout_width="50dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -61,17 +70,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextView.Title"
-                android:text="Todo title"
+                android:background="@android:color/transparent"
+                android:hint="Todo title"
                 />
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextView.SubHeader"
-                android:text="Description"
+                android:hint="Description"
+                android:background="@android:color/transparent"
                 />
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -81,17 +92,16 @@
                 <ImageButton
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@android:drawable/ic_menu_my_calendar"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:tint="?attr/colorOnSurface"/>
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/outline_calendar_today_24"
+                    android:padding="8dp" />
                 <ImageButton
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@android:drawable/ic_lock_idle_alarm"
-                    android:background="@android:color/transparent"
+                    android:src="@drawable/baseline_alarm_add_24"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="8dp"
-                    android:tint="?attr/colorOnSurface"/>
+                    />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
