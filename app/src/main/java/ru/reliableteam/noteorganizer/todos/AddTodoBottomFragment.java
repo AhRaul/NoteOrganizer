@@ -33,11 +33,11 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
 
         BottomSheetDialog bottomSheet = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
 
-        //inflating layout
+//        inflating layout
         View view = View.inflate(getContext(), R.layout.fragment_add_todo, null);
-
-        // TODO: 21.12.2019 add todo saving 
-        
+//
+//         TODO: 21.12.2019 add todo saving
+//
         cancelBtn = view.findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener( v -> dismiss() );
 
@@ -45,16 +45,16 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
 
         bottomSheetBehavior = BottomSheetBehavior.from((View) (view.getParent()));
 
-        //setting Peek at the 16:9 ratio keyline of its parent.
-        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
-
+//        setting Peek at the 16:9 ratio keyline of its parent.
+//        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
+//
         return bottomSheet;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
     }
 }

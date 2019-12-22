@@ -25,7 +25,6 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
     </style>
-
     <style name="TextView.Header" parent="TextView">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
@@ -49,22 +48,21 @@
     </style>
 
 <!--    BOTTOM SHEET DIALOG STYLE -->
+    <style name="BottomSheetDialogStyle.Light" parent="AppBottomSheetDialogTheme">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="BottomSheetDialogStyle.Dark" parent="AppBottomSheetDialogTheme">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/colorSurfaceDark</item>
+    </style>
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
-        <item name="android:textColor">@color/colorOnBackgroundDark</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
     <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet</item>
-    </style>
-
-    <!--    EXPAND ANCHOR   -->
-    <style name="ExpandView">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">5dp</item>
-        <item name="android:background">@drawable/rounded_shape</item>
-        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
     <!--    DIVIDER     -->
@@ -88,10 +86,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar">true</item>
-<!--        <item name="android:windowTranslucentStatus">false</item>-->
         <item name="android:statusBarColor">#ffffff</item>
-<!--        <item name="textColor">@color/colorPrimaryText</item>-->
-        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle.Light</item>
     </style>
 <!--     Base application theme. -->
     <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
@@ -113,6 +109,7 @@
         <item name="android:statusBarColor">@color/colorSurfaceDark</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle.Dark</item>
 
 <!--        <item name="textColor">@color/colorOnBackgroundDark</item>-->
     </style>

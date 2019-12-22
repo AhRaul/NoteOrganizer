@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.R;
@@ -43,7 +44,6 @@ public class TodosFragment extends Fragment {
         recyclerView = root.findViewById(R.id.todos_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new TodosRecyclerAdapter(presenter));
-//        recyclerView.addOnScrollListener(getRecyclerScrollListener());
     }
 
     public void notifyDataChanged() {
