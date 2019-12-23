@@ -55,7 +55,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
         private View itemView;
         private INotesPresenter presenter;
 
-        private String CLASS_TAG = "MyViewHolder";
+        private static final String CLASS_TAG = "MyViewHolder";
 
         private TextView title;
         private TextView subtitle;

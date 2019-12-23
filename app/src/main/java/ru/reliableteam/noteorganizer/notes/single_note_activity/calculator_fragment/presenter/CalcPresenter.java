@@ -4,9 +4,9 @@ import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragm
 
 public class CalcPresenter {
 
-    CalculatorModel calculator;
-    StringBuilder express;
-    private final int LIMIT_LEN  = 25; //ограничение числа вводимых символов;
+    private CalculatorModel calculator;
+    private StringBuilder express;
+    private final static int LIMIT_LEN  = 25; //ограничение числа вводимых символов;
 
     public CalcPresenter() {
         express = new StringBuilder();
