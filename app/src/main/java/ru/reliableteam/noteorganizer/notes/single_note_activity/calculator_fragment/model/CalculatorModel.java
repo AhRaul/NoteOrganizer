@@ -4,11 +4,7 @@ import java.util.Stack;
 
 public class CalculatorModel {
 
-    private String result;
-
-    public CalculatorModel() {
-        result = "0";
-    }
+    private String result = "0";
 
     public String getResult(){
         return result;
