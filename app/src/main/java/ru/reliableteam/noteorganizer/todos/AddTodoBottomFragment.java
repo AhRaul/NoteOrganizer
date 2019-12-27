@@ -3,6 +3,7 @@ package ru.reliableteam.noteorganizer.todos;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +17,10 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textfield.TextInputEditText;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.todos.view.TodosFragment;
 
 
 public class AddTodoBottomFragment extends BottomSheetDialogFragment {
@@ -25,7 +28,9 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
 
     BottomSheetBehavior bottomSheetBehavior;
     ImageButton cancelBtn;
+    ImageButton saveBtn;
 
+    TextInputEditText title, description;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,21 +45,24 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
 //
         cancelBtn = view.findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener( v -> dismiss() );
+        saveBtn = view.findViewById(R.id.save_button);
+        saveBtn.setOnClickListener(v -> saveTodo());
+        title = view.findViewById(R.id.todo_title);
+        description = view.findViewById(R.id.todo_description);
 
         bottomSheet.setContentView(view);
 
         bottomSheetBehavior = BottomSheetBehavior.from((View) (view.getParent()));
 
-//        setting Peek at the 16:9 ratio keyline of its parent.
-//        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.PEEK_HEIGHT_AUTO);
-//
         return bottomSheet;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
+    private void saveTodo() {
+        Intent intent = new Intent();
+        intent.putExtra("title", title.getText().toString());
+        intent.putExtra("description", description.getText().toString());
+        System.out.println(getTargetRequestCode());
+        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+        dismiss();
     }
 }

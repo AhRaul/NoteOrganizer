@@ -9,6 +9,7 @@ import ru.reliableteam.noteorganizer.todos.view.TodosFragment;
 import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
 
 public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
+    public static final int REQUEST_NEW_TODO = 1;
 
     private List<Todo> todos = new ArrayList<>();
     private TodosFragment view;
@@ -40,11 +41,8 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
 
 
     @Override
-    public void saveTodo() {
-        // get title
-        // get description
-        // get enddate
-        // get createdate
+    public void saveTodo(Todo todo) {
+        insertTodo(todo, this);
     }
 
     @Override

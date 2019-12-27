@@ -9,6 +9,7 @@ class Migrations {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE NOTE ADD COLUMN noteColor INTEGER");
+            // todo сделать миграцию самостоятельно через создание ТМП таблицы
         }
     };
 }

@@ -1,6 +1,7 @@
 package ru.reliableteam.noteorganizer.todos.presenter;
 
 import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
 
 public interface ITodoPresenter extends BasePresenter {
@@ -9,5 +10,5 @@ public interface ITodoPresenter extends BasePresenter {
     int getItemCount ();
 
     void deleteTodo();
-    void saveTodo();
+    void saveTodo(Todo todo);
 }
