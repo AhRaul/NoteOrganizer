@@ -20,6 +20,7 @@ import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.AddTodoBottomFragment;
 import ru.reliableteam.noteorganizer.todos.presenter.TodoPresenter;
 import ru.reliableteam.noteorganizer.todos.view.recycler.TodosRecyclerAdapter;
+import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 public class TodosFragment extends Fragment {
     private final int REQUEST_NEW_TODO = 1;
@@ -68,14 +69,15 @@ public class TodosFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_NEW_TODO:
+            if (requestCode == REQUEST_NEW_TODO) {
                     // todo convert to todos
                     String title = data.getStringExtra("title");
                     String body = data.getStringExtra("description");
-                    System.out.println(title + " " + body);
-                    //String title = data.getStringExtra("title");
-                    break;
+                    Long dateTime = data.getLongExtra("endDate", 0L);
+                    Boolean timeChosen = data.getBooleanExtra("timeChosen", false);
+                    String date = DateUtils.dateToString(dateTime);
+
+                    System.out.println(title + " " + body + " " + date + " time chosen = " + timeChosen);
             }
         }
     }

@@ -24,15 +24,13 @@ public class DateUtils {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
-//  todo delete
-
-//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//        int minute = calendar.get(Calendar.MINUTE);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
 
         String date = getNormalizedDate(day, month, year);
-//        String time = getNormalizedTime(hour, minute);
+        String time = getNormalizedTime(hour, minute);
 
-        return date;
+        return date + " " + time;
     }
 
     public static Long stringToDate(String time, String date) {
