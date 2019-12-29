@@ -40,4 +40,5 @@
             style="@style/TextView.SubHeader"
             android:visibility="gone"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
+    <TextView style="@style/Divider"/>
 </androidx.appcompat.widget.LinearLayoutCompat>
