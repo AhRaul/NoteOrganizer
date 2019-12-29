@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
+import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.view.TodosFragment;
 import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
 
 public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
     public static final int REQUEST_NEW_TODO = 1;
+    private static final int NEW_TODO = -1;
+    private SharedPreferencesManager appSettings;
+
 
     private TodosFragment view;
 
     public TodoPresenter(TodosFragment view) {
         this.view = view;
+        appSettings = getAppSettings();
     }
 
     @Override
@@ -38,27 +43,26 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
         return todoList.size();
     }
 
-
     @Override
     public void saveTodo(String title, String description, Long dateTime, boolean timeChosen) {
-        System.out.println("SAVE TODO");
-        Todo todo = new Todo();
-        todo.title = title;
-        todo.description = description;
-        todo.endDate = timeChosen ? dateTime : 0;
-        todo.createDate = System.currentTimeMillis();
-        todo.isDone = false;
-        todo.parentId = null;
-
-        saveTodo(todo);
-    }
-    private void saveTodo(Todo todo) {
-        insertTodo(todo, this);
+        dateTime = timeChosen ? dateTime : 0;
+        saveTodo(title, description, dateTime, this);
     }
 
     @Override
     public void deleteTodo() {
 
+    }
+
+    @Override
+    public void clicked(int position) {
+        Todo todo = todoList.get(position);
+        appSettings.setClickedTodoId(todo.id);
+        view.viewTodo();
+    }
+
+    public void newTodo() {
+        appSettings.setClickedTodoId(NEW_TODO);
     }
 
     // todo open existing

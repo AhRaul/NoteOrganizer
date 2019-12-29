@@ -21,6 +21,14 @@ public class SharedPreferencesManager {
         editor.putLong("clickedNoteId", id);
         editor.apply();
     }
+    public long getClickedTodoId() {
+        return sp.getLong("clickedTodoId", -1);
+    }
+    public void setClickedTodoId(long id) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putLong("clickedTodoId", id);
+        editor.apply();
+    }
 
     // theme
     public int getAppTheme() {

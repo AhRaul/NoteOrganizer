@@ -54,6 +54,7 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
             return position;
         }
 
+
     public class TodosViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
         private View itemView;
         private ITodoPresenter presenter;
@@ -61,8 +62,6 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
         private String CLASS_TAG = "MyViewHolder";
 
         private TextView title, dateEnd;
-//        private TextView subtitle;
-//        private ImageView image;
 
         public TodosViewHolder(View view, ITodoPresenter presenter) {
             super(view);
@@ -70,15 +69,12 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
             this.presenter = presenter;
 
             init();
-//            itemView.setOnClickListener(shortClickListener);
-//            itemView.setOnLongClickListener(longClickListener);
+            itemView.setOnClickListener(v -> presenter.clicked(getPos()));
         }
 
         private void init() {
             title = itemView.findViewById(R.id.todo_item_title);
             dateEnd = itemView.findViewById(R.id.todo_date_end);
-//            subtitle = itemView.findViewById(R.id.note_item_subtitle);
-//            image = itemView.findViewById(R.id.note_item_image);
         }
         @Override
         public void setTodo(Todo todo) {
@@ -87,23 +83,8 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
                 dateEnd.setVisibility(View.VISIBLE);
                 dateEnd.setText(DateUtils.dateToString(todo.endDate));
             }
-//            subtitle.setText(note.body);
-//            if (note.cardImageUri != 0)
-//                image.setImageResource(note.cardImageUri);
-//            else
-//                subtitle.setMaxLines(15);
         }
         @Override
         public int getPos() { return getLayoutPosition(); }
-
-//        private final View.OnLongClickListener longClickListener = v -> {
-//            System.out.println(getPos());
-//            presenter.longClicked(getPos(), itemView);
-//            return true;
-//        };
-//        private final View.OnClickListener shortClickListener = v -> {
-//            Log.i(CLASS_TAG, "clicked " + getPos());
-//            presenter.clicked(getPos());
-//        };
     }
 }

@@ -14,8 +14,12 @@ public class DateUtils {
     private final static int HOURS = 24;
     private final static String DATE_OUTPUT_FORMAT = "%s/%s/%s";
     private final static String TIME_OUTPUT_FORMAT = "%s:%s";
-    private final static String BEGIN_DATE = "1/0/1970";
+    private final static String BEGIN_DATE = "01/01/1970";
     private final static String BEGIN_TIME = "00:00";
+
+    public static boolean isDateConfigured(String date) {
+        return !BEGIN_DATE.equals(date);
+    }
 
     public static String dateToString(Long dateInMills) {
         Calendar calendar = getCalendar(dateInMills);

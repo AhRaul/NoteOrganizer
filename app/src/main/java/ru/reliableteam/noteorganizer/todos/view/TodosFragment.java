@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Objects;
+
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.AddTodoBottomFragment;
 import ru.reliableteam.noteorganizer.todos.presenter.TodoPresenter;
@@ -45,10 +47,22 @@ public class TodosFragment extends Fragment {
     private void initUI() {
         addTodoBtn = root.findViewById(R.id.add_todo_fab);
         addTodoBtn.setOnClickListener( v -> {
-            AddTodoBottomFragment todoBottomFragment = new AddTodoBottomFragment();
-            todoBottomFragment.setTargetFragment(TodosFragment.this, REQUEST_NEW_TODO);
-            todoBottomFragment.show(getFragmentManager(), "add_todo");
+            presenter.newTodo();
+            boolean needResponse = true;
+            openBottomSheet(needResponse);
         });
+    }
+
+    public void viewTodo() {
+        boolean needResponse = false;
+        openBottomSheet(needResponse);
+    }
+
+    private void openBottomSheet(Boolean needResponse) {
+        AddTodoBottomFragment todoBottomFragment = new AddTodoBottomFragment();
+        if (needResponse)
+            todoBottomFragment.setTargetFragment(TodosFragment.this, REQUEST_NEW_TODO);
+        todoBottomFragment.show(getFragmentManager(), "add_todo");
     }
 
     private void initRecyclerView() {
@@ -61,8 +75,9 @@ public class TodosFragment extends Fragment {
 
     public void notifyDataChanged() {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter != null)
+        if (adapter != null) {
             adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

@@ -28,9 +28,11 @@ import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     private final String CLASS_TAG = "NotesBtmDialogFragment";
+    private final int REQUEST_NEW_TODO = 1;
     private final String EMPTY_TEXT = "";
 
     private View root;
+    private AddTodoPresenter presenter;
 
     private TextInputEditText title, description;
 
@@ -54,6 +56,7 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         root = View.inflate(getContext(), R.layout.fragment_add_todo, null);
+        presenter = new AddTodoPresenter(this);
 
         BottomSheetDialog bottomSheet = initBottomSheet(savedInstanceState);
         initUI();
@@ -78,6 +81,8 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         initSave();
         title = root.findViewById(R.id.todo_title);
         description = root.findViewById(R.id.todo_description);
+
+        setUIData();
     }
 
     private void initDatePicking() {
@@ -121,9 +126,22 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         ImageButton saveBtn = root.findViewById(R.id.save_button);
         saveBtn.setOnClickListener(v -> saveTodo());
     }
+
+    private void setUIData() {
+        if (!presenter.isNewTodo()) {
+            presenter.getUIData();
+        }
+    }
+
     private void saveTodo() {
+        int requestCode = getTargetRequestCode();
         Intent intent = getIntentWithExtras();
-        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+        if (requestCode == REQUEST_NEW_TODO) {
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+        } else {
+            presenter.updateTodo(intent);
+        }
+
         dismiss();
     }
     private Intent getIntentWithExtras() {
@@ -168,6 +186,23 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     }
     private String getDate() {
         return dateTv.getText().toString();
+    }
+    public void setDate(String date) {
+        dateLayout.setVisibility(View.VISIBLE);
+        dateBtn.setEnabled(false);
+        dateTv.setText(date);
+        timeBtn.setVisibility(View.VISIBLE);
+    }
+    public void setTime(String time) {
+        timeLayout.setVisibility(View.VISIBLE);
+        timeBtn.setEnabled(false);
+        timeTv.setText(time);
+    }
+    public void setTitle(String title_) {
+        title.setText(title_);
+    }
+    public void setDescription(String description_) {
+        description.setText(description_);
     }
 
     private BottomSheetBehavior.BottomSheetCallback getCallback() {

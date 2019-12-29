@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Todo {
     @PrimaryKey(autoGenerate = true)
-    public Long id;
+    public long id;
     public Long createDate;
     public Long endDate;
     public String title;
