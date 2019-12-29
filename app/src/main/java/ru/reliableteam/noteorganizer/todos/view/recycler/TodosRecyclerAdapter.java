@@ -15,6 +15,7 @@ import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.INotesPresenter;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.presenter.ITodoPresenter;
+import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 /**
  * Base Adapter for recycler.
@@ -59,7 +60,7 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
 
         private String CLASS_TAG = "MyViewHolder";
 
-        private TextView title;
+        private TextView title, dateEnd;
 //        private TextView subtitle;
 //        private ImageView image;
 
@@ -75,12 +76,17 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
 
         private void init() {
             title = itemView.findViewById(R.id.todo_item_title);
+            dateEnd = itemView.findViewById(R.id.todo_date_end);
 //            subtitle = itemView.findViewById(R.id.note_item_subtitle);
 //            image = itemView.findViewById(R.id.note_item_image);
         }
         @Override
         public void setTodo(Todo todo) {
             title.setText(todo.title);
+            if (todo.endDate != 0) {
+                dateEnd.setVisibility(View.VISIBLE);
+                dateEnd.setText(DateUtils.dateToString(todo.endDate));
+            }
 //            subtitle.setText(note.body);
 //            if (note.cardImageUri != 0)
 //                image.setImageResource(note.cardImageUri);

@@ -4,19 +4,13 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -29,7 +23,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Calendar;
 
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.todos.view.TodosFragment;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 
@@ -53,6 +46,8 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     private ImageButton timeBtn;
     private TextView timeTv;
     private Boolean timeChosen = false;
+
+    // todo prevent saving without title
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -98,7 +93,7 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
             clearTimeLayout();
         });
         datePickerDialog.setOnDateSetListener(
-                (view, year, month, dayOfMonth) -> showDateLayout(year, month, dayOfMonth)
+                (view, year, month, dayOfMonth) -> showDateLayout(dayOfMonth, month, year)
         );
     }
     private void initTimePicking() {
@@ -147,12 +142,14 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         dateTv.setText(EMPTY_TEXT);
         dateBtn.setEnabled(true);
         timeBtn.setVisibility(View.GONE);
+        timeChosen = false;
     }
     private void showDateLayout(int dayOfMonth, int month, int year) {
         dateLayout.setVisibility(View.VISIBLE);
         dateTv.setText(DateUtils.getNormalizedDate(dayOfMonth, month, year));
         dateBtn.setEnabled(false);
         timeBtn.setVisibility(View.VISIBLE);
+        timeChosen = true;
     }
     private void clearTimeLayout() {
         timeLayout.setVisibility(View.GONE);

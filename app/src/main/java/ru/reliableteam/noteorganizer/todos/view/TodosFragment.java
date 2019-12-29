@@ -39,7 +39,6 @@ public class TodosFragment extends Fragment {
 
         presenter = new TodoPresenter(this);
         initRecyclerView();
-        presenter.getTodos();
 
         return root;
     }
@@ -56,6 +55,8 @@ public class TodosFragment extends Fragment {
         recyclerView = root.findViewById(R.id.todos_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new TodosRecyclerAdapter(presenter));
+
+        presenter.getTodos();
     }
 
     public void notifyDataChanged() {
@@ -72,12 +73,15 @@ public class TodosFragment extends Fragment {
             if (requestCode == REQUEST_NEW_TODO) {
                     // todo convert to todos
                     String title = data.getStringExtra("title");
-                    String body = data.getStringExtra("description");
+                    String description = data.getStringExtra("description");
                     Long dateTime = data.getLongExtra("endDate", 0L);
                     Boolean timeChosen = data.getBooleanExtra("timeChosen", false);
+
+                    presenter.saveTodo(title, description, dateTime, timeChosen);
+
                     String date = DateUtils.dateToString(dateTime);
 
-                    System.out.println(title + " " + body + " " + date + " time chosen = " + timeChosen);
+                    System.out.println(title + " " + description + " " + date + " time chosen = " + timeChosen);
             }
         }
     }

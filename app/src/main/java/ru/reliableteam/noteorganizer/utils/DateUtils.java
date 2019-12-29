@@ -12,10 +12,10 @@ public class DateUtils {
     private final static int SECONDS = 60;
     private final static int MINUTES = 60;
     private final static int HOURS = 24;
-    private final static String DATE_OUTPUT_FORMAT = "%d/%d/%d";
-    private final static String TIME_OUTPUT_FORMAT = "%s : %s";
+    private final static String DATE_OUTPUT_FORMAT = "%s/%s/%s";
+    private final static String TIME_OUTPUT_FORMAT = "%s:%s";
     private final static String BEGIN_DATE = "1/0/1970";
-    private final static String BEGIN_TIME = "00 : 00";
+    private final static String BEGIN_TIME = "00:00";
 
     public static String dateToString(Long dateInMills) {
         Calendar calendar = getCalendar(dateInMills);
@@ -27,6 +27,8 @@ public class DateUtils {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
+        System.out.println(day + " " + month + " " + year + " " + hour + " " + minute);
+
         String date = getNormalizedDate(day, month, year);
         String time = getNormalizedTime(hour, minute);
 
@@ -34,6 +36,7 @@ public class DateUtils {
     }
 
     public static Long stringToDate(String time, String date) {
+        System.out.println("time = " + time + " , date = " + date);
 
         Calendar calendar = getCalendar(0L);
         if (!time.equals("")) {
@@ -54,13 +57,19 @@ public class DateUtils {
 
 
     public static String getNormalizedTime(Integer hour, Integer min) {
-        return String.format(new Locale("ENG"), TIME_OUTPUT_FORMAT,
-                (hour == 0) ? "00" : hour + "",
-                (min == 0) ? "00" : min + ""
-        );
+        String hourS = makeTwoNumbersFromOne(hour);
+        String minS = makeTwoNumbersFromOne(min);
+
+        return String.format(TIME_OUTPUT_FORMAT, hourS, minS);
     }
     public static String getNormalizedDate(Integer day, Integer month, Integer year) {
-        return String.format(new Locale("ENG"), DATE_OUTPUT_FORMAT, day, month, year);
+        String dayS = makeTwoNumbersFromOne(day);
+        String monthS = makeTwoNumbersFromOne(month + 1);
+        String yearS = makeTwoNumbersFromOne(year);
+        return String.format(DATE_OUTPUT_FORMAT, dayS, monthS, yearS);
+    }
+    private static String makeTwoNumbersFromOne(Integer num) {
+        return num < 10 ? "0" + num : num.toString();
     }
     private static Integer[] parseTime(String time) {
         String[] timeStringArr = time.replace(" ", "").split(":");

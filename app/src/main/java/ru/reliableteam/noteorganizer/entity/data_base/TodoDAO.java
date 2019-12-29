@@ -13,7 +13,7 @@ import ru.reliableteam.noteorganizer.todos.model.Todo;
 
 @Dao
 public interface TodoDAO {
-    @Query("SELECT * FROM Todo WHERE parentId IS NULL")
+    @Query("SELECT * FROM Todo")//WHERE parentId IS NULL")
     Flowable<List<Todo>> getAll();
 
     @Update

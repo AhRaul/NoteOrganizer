@@ -35,7 +35,7 @@ public class AppConfig extends Application {
 
         database = Room.databaseBuilder(this, DataBase.class, "database")
                 .fallbackToDestructiveMigration()
-                .addMigrations(Migrations.MIGRATION_1_2)
+//                .addMigrations(Migrations.MIGRATION_1_2)
                 .build();
 
         appSettings = new SharedPreferencesManager(this);

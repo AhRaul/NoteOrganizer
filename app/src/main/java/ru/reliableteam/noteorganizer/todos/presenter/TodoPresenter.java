@@ -11,7 +11,6 @@ import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
 public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
     public static final int REQUEST_NEW_TODO = 1;
 
-    private List<Todo> todos = new ArrayList<>();
     private TodosFragment view;
 
     public TodoPresenter(TodosFragment view) {
@@ -31,17 +30,29 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
     @Override
     public void bindView(IViewHolder viewHolder) {
         int position = viewHolder.getPos();
-        viewHolder.setTodo(todos.get(position));
+        viewHolder.setTodo(todoList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return todos.size();
+        return todoList.size();
     }
 
 
     @Override
-    public void saveTodo(Todo todo) {
+    public void saveTodo(String title, String description, Long dateTime, boolean timeChosen) {
+        System.out.println("SAVE TODO");
+        Todo todo = new Todo();
+        todo.title = title;
+        todo.description = description;
+        todo.endDate = timeChosen ? dateTime : 0;
+        todo.createDate = System.currentTimeMillis();
+        todo.isDone = false;
+        todo.parentId = null;
+
+        saveTodo(todo);
+    }
+    private void saveTodo(Todo todo) {
         insertTodo(todo, this);
     }
 
@@ -49,4 +60,8 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
     public void deleteTodo() {
 
     }
+
+    // todo open existing
+    // todo delete existing
+    // todo sorting
 }

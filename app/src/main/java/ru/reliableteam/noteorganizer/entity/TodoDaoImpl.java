@@ -25,6 +25,7 @@ public class TodoDaoImpl {
     protected Disposable disposable;
 
     protected void getAll(BasePresenter presenter) {
+        System.out.println("GET ALL");
         disposable = todoDAO.getAll()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -39,8 +40,9 @@ public class TodoDaoImpl {
     }
 
     protected void insertTodo(Todo todo, BasePresenter presenter) {
+        System.out.println("INSERT TODO");
         disposable = Completable.fromAction( () -> todoDAO.insert(todo) )
-                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> presenter.notifyDatasetChanged(R.string.saved_todo_hint),
                         Throwable::printStackTrace
