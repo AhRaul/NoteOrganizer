@@ -34,4 +34,8 @@ public class Todo {
                 ", isDone=" + isDone +
                 '}';
     }
+
+    public boolean isEmpty() {
+        return title.isEmpty() && description.isEmpty();
+    }
 }

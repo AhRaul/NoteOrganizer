@@ -48,10 +48,17 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
         note.title = view.getNoteTitle();
         note.dataTime = System.currentTimeMillis();
 
+        if (note.isEmpty()) {
+            view.showVerification();
+            return;
+        }
+
         if (isNewNote())
             super.saveNote(note);
         else
             super.updateNote(note);
+
+        view.onBackPressed();
     }
 
     public void shareNote() {

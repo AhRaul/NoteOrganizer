@@ -1,6 +1,7 @@
 package ru.reliableteam.noteorganizer.todos.add_todo_fragment.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -147,6 +148,10 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     private void saveTodo(int action) {
         int requestCode = getTargetRequestCode();
         Intent intent = getIntentWithExtras(action);
+        if (isTodoEmpty()) {
+            showVerification();
+            return;
+        }
         if (requestCode == REQUEST_NEW_TODO) {
             getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
         } else {
@@ -154,6 +159,9 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         }
 
         dismiss();
+    }
+    private boolean isTodoEmpty() {
+        return title.getText().toString().isEmpty() && description.getText().toString().isEmpty();
     }
     private Intent getIntentWithExtras(int action) {
         Intent intent = new Intent();
@@ -215,6 +223,13 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     }
     public void setDescription(String description_) {
         description.setText(description_);
+    }
+
+    private void showVerification() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.empty_body_hint);
+        builder.setPositiveButton(R.string.positive, (dialog, which) -> dialog.dismiss() );
+        builder.show();
     }
 
     private BottomSheetBehavior.BottomSheetCallback getCallback() {

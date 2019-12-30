@@ -36,4 +36,8 @@ public class Note {
                 '}';
     }
 
+    public boolean isEmpty() {
+        return this.body.isEmpty() && this.title.isEmpty();
+    }
+
 }

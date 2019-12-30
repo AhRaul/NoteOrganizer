@@ -1,5 +1,6 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.view;
 
+import android.app.AlertDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -144,8 +145,6 @@ public class SingleNoteActivity extends BaseActivity
 
     private final View.OnClickListener saveNote = v -> {
         presenter.saveNote();
-        showHint(getResources().getString(R.string.saved_note_hint));
-        onBackPressed();
     };
     private final View.OnClickListener deleteNote = v -> {
         showHint(getResources().getString(R.string.deleted_note_hint));
@@ -225,6 +224,13 @@ public class SingleNoteActivity extends BaseActivity
                 }
             }
         };
+    }
+
+    public void showVerification() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.empty_body_hint);
+        builder.setPositiveButton(R.string.positive, (dialog, which) -> dialog.dismiss() );
+        builder.show();
     }
 
     @Override

@@ -42,7 +42,6 @@ public class NotesFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton writeNewNote;
     private MaterialButton sortNotes;
-    private ImageButton closeBtn, deleteBtn, migrateBtn;
     private TextInputEditText searchNoteTv;
 
     private INotesPresenter presenter;
@@ -93,12 +92,12 @@ public class NotesFragment extends Fragment {
     }
     private void initExtraOptionsLayout() {
         extraOptionsLayout = root.findViewById(R.id.extra_options_group);
-        closeBtn = root.findViewById(R.id.close_button);
-        deleteBtn = root.findViewById(R.id.delete_button);
-        migrateBtn = root.findViewById(R.id.migrate_to_txt);
-        closeBtn.setOnClickListener( v -> presenter.disableMultiSelection() );
-        deleteBtn.setOnClickListener( v -> presenter.deleteNotes());
-        migrateBtn.setOnClickListener( v -> presenter.migrateSelectedNotes() );
+        ImageButton closeBtn = root.findViewById(R.id.close_button);
+        ImageButton deleteBtn = root.findViewById(R.id.delete_button);
+        ImageButton migrateBtn = root.findViewById(R.id.migrate_to_txt);
+        closeBtn.setOnClickListener(v -> presenter.disableMultiSelection() );
+        deleteBtn.setOnClickListener(v -> presenter.deleteNotes());
+        migrateBtn.setOnClickListener(v -> presenter.migrateSelectedNotes() );
     }
 
     private void initRecyclerView() {
@@ -135,6 +134,7 @@ public class NotesFragment extends Fragment {
     private void setCardStyle(boolean isSelected, int position, RecyclerView.LayoutManager manager) {
         MaterialCardView cardView = (MaterialCardView) manager.findViewByPosition(position);
         if (cardView != null) {
+            cardView.setStrokeWidth(isSelected ? 8 : 4);
             cardView.setStrokeColor(getCardColor(isSelected));
             cardView.setSelected(isSelected);
         }
@@ -157,11 +157,6 @@ public class NotesFragment extends Fragment {
         int count = manager.getItemCount();
         for (int i = 0; i < count; i++) {
             setCardSelected(false, i);
-//            MaterialCardView cardView = (MaterialCardView) manager.findViewByPosition(i);
-//            if (cardView != null && cardView.isSelected()) {
-//                cardView.setStrokeColor(getCardColor(false));
-//                cardView.setSelected(false);
-//            }
         }
     }
     private int getCardColor(boolean isSelected) {
