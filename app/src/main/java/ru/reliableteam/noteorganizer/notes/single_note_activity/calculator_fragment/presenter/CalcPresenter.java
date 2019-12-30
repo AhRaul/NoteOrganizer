@@ -4,8 +4,8 @@ import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragm
 
 public class CalcPresenter {
 
-    CalculatorModel calculator;
-    StringBuilder express;
+    private CalculatorModel calculator;
+    private StringBuilder express;
     private final int LIMIT_LEN  = 25; //ограничение числа вводимых символов;
 
     public CalcPresenter() {
@@ -33,7 +33,7 @@ public class CalcPresenter {
     public void limitLenForExpress(){
 
         if (express.length() == LIMIT_LEN){
-            setExpress(express.substring(0,LIMIT_LEN - 1));
+            setExpress(express.substring(0, LIMIT_LEN - 1));
         }
     }
 
@@ -111,7 +111,7 @@ public class CalcPresenter {
         return express.append(s);
     }
 
-    public StringBuilder deleteSimbol(){
+    public StringBuilder deleteSymbol(){
         if (express.length() == 0) return express;
         return express.deleteCharAt(express.length()-1);
     }
