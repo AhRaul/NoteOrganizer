@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_todos"
-        android:name="ru.reliableteam.noteorganizer.todos.view.TodosFragment"
+        android:name="ru.reliableteam.noteorganizer.todos.todos_fragment.view.TodosFragment"
         android:label="@string/title_todo"
         tools:layout="@layout/fragment_todos" />
     <fragment

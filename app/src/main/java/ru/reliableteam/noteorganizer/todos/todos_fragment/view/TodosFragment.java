@@ -1,8 +1,6 @@
-package ru.reliableteam.noteorganizer.todos.view;
+package ru.reliableteam.noteorganizer.todos.todos_fragment.view;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,9 +17,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.todos.AddTodoBottomFragment;
-import ru.reliableteam.noteorganizer.todos.presenter.TodoPresenter;
-import ru.reliableteam.noteorganizer.todos.view.recycler.TodosRecyclerAdapter;
+import ru.reliableteam.noteorganizer.todos.add_todo_fragment.view.AddTodoBottomFragment;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.TodoPresenter;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.TodosRecyclerAdapter;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 public class TodosFragment extends Fragment {

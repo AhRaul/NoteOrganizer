@@ -1,8 +1,7 @@
-package ru.reliableteam.noteorganizer.todos.presenter;
+package ru.reliableteam.noteorganizer.todos.todos_fragment.presenter;
 
 import ru.reliableteam.noteorganizer.BasePresenter;
-import ru.reliableteam.noteorganizer.todos.model.Todo;
-import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.IViewHolder;
 
 public interface ITodoPresenter extends BasePresenter {
     void getTodos();

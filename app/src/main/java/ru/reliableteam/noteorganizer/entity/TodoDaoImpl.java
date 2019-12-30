@@ -15,7 +15,6 @@ import ru.reliableteam.noteorganizer.entity.data_base.DataBase;
 import ru.reliableteam.noteorganizer.entity.data_base.TodoDAO;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
-import ru.reliableteam.noteorganizer.todos.presenter.ITodoPresenter;
 
 public class TodoDaoImpl {
     private final String CLASS_TAG = "TodoDaoImpl";

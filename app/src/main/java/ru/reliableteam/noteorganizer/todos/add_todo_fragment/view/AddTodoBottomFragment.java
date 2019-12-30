@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.todos;
+package ru.reliableteam.noteorganizer.todos.add_todo_fragment.view;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -18,17 +18,22 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.todos.add_todo_fragment.presenter.AddTodoPresenter;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 
 public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     private final String CLASS_TAG = "NotesBtmDialogFragment";
     private final int REQUEST_NEW_TODO = 1;
+    private final int ACTION_DELETE = -1;
+    private final int ACTION_SAVE = 1;
+
     private final String EMPTY_TEXT = "";
 
     private View root;
@@ -79,6 +84,7 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         initTimePicking();
         initCancel();
         initSave();
+        initDelete();
         title = root.findViewById(R.id.todo_title);
         description = root.findViewById(R.id.todo_description);
 
@@ -124,7 +130,12 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     }
     private void initSave() {
         ImageButton saveBtn = root.findViewById(R.id.save_button);
-        saveBtn.setOnClickListener(v -> saveTodo());
+        saveBtn.setOnClickListener( v -> saveTodo(ACTION_SAVE) );
+    }
+    private void initDelete() {
+        ImageButton deleteBtn = root.findViewById(R.id.delete_button);
+        deleteBtn.setOnClickListener( v -> saveTodo(ACTION_DELETE) );
+        deleteBtn.setVisibility(presenter.isNewTodo() ? View.GONE : View.VISIBLE);
     }
 
     private void setUIData() {
@@ -133,9 +144,9 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         }
     }
 
-    private void saveTodo() {
+    private void saveTodo(int action) {
         int requestCode = getTargetRequestCode();
-        Intent intent = getIntentWithExtras();
+        Intent intent = getIntentWithExtras(action);
         if (requestCode == REQUEST_NEW_TODO) {
             getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
         } else {
@@ -144,13 +155,14 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
 
         dismiss();
     }
-    private Intent getIntentWithExtras() {
+    private Intent getIntentWithExtras(int action) {
         Intent intent = new Intent();
         long dateTime = DateUtils.stringToDate(getTime(), getDate());
         intent.putExtra("title", title.getText().toString());
         intent.putExtra("description", description.getText().toString());
         intent.putExtra("endDate", dateTime);
         intent.putExtra("timeChosen", timeChosen);
+        intent.putExtra("action", action);
 
         return intent;
     }

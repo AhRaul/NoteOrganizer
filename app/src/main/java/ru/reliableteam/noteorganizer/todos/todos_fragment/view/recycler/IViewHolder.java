@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.todos.view.recycler;
+package ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler;
 
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 

@@ -1,13 +1,10 @@
-package ru.reliableteam.noteorganizer.todos.presenter;
-
-import java.util.ArrayList;
-import java.util.List;
+package ru.reliableteam.noteorganizer.todos.todos_fragment.presenter;
 
 import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
-import ru.reliableteam.noteorganizer.todos.view.TodosFragment;
-import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.view.TodosFragment;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.IViewHolder;
 
 public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
     public static final int REQUEST_NEW_TODO = 1;

@@ -1,17 +1,13 @@
-package ru.reliableteam.noteorganizer.todos.view.recycler;
+package ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler;
 
 
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.notes.model.Note;
-import ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter.INotesPresenter;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
-import ru.reliableteam.noteorganizer.todos.presenter.ITodoPresenter;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.ITodoPresenter;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 /**
