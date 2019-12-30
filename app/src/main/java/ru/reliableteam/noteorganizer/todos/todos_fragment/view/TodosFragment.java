@@ -55,16 +55,13 @@ public class TodosFragment extends Fragment {
         });
     }
     private void initSortingButtons() {
-//        MaterialButtonToggleGroup selectionButtons = root.findViewById(R.id.selection_buttons_toggle_group);
-//        selectionButtons.addOnButtonCheckedListener(
-//                (group, checkedId, isChecked) -> {
-//
-//                }
-//        );
         MaterialButton showDone = root.findViewById(R.id.todos_done);
         showDone.addOnCheckedChangeListener( (button, isChecked) -> {
-//                if (isChecked) presenter.showDone();
-//                else presenter.showAll();
+            System.out.println(isChecked);
+                if (isChecked)
+                    presenter.showDoneTodos();
+                else
+                    presenter.showAllTodos();
         });
         MaterialButton showCurrent = root.findViewById(R.id.todos_current);
         MaterialButton showMissing = root.findViewById(R.id.todos_missed);
@@ -88,6 +85,7 @@ public class TodosFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new TodosRecyclerAdapter(presenter));
 
+        System.out.println("init");
         presenter.getTodos();
     }
 

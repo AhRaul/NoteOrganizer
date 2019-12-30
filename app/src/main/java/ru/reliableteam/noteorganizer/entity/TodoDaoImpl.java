@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -24,7 +25,7 @@ public class TodoDaoImpl {
 
     protected List<Todo> todoList = new ArrayList<>();
     protected Todo todo = new Todo();
-    protected Disposable disposable;
+    private Disposable disposable;
 
     protected void getAll(BasePresenter presenter) {
         disposable = todoDAO.getAll()
@@ -33,9 +34,6 @@ public class TodoDaoImpl {
                         listFromDB -> {
                             todoList.clear();
                             todoList.addAll(listFromDB);
-                            Log.i(CLASS_TAG, "todo list size = " + todoList.size());
-                            for(Todo t : todoList)
-                                System.out.println(t);
                             presenter.notifyDatasetChanged(NO_MESSAGE);
                         },
                         Throwable::printStackTrace
@@ -93,6 +91,19 @@ public class TodoDaoImpl {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> presenter.notifyDatasetChanged(NO_MESSAGE),
+                        Throwable::printStackTrace
+                );
+    }
+
+    protected void getDoneTodos(BasePresenter presenter) {
+        disposable = todoDAO.getDoneTodos()
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        doneTodos -> {
+                            todoList.clear();
+                            todoList.addAll(doneTodos);
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
+                        },
                         Throwable::printStackTrace
                 );
     }

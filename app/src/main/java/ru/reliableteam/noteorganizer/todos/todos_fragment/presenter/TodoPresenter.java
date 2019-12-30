@@ -10,9 +10,11 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
     public static final int REQUEST_NEW_TODO = 1;
     private static final int NEW_TODO = -1;
     private SharedPreferencesManager appSettings;
-
-
     private TodosFragment view;
+    private enum STATE {
+        ALL, DONE, MISSED, CURRENT;
+    }
+    private STATE showState = STATE.ALL;
 
     public TodoPresenter(TodosFragment view) {
         this.view = view;
@@ -26,7 +28,21 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
 
     @Override
     public void getTodos() {
-        getAll(this);
+        System.out.println("state = " + showState);
+        switch (showState) {
+            case ALL:
+                System.out.println("GET ALL TODOS");
+                getAll(this);
+                break;
+            case DONE:
+                System.out.println("GET DONE TODOS");
+                getDoneTodos(this);
+                break;
+            case MISSED:
+                break;
+            case CURRENT:
+                break;
+        }
     }
 
     @Override
@@ -75,6 +91,18 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
         update(todo, this);
     }
 
-    // todo delete existing
-    // todo sorting
+    public void showAllTodos() {
+        showState = STATE.ALL;
+        getTodos();
+    }
+    public void showDoneTodos() {
+        showState = STATE.DONE;
+        getTodos();
+    }
+    public void showCurrentTodos() {
+//        getCurrentTodos(this);
+    }
+    public void showMissedTodos() {
+//        getMissedTodos(this);
+    }
 }

@@ -29,6 +29,12 @@ public interface TodoDAO {
     @Delete
     void delete(Todo todo);
 
-    @Query("SELECT * FROM Todo WHERE parentId = :parentId")
-    Flowable<List<Todo>> getSubTodos(int parentId);
+    @Query("SELECT * FROM Todo WHERE isDone is 1")
+    Flowable<List<Todo>> getDoneTodos();
+
+    @Query("SELECT * FROM Todo WHERE endDate > :sysDateInMills AND isDone = 0")
+    Flowable<List<Todo>> getCurrentTodos(long sysDateInMills);
+
+    @Query("SELECT * FROM Todo WHERE endDate < :sysDateInMills AND isDone = 0")
+    Flowable<List<Todo>> getMissedTodos(long sysDateInMills);
 }
