@@ -26,6 +26,7 @@ public class AddTodoPresenter extends TodoDaoImpl implements BasePresenter {
         String[] dateTime = DateUtils.dateToString(todo.endDate).split(" ");
         String date = dateTime[0];
         String time = dateTime[1];
+        System.out.println("date = " + date);
         if (DateUtils.isDateConfigured(date)) {
             view.setDate(date);
             view.setTime(time);

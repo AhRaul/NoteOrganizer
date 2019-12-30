@@ -79,9 +79,11 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
         @Override
         public void setTodo(Todo todo) {
             title.setText(todo.title);
-            if (todo.endDate != 0) {
+            if (DateUtils.isDateConfigured(todo.endDate)) {
                 dateEnd.setVisibility(View.VISIBLE);
                 dateEnd.setText(DateUtils.dateToString(todo.endDate));
+            } else {
+                dateEnd.setVisibility(View.GONE);
             }
         }
         @Override

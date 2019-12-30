@@ -11,7 +11,8 @@
     <color name="cardStrokeDefault">#50afafaf</color>
     <color name="cardStrokeSelected">#008577</color>
 
-    <color name="colorSurfaceDark">#121212</color>
+    <color name="colorSurfaceDark">#222222</color>
+    <color name="colorBottomSheetSurfaceDark">#444444</color>
     <color name="colorPrimaryDark">#03dac6</color>
     <color name="colorAccentDark">#03dac6</color>
     <color name="errorTextColorDark">#cf6679</color>

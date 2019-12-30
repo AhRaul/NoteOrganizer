@@ -69,7 +69,7 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         bottomSheet.setContentView(root);
         BottomSheetBehavior bottomSheetBehavior = bottomSheet.getBehavior();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        bottomSheetBehavior.setBottomSheetCallback(getCallback());
+        bottomSheetBehavior.addBottomSheetCallback(getCallback());
 
         return bottomSheet;
     }

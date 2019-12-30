@@ -48,14 +48,21 @@
     </style>
 
 <!--    BOTTOM SHEET DIALOG STYLE -->
-    <style name="BottomSheetDialogStyle.Light" parent="AppBottomSheetDialogTheme">
+    <style name="BottomSheetDialogStyle.Light" parent="AppBottomSheetDialogTheme.Light">
         <item name="android:windowLightStatusBar">true</item>
     </style>
-    <style name="BottomSheetDialogStyle.Dark" parent="AppBottomSheetDialogTheme">
+    <style name="BottomSheetDialogStyle.Dark" parent="AppBottomSheetDialogTheme.Dark">
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/colorSurfaceDark</item>
     </style>
-    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme.Dark" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:backgroundTint">@color/colorBottomSheetSurfaceDark</item>
+    </style>
+    <style name="AppBottomSheetDialogTheme.Light" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>

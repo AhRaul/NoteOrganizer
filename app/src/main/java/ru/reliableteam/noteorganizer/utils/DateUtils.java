@@ -1,12 +1,15 @@
 package ru.reliableteam.noteorganizer.utils;
 
-import android.util.Log;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
+/**
+ * This class describes calendar utils.
+ *
+ * @author vershov
+ * @version 2.0
+ */
 public class DateUtils {
     private final static int MILLISECONDS = 1000;
     private final static int SECONDS = 60;
@@ -14,11 +17,20 @@ public class DateUtils {
     private final static int HOURS = 24;
     private final static String DATE_OUTPUT_FORMAT = "%s/%s/%s";
     private final static String TIME_OUTPUT_FORMAT = "%s:%s";
-    private final static String BEGIN_DATE = "01/01/1970";
+    private final static Long NULL_DATE = 0L;
+    private final static Long BEGIN_DATE = 2678400000L;
+    private final static String BEGIN_DATE_STRING = "01/01/1970";
     private final static String BEGIN_TIME = "00:00";
 
     public static boolean isDateConfigured(String date) {
-        return !BEGIN_DATE.equals(date);
+        Long dateInMills = stringToDate("", date);
+        return notEqualsToBeginDate(dateInMills) && !date.equals(BEGIN_DATE_STRING);
+    }
+    public static boolean isDateConfigured(Long dateInMills) {
+        return notEqualsToBeginDate(dateInMills);
+    }
+    private static boolean notEqualsToBeginDate(Long dateInMills) {
+        return NULL_DATE.equals(dateInMills);
     }
 
     public static String dateToString(Long dateInMills) {
@@ -40,9 +52,8 @@ public class DateUtils {
     }
 
     public static Long stringToDate(String time, String date) {
-        System.out.println("time = " + time + " , date = " + date);
 
-        Calendar calendar = getCalendar(0L);
+        Calendar calendar = getCalendar(NULL_DATE);
         if (!time.equals("")) {
             Integer[] timeArr = parseTime(time);
             calendar.set(Calendar.HOUR_OF_DAY, timeArr[0]);
