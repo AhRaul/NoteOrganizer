@@ -1,6 +1,8 @@
 package ru.reliableteam.noteorganizer.todos.view;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,15 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.Objects;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.AddTodoBottomFragment;
@@ -26,12 +26,12 @@ import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 public class TodosFragment extends Fragment {
     private final int REQUEST_NEW_TODO = 1;
+    private final int REQUEST_DELETE_TODO = 2;
 
     private TodoPresenter presenter;
 
     private View root;
     private RecyclerView recyclerView;
-    private FloatingActionButton addTodoBtn;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,23 +45,43 @@ public class TodosFragment extends Fragment {
         return root;
     }
     private void initUI() {
-        addTodoBtn = root.findViewById(R.id.add_todo_fab);
-        addTodoBtn.setOnClickListener( v -> {
+        initButtonAddTodo();
+        initSortingButtons();
+    }
+    private void initButtonAddTodo() {
+        FloatingActionButton addTodoBtn = root.findViewById(R.id.add_todo_fab);
+        addTodoBtn.setOnClickListener(v -> {
             presenter.newTodo();
             boolean needResponse = true;
-            openBottomSheet(needResponse);
+            openBottomSheet(needResponse, REQUEST_NEW_TODO);
         });
+    }
+    private void initSortingButtons() {
+//        MaterialButtonToggleGroup selectionButtons = root.findViewById(R.id.selection_buttons_toggle_group);
+//        selectionButtons.addOnButtonCheckedListener(
+//                (group, checkedId, isChecked) -> {
+//
+//                }
+//        );
+        MaterialButton showDone = root.findViewById(R.id.todos_done);
+        showDone.addOnCheckedChangeListener( (button, isChecked) -> {
+//                if (isChecked) presenter.showDone();
+//                else presenter.showAll();
+        });
+        MaterialButton showCurrent = root.findViewById(R.id.todos_current);
+        MaterialButton showMissing = root.findViewById(R.id.todos_missed);
+
     }
 
     public void viewTodo() {
         boolean needResponse = false;
-        openBottomSheet(needResponse);
+        openBottomSheet(needResponse, REQUEST_NEW_TODO);
     }
 
-    private void openBottomSheet(Boolean needResponse) {
+    private void openBottomSheet(Boolean needResponse, int requestId) {
         AddTodoBottomFragment todoBottomFragment = new AddTodoBottomFragment();
         if (needResponse)
-            todoBottomFragment.setTargetFragment(TodosFragment.this, REQUEST_NEW_TODO);
+            todoBottomFragment.setTargetFragment(TodosFragment.this, requestId);
         todoBottomFragment.show(getFragmentManager(), "add_todo");
     }
 
@@ -99,5 +119,13 @@ public class TodosFragment extends Fragment {
                     System.out.println(title + " " + description + " " + date + " time chosen = " + timeChosen);
             }
         }
+    }
+
+    public void showConfirmationDialog() {
+        AlertDialog.Builder db = new AlertDialog.Builder(getContext());
+        db.setTitle(R.string.delete_hint);
+        db.setPositiveButton(R.string.positive, (dialog, which) -> presenter.deleteTodo());
+        db.setNegativeButton(R.string.negative, (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = db.show();
     }
 }

@@ -8,14 +8,8 @@
     android:orientation="vertical"
     android:padding="4dp">
 
-<!--    <TextView-->
-<!--        style="@style/TextView.Title"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Select states" />-->
-
     <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/selection_buttons_toggle_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

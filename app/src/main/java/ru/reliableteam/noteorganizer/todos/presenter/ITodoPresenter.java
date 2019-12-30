@@ -5,12 +5,14 @@ import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.view.recycler.IViewHolder;
 
 public interface ITodoPresenter extends BasePresenter {
-    void getTodos ();
-    void bindView (IViewHolder viewHolder);
-    int getItemCount ();
+    void getTodos();
+    void bindView(IViewHolder viewHolder);
+    int getItemCount();
 
     void deleteTodo();
     void saveTodo(String title, String description, Long dateTime, boolean timeChosen);
+    void makeTodoDone(int position, boolean isDone);
 
+    public void longClicked(int position);
     void clicked(int position);
 }

@@ -1,14 +1,22 @@
 package ru.reliableteam.noteorganizer.todos.view.recycler;
 
 
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.model.Note;
@@ -62,6 +70,7 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
         private String CLASS_TAG = "MyViewHolder";
 
         private TextView title, dateEnd;
+        private MaterialCheckBox checkBoxDone;
 
         public TodosViewHolder(View view, ITodoPresenter presenter) {
             super(view);
@@ -70,23 +79,46 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
 
             init();
             itemView.setOnClickListener(v -> presenter.clicked(getPos()));
+            itemView.setOnLongClickListener( v -> {
+                presenter.longClicked(getPos());
+                return true;
+            });
+            checkBoxDone.setOnCheckedChangeListener(
+                    (buttonView, isChecked) -> presenter.makeTodoDone(getPos(), checkBoxDone.isChecked())
+            );
         }
 
         private void init() {
             title = itemView.findViewById(R.id.todo_item_title);
             dateEnd = itemView.findViewById(R.id.todo_date_end);
+            checkBoxDone = itemView.findViewById(R.id.todo_item_checkbox);
         }
         @Override
         public void setTodo(Todo todo) {
-            title.setText(todo.title);
-            if (DateUtils.isDateConfigured(todo.endDate)) {
+            setDate(todo.endDate);
+            checkBoxDone.setChecked(todo.isDone);
+            setTitle(todo.title, todo.isDone);
+        }
+        @Override
+        public int getPos() { return getLayoutPosition(); }
+
+        private void setDate(Long endDate) {
+            if (DateUtils.isDateConfigured(endDate)) {
                 dateEnd.setVisibility(View.VISIBLE);
-                dateEnd.setText(DateUtils.dateToString(todo.endDate));
+                dateEnd.setText(DateUtils.dateToString(endDate));
             } else {
                 dateEnd.setVisibility(View.GONE);
             }
         }
-        @Override
-        public int getPos() { return getLayoutPosition(); }
+        private void setTitle(String title_, boolean isDone) {
+            Editable e = new SpannableStringBuilder(title_);
+            if (isDone) {
+                e.setSpan(new StrikethroughSpan(), 0, title_.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                e.removeSpan(new StrikethroughSpan());
+            }
+
+            title.setText(e);
+        }
     }
 }

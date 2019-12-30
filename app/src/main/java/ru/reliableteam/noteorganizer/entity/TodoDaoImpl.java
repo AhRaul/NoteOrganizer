@@ -54,6 +54,9 @@ public class TodoDaoImpl {
 
         insertTodo(todo, presenter);
     }
+    protected void saveTodo(Todo todo, BasePresenter presenter) {
+        insertTodo(todo, presenter);
+    }
 
     private void insertTodo(Todo todo, BasePresenter presenter) {
         disposable = Completable.fromAction( () -> todoDAO.insert(todo) )
@@ -82,6 +85,15 @@ public class TodoDaoImpl {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> presenter.notifyDatasetChanged(R.string.saved_todo_hint),
+                        Throwable::printStackTrace
+                );
+    }
+
+    protected void delete(Todo todo, BasePresenter presenter) {
+        disposable = Completable.fromAction( () -> todoDAO.delete(todo) )
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> presenter.notifyDatasetChanged(NO_MESSAGE),
                         Throwable::printStackTrace
                 );
     }

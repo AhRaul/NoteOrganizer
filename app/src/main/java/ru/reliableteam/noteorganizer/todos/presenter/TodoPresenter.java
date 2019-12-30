@@ -50,8 +50,13 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
     }
 
     @Override
+    public void longClicked(int position) {
+        todo = todoList.get(position);
+        view.showConfirmationDialog();
+    }
+    @Override
     public void deleteTodo() {
-
+        delete(todo, this);
     }
 
     @Override
@@ -65,7 +70,14 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
         appSettings.setClickedTodoId(NEW_TODO);
     }
 
-    // todo open existing
+    @Override
+    public void makeTodoDone(int position, boolean isDone) {
+        System.out.println("isDone = " + isDone);
+        Todo todo = todoList.get(position);
+        todo.isDone = isDone;
+        update(todo, this);
+    }
+
     // todo delete existing
     // todo sorting
 }

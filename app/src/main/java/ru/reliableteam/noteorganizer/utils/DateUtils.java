@@ -30,7 +30,7 @@ public class DateUtils {
         return notEqualsToBeginDate(dateInMills);
     }
     private static boolean notEqualsToBeginDate(Long dateInMills) {
-        return NULL_DATE.equals(dateInMills);
+        return !NULL_DATE.equals(dateInMills);
     }
 
     public static String dateToString(Long dateInMills) {

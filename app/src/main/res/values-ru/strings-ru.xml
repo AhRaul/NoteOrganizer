@@ -5,7 +5,9 @@
 
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Настройки</string>
-
+    <string name="delete_hint">Уверены, что хотите удалить?</string>
+    <string name="negative">Нет</string>
+    <string name="positive">Да</string>
 
     <!--    SETTINGS FRAGMENT   -->
     <string name="title_settings">Настройки</string>
