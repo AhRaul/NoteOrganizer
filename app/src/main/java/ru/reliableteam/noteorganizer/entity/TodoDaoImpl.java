@@ -29,7 +29,6 @@ public class TodoDaoImpl {
     protected STATE showState = STATE.ALL;
 
     protected void getTodosByState(BasePresenter presenter) {
-        System.out.println("getTodos() -> state = " + showState);
         switch (showState) {
             case ALL:
                 getAll(presenter);
@@ -38,23 +37,12 @@ public class TodoDaoImpl {
                 getDoneTodos(presenter);
                 break;
             case MISSED:
+                getMissedTodos(presenter);
                 break;
             case CURRENT:
+                getCurrentTodos(presenter);
                 break;
         }
-    }
-
-    private void getAll(BasePresenter presenter) {
-        disposable = todoDAO.getAll()
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        listFromDB -> {
-                            todoList.clear();
-                            todoList.addAll(listFromDB);
-                            presenter.notifyDatasetChanged(NO_MESSAGE);
-                        },
-                        Throwable::printStackTrace
-                );
     }
 
     protected void saveTodo(String title, String description, Long dateTime, BasePresenter presenter) {
@@ -112,7 +100,23 @@ public class TodoDaoImpl {
                 );
     }
 
-    protected void getDoneTodos(BasePresenter presenter) {
+    /**
+     * Getting todos from data-source
+     * @param presenter, which has
+     */
+    private void getAll(BasePresenter presenter) {
+        disposable = todoDAO.getAll()
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        listFromDB -> {
+                            todoList.clear();
+                            todoList.addAll(listFromDB);
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
+                        },
+                        Throwable::printStackTrace
+                );
+    }
+    private void getDoneTodos(BasePresenter presenter) {
         disposable = todoDAO.getDoneTodos()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -124,7 +128,35 @@ public class TodoDaoImpl {
                         Throwable::printStackTrace
                 );
     }
-
+    private void getMissedTodos(BasePresenter presenter) {
+        long timeNow = System.currentTimeMillis();
+        disposable = todoDAO.getMissedTodos(timeNow)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        missedTodoList -> {
+                            missedTodoList.stream().forEach(System.out::println);
+                            todoList.clear();
+                            todoList.addAll(missedTodoList);
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
+                        },
+                        Throwable::printStackTrace
+                );
+    }
+    private void getCurrentTodos(BasePresenter presenter) {
+        long timeNow = System.currentTimeMillis();
+        System.out.println(timeNow);
+        disposable = todoDAO.getCurrentTodos(timeNow)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        currentTodoList -> {
+                            currentTodoList.stream().forEach(System.out::println);
+                            todoList.clear();
+                            todoList.addAll(currentTodoList);
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
+                        },
+                        Throwable::printStackTrace
+                );
+    }
     protected SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
 
 }

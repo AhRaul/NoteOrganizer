@@ -19,9 +19,7 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
 
     @Override
     public void notifyDatasetChanged(int messageId) {
-        System.out.println("notifyDatasetChanged -> STATE: " + showState);
         view.notifyDataChanged();
-        System.out.println("------------------------------");
     }
 
     @Override
@@ -31,7 +29,6 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
 
     @Override
     public void bindView(IViewHolder viewHolder) {
-        System.out.println("BIND");
         int position = viewHolder.getPos();
         viewHolder.setTodo(todoList.get(position));
     }
@@ -84,9 +81,11 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
         getTodos();
     }
     public void showCurrentTodos() {
-//        getCurrentTodos(this);
+        showState = STATE.CURRENT;
+        getTodos();
     }
     public void showMissedTodos() {
-//        getMissedTodos(this);
+        showState = STATE.MISSED;
+        getTodos();
     }
 }

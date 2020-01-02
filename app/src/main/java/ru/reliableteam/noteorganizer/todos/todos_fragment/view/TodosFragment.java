@@ -57,15 +57,25 @@ public class TodosFragment extends Fragment {
     private void initSortingButtons() {
         MaterialButton showDone = root.findViewById(R.id.todos_done);
         showDone.addOnCheckedChangeListener( (button, isChecked) -> {
-            System.out.println("GET DONE? " + isChecked);
                 if (isChecked)
-//                    System.out.println("-> GET DONE");
                     presenter.showDoneTodos();
                 else
                     presenter.showAllTodos();
         });
         MaterialButton showCurrent = root.findViewById(R.id.todos_current);
+        showCurrent.addOnCheckedChangeListener( (button, isChecked) -> {
+            if (isChecked)
+                presenter.showCurrentTodos();
+            else
+                presenter.showAllTodos();
+        });
         MaterialButton showMissing = root.findViewById(R.id.todos_missed);
+        showMissing.addOnCheckedChangeListener( (button, isChecked) -> {
+            if (isChecked)
+                presenter.showMissedTodos();
+            else
+                presenter.showAllTodos();
+        });
 
     }
 
@@ -90,7 +100,6 @@ public class TodosFragment extends Fragment {
     }
 
     public void notifyDataChanged() {
-        System.out.println("VIEW::NOTIFY_DATA_SET_CHANGED");
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter != null) {
             adapter.notifyDataSetChanged();

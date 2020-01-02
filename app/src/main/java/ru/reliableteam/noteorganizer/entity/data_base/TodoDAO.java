@@ -32,9 +32,9 @@ public interface TodoDAO {
     @Query("SELECT * FROM Todo WHERE isDone is 1")
     Single<List<Todo>> getDoneTodos();
 
-    @Query("SELECT * FROM Todo WHERE endDate > :sysDateInMills AND isDone = 0")
-    Flowable<List<Todo>> getCurrentTodos(long sysDateInMills);
+    @Query("SELECT * FROM Todo WHERE (endDate < :sysDateInMills or endDate = 0) AND isDone = 0")
+    Single<List<Todo>> getCurrentTodos(long sysDateInMills);
 
-    @Query("SELECT * FROM Todo WHERE endDate < :sysDateInMills AND isDone = 0")
-    Flowable<List<Todo>> getMissedTodos(long sysDateInMills);
+    @Query("SELECT * FROM Todo WHERE endDate > :sysDateInMills AND isDone = 0 and endDate is not 0")
+    Single<List<Todo>> getMissedTodos(long sysDateInMills);
 }
