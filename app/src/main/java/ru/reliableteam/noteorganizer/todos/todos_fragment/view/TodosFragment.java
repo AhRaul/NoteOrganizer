@@ -18,13 +18,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.add_todo_fragment.view.AddTodoBottomFragment;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.TodosPresenter;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.TodosRecyclerAdapter;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
-public class TodosFragment extends Fragment {
-    private final int REQUEST_NEW_TODO = 1;
-    private final int REQUEST_DELETE_TODO = 2;
+public class TodosFragment extends Fragment implements TodoRequestCodes {
 
     private TodosPresenter presenter;
 
@@ -80,8 +79,8 @@ public class TodosFragment extends Fragment {
     }
 
     public void viewTodo() {
-        boolean needResponse = false;
-        openBottomSheet(needResponse, REQUEST_NEW_TODO);
+        boolean needResponse = true;
+        openBottomSheet(needResponse, REQUEST_EDIT_TODO);
     }
 
     private void openBottomSheet(Boolean needResponse, int requestId) {
@@ -111,18 +110,18 @@ public class TodosFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
+            // todo convert to todos
+            String title = data.getStringExtra("title");
+            String description = data.getStringExtra("description");
+            Long dateTime = data.getLongExtra("endDate", 0L);
+            Boolean timeChosen = data.getBooleanExtra("timeChosen", false);
+            Integer action = data.getIntExtra("action", 0);
+
             if (requestCode == REQUEST_NEW_TODO) {
-                    // todo convert to todos
-                    String title = data.getStringExtra("title");
-                    String description = data.getStringExtra("description");
-                    Long dateTime = data.getLongExtra("endDate", 0L);
-                    Boolean timeChosen = data.getBooleanExtra("timeChosen", false);
-
-                    presenter.saveTodo(title, description, dateTime, timeChosen);
-
-                    String date = DateUtils.dateToString(dateTime);
-
-                    System.out.println(title + " " + description + " " + date + " time chosen = " + timeChosen);
+                presenter.saveTodo(title, description, dateTime, timeChosen);
+            }
+            if (requestCode == REQUEST_EDIT_TODO) {
+                presenter.editTodo(title, description, dateTime, timeChosen, action);
             }
         }
     }
@@ -133,5 +132,11 @@ public class TodosFragment extends Fragment {
         db.setPositiveButton(R.string.positive, (dialog, which) -> presenter.deleteTodo());
         db.setNegativeButton(R.string.negative, (dialog, which) -> dialog.dismiss());
         db.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("ON RESUME");
     }
 }

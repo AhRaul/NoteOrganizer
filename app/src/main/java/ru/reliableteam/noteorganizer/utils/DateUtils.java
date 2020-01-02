@@ -43,8 +43,6 @@ public class DateUtils {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        System.out.println(day + " " + month + " " + year + " " + hour + " " + minute);
-
         String date = getNormalizedDate(day, month, year);
         String time = getNormalizedTime(hour, minute);
 
@@ -63,7 +61,7 @@ public class DateUtils {
         if (!date.equals("")) {
             Integer[] dateArr = parseDate(date);
             calendar.set(Calendar.DAY_OF_MONTH, dateArr[0]);
-            calendar.set(Calendar.MONTH, dateArr[1]);
+            calendar.set(Calendar.MONTH, dateArr[1] - 1);
             calendar.set(Calendar.YEAR, dateArr[2]);
         }
 

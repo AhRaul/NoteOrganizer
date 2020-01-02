@@ -82,6 +82,13 @@ public class TodoDaoImpl {
                 );
     }
 
+    protected void update(String title, String description, Long dateTime, BasePresenter presenter) {
+        todo.title = title;
+        todo.description = description;
+        todo.endDate = dateTime;
+
+        update(todo, presenter);
+    }
     protected void update(Todo todo, BasePresenter presenter) {
         disposable = Completable.fromAction( () -> todoDAO.update(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

@@ -24,14 +24,16 @@ public class Todo {
 
     @Override
     public String toString() {
+        long currTime = System.currentTimeMillis();
         return "Todo{" +
                 "id=" + id +
-                ", createDate=" + createDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", parentId=" + parentId +
-                ", isDone=" + isDone +
+//                ", createDate=" + createDate +
+                ", endDate=" + endDate + " (sysdate = " + currTime + ")" +
+                "delta = " + (endDate - currTime) + " " +
+//                ", title='" + title + '\'' +
+//                ", description='" + description + '\'' +
+//                ", parentId=" + parentId +
+//                ", isDone=" + isDone +
                 '}';
     }
 

@@ -19,22 +19,18 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.add_todo_fragment.presenter.AddTodoPresenter;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 
-public class AddTodoBottomFragment extends BottomSheetDialogFragment {
+public class AddTodoBottomFragment extends BottomSheetDialogFragment implements TodoRequestCodes {
     private final String CLASS_TAG = "NotesBtmDialogFragment";
-    private final int REQUEST_NEW_TODO = 1;
-    private final int ACTION_DELETE = -1;
-    private final int ACTION_SAVE = 1;
-
     private final String EMPTY_TEXT = "";
 
     private View root;
@@ -131,7 +127,7 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
     }
     private void initSave() {
         ImageButton saveBtn = root.findViewById(R.id.save_button);
-        saveBtn.setOnClickListener( v -> saveTodo(ACTION_SAVE) );
+        saveBtn.setOnClickListener( v -> saveTodo(ACTION_UPDATE) );
     }
     private void initDelete() {
         ImageButton deleteBtn = root.findViewById(R.id.delete_button);
@@ -152,11 +148,7 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
             showVerification();
             return;
         }
-        if (requestCode == REQUEST_NEW_TODO) {
-            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-        } else {
-            presenter.updateTodo(intent);
-        }
+        getTargetFragment().onActivityResult(requestCode, Activity.RESULT_OK, intent);
 
         dismiss();
     }
@@ -201,6 +193,7 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment {
         timeBtn.setEnabled(false);
         timeChosen = true;
     }
+
     private String getTime() {
         return timeTv.getText().toString();
     }

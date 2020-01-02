@@ -10,6 +10,7 @@ public interface ITodoPresenter extends BasePresenter {
 
     void deleteTodo();
     void saveTodo(String title, String description, Long dateTime, boolean timeChosen);
+    public void editTodo(String title, String description, Long dateTime, boolean timeChosen, int action);
     void makeTodoDone(int position, boolean isDone);
     default void notifyItemChanged(int position) { }
 

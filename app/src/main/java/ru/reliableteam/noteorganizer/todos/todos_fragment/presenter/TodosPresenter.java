@@ -3,11 +3,11 @@ package ru.reliableteam.noteorganizer.todos.todos_fragment.presenter;
 import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.TodosFragment;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.IViewHolder;
 
-public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
-    public static final int REQUEST_NEW_TODO = 1;
+public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter, TodoRequestCodes {
     private static final int NEW_TODO = -1;
     private SharedPreferencesManager appSettings;
     private TodosFragment view;
@@ -19,6 +19,7 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
 
     @Override
     public void notifyDatasetChanged(int messageId) {
+        System.out.println("DATA CHANGED");
         view.notifyDataChanged();
     }
 
@@ -45,6 +46,14 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
     }
 
     @Override
+    public void editTodo(String title, String description, Long dateTime, boolean timeChosen, int action) {
+        if (action == ACTION_UPDATE)
+            update(title, description, dateTime, this);
+        if (action == ACTION_DELETE)
+            deleteTodo();
+    }
+
+    @Override
     public void longClicked(int position) {
         todo = todoList.get(position);
         view.showConfirmationDialog();
@@ -56,7 +65,7 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
 
     @Override
     public void clicked(int position) {
-        Todo todo = todoList.get(position);
+        todo = todoList.get(position);
         appSettings.setClickedTodoId(todo.id);
         view.viewTodo();
     }
