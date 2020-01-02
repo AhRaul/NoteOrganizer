@@ -1,17 +1,13 @@
 package ru.reliableteam.noteorganizer.entity;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import ru.reliableteam.noteorganizer.BasePresenter;
-import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.data_base.DataBase;
 import ru.reliableteam.noteorganizer.entity.data_base.TodoDAO;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
@@ -27,7 +23,28 @@ public class TodoDaoImpl {
     protected Todo todo = new Todo();
     private Disposable disposable;
 
-    protected void getAll(BasePresenter presenter) {
+    protected enum STATE {
+        ALL, DONE, MISSED, CURRENT;
+    }
+    protected STATE showState = STATE.ALL;
+
+    protected void getTodosByState(BasePresenter presenter) {
+        System.out.println("getTodos() -> state = " + showState);
+        switch (showState) {
+            case ALL:
+                getAll(presenter);
+                break;
+            case DONE:
+                getDoneTodos(presenter);
+                break;
+            case MISSED:
+                break;
+            case CURRENT:
+                break;
+        }
+    }
+
+    private void getAll(BasePresenter presenter) {
         disposable = todoDAO.getAll()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -59,7 +76,7 @@ public class TodoDaoImpl {
         disposable = Completable.fromAction( () -> todoDAO.insert(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> presenter.notifyDatasetChanged(R.string.saved_todo_hint),
+                        () -> getTodosByState(presenter),
                         Throwable::printStackTrace
                 );
     }
@@ -81,7 +98,7 @@ public class TodoDaoImpl {
         disposable = Completable.fromAction( () -> todoDAO.update(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> presenter.notifyDatasetChanged(R.string.saved_todo_hint),
+                        () -> getTodosByState(presenter),
                         Throwable::printStackTrace
                 );
     }

@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.add_todo_fragment.view.AddTodoBottomFragment;
-import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.TodoPresenter;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.TodosPresenter;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.TodosRecyclerAdapter;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
@@ -26,7 +26,7 @@ public class TodosFragment extends Fragment {
     private final int REQUEST_NEW_TODO = 1;
     private final int REQUEST_DELETE_TODO = 2;
 
-    private TodoPresenter presenter;
+    private TodosPresenter presenter;
 
     private View root;
     private RecyclerView recyclerView;
@@ -37,7 +37,7 @@ public class TodosFragment extends Fragment {
 
         initUI();
 
-        presenter = new TodoPresenter(this);
+        presenter = new TodosPresenter(this);
         initRecyclerView();
 
         return root;
@@ -57,8 +57,9 @@ public class TodosFragment extends Fragment {
     private void initSortingButtons() {
         MaterialButton showDone = root.findViewById(R.id.todos_done);
         showDone.addOnCheckedChangeListener( (button, isChecked) -> {
-            System.out.println(isChecked);
+            System.out.println("GET DONE? " + isChecked);
                 if (isChecked)
+//                    System.out.println("-> GET DONE");
                     presenter.showDoneTodos();
                 else
                     presenter.showAllTodos();
@@ -85,11 +86,11 @@ public class TodosFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new TodosRecyclerAdapter(presenter));
 
-        System.out.println("init");
         presenter.getTodos();
     }
 
     public void notifyDataChanged() {
+        System.out.println("VIEW::NOTIFY_DATA_SET_CHANGED");
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter != null) {
             adapter.notifyDataSetChanged();
@@ -122,6 +123,6 @@ public class TodosFragment extends Fragment {
         db.setTitle(R.string.delete_hint);
         db.setPositiveButton(R.string.positive, (dialog, which) -> presenter.deleteTodo());
         db.setNegativeButton(R.string.negative, (dialog, which) -> dialog.dismiss());
-        AlertDialog dialog = db.show();
+        db.show();
     }
 }

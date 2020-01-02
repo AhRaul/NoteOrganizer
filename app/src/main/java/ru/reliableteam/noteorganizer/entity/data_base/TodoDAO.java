@@ -15,7 +15,7 @@ import ru.reliableteam.noteorganizer.todos.model.Todo;
 @Dao
 public interface TodoDAO {
     @Query("SELECT * FROM Todo WHERE parentId IS NULL")
-    Flowable<List<Todo>> getAll();
+    Single<List<Todo>> getAll();
 
     @Query("SELECT * FROM Todo WHERE id = :id")
     Single<Todo> getById(Long id);
@@ -30,7 +30,7 @@ public interface TodoDAO {
     void delete(Todo todo);
 
     @Query("SELECT * FROM Todo WHERE isDone is 1")
-    Flowable<List<Todo>> getDoneTodos();
+    Single<List<Todo>> getDoneTodos();
 
     @Query("SELECT * FROM Todo WHERE endDate > :sysDateInMills AND isDone = 0")
     Flowable<List<Todo>> getCurrentTodos(long sysDateInMills);

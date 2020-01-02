@@ -6,47 +6,32 @@ import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.TodosFragment;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.IViewHolder;
 
-public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
+public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter {
     public static final int REQUEST_NEW_TODO = 1;
     private static final int NEW_TODO = -1;
     private SharedPreferencesManager appSettings;
     private TodosFragment view;
-    private enum STATE {
-        ALL, DONE, MISSED, CURRENT;
-    }
-    private STATE showState = STATE.ALL;
 
-    public TodoPresenter(TodosFragment view) {
+    public TodosPresenter(TodosFragment view) {
         this.view = view;
         appSettings = getAppSettings();
     }
 
     @Override
     public void notifyDatasetChanged(int messageId) {
+        System.out.println("notifyDatasetChanged -> STATE: " + showState);
         view.notifyDataChanged();
+        System.out.println("------------------------------");
     }
 
     @Override
     public void getTodos() {
-        System.out.println("state = " + showState);
-        switch (showState) {
-            case ALL:
-                System.out.println("GET ALL TODOS");
-                getAll(this);
-                break;
-            case DONE:
-                System.out.println("GET DONE TODOS");
-                getDoneTodos(this);
-                break;
-            case MISSED:
-                break;
-            case CURRENT:
-                break;
-        }
+        getTodosByState(this);
     }
 
     @Override
     public void bindView(IViewHolder viewHolder) {
+        System.out.println("BIND");
         int position = viewHolder.getPos();
         viewHolder.setTodo(todoList.get(position));
     }
@@ -85,7 +70,6 @@ public class TodoPresenter extends TodoDaoImpl implements ITodoPresenter {
 
     @Override
     public void makeTodoDone(int position, boolean isDone) {
-        System.out.println("isDone = " + isDone);
         Todo todo = todoList.get(position);
         todo.isDone = isDone;
         update(todo, this);
