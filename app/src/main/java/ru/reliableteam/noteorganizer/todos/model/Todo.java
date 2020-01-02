@@ -27,13 +27,13 @@ public class Todo {
         long currTime = System.currentTimeMillis();
         return "Todo{" +
                 "id=" + id +
-//                ", createDate=" + createDate +
+                ", createDate=" + createDate +
                 ", endDate=" + endDate + " (sysdate = " + currTime + ")" +
                 "delta = " + (endDate - currTime) + " " +
-//                ", title='" + title + '\'' +
-//                ", description='" + description + '\'' +
-//                ", parentId=" + parentId +
-//                ", isDone=" + isDone +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", parentId=" + parentId +
+                ", isDone=" + isDone +
                 '}';
     }
 

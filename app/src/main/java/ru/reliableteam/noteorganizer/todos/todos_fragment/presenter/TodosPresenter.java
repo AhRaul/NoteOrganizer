@@ -66,6 +66,7 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter, TodoR
     @Override
     public void clicked(int position) {
         todo = todoList.get(position);
+        System.out.println(todo);
         appSettings.setClickedTodoId(todo.id);
         view.viewTodo();
     }

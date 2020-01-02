@@ -95,9 +95,6 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
             setDate(todo.endDate);
             checkBoxDone.setChecked(todo.isDone);
             setTitle(todo.title, todo.isDone);
-            if (!todo.isDone) {
-                setTitleColor(todo);
-            }
         }
         @Override
         public int getPos() { return getLayoutPosition(); }
@@ -118,14 +115,6 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
                 e.removeSpan(new StrikethroughSpan());
             }
             title.setText(e);
-        }
-        private void setTitleColor(Todo todo) {
-//            long currentTime = System.currentTimeMillis();
-//            if (currentTime - todo.endDate < 0) {
-//                title.setTextColor(Color.RED);
-//            } else {
-//                title.setTextColor(Color.GREEN);
-//            }
         }
     }
 }
