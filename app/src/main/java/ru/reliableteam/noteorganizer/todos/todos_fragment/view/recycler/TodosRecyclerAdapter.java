@@ -1,9 +1,12 @@
 package ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler;
 
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,6 +95,9 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
             setDate(todo.endDate);
             checkBoxDone.setChecked(todo.isDone);
             setTitle(todo.title, todo.isDone);
+            if (!todo.isDone) {
+                setTitleColor(todo);
+            }
         }
         @Override
         public int getPos() { return getLayoutPosition(); }
@@ -111,8 +117,15 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
             } else {
                 e.removeSpan(new StrikethroughSpan());
             }
-
             title.setText(e);
+        }
+        private void setTitleColor(Todo todo) {
+//            long currentTime = System.currentTimeMillis();
+//            if (currentTime - todo.endDate < 0) {
+//                title.setTextColor(Color.RED);
+//            } else {
+//                title.setTextColor(Color.GREEN);
+//            }
         }
     }
 }

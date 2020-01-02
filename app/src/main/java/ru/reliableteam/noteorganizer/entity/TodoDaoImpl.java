@@ -102,7 +102,7 @@ public class TodoDaoImpl {
         disposable = Completable.fromAction( () -> todoDAO.delete(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> presenter.notifyDatasetChanged(NO_MESSAGE),
+                        () -> getTodosByState(presenter),
                         Throwable::printStackTrace
                 );
     }
@@ -141,7 +141,6 @@ public class TodoDaoImpl {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         missedTodoList -> {
-                            missedTodoList.stream().forEach(System.out::println);
                             todoList.clear();
                             todoList.addAll(missedTodoList);
                             presenter.notifyDatasetChanged(NO_MESSAGE);
@@ -156,7 +155,6 @@ public class TodoDaoImpl {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         currentTodoList -> {
-                            currentTodoList.stream().forEach(System.out::println);
                             todoList.clear();
                             todoList.addAll(currentTodoList);
                             presenter.notifyDatasetChanged(NO_MESSAGE);
@@ -164,6 +162,6 @@ public class TodoDaoImpl {
                         Throwable::printStackTrace
                 );
     }
-    protected SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
 
+    protected SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
 }
