@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,16 +16,18 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import moxy.MvpAppCompatFragment;
+import moxy.presenter.InjectPresenter;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.add_todo_fragment.view.AddTodoBottomFragment;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.TodosPresenter;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.TodosRecyclerAdapter;
-import ru.reliableteam.noteorganizer.utils.DateUtils;
 
-public class TodosFragment extends Fragment implements TodoRequestCodes {
+public class TodosFragment extends MvpAppCompatFragment implements TodoRequestCodes, ITodosFragment {
 
-    private TodosPresenter presenter;
+    @InjectPresenter
+    public TodosPresenter presenter;
 
     private View root;
     private RecyclerView recyclerView;
@@ -35,12 +36,21 @@ public class TodosFragment extends Fragment implements TodoRequestCodes {
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_todos, container, false);
 
-        initUI();
-
-        presenter = new TodosPresenter(this);
-        initRecyclerView();
+        initialization();
 
         return root;
+    }
+
+    private void initialization() {
+        initUI();
+        initRecyclerView();
+    }
+    private void initRecyclerView() {
+        recyclerView = root.findViewById(R.id.todos_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(new TodosRecyclerAdapter(presenter));
+
+        presenter.getTodos();
     }
     private void initUI() {
         initButtonAddTodo();
@@ -50,8 +60,7 @@ public class TodosFragment extends Fragment implements TodoRequestCodes {
         FloatingActionButton addTodoBtn = root.findViewById(R.id.add_todo_fab);
         addTodoBtn.setOnClickListener(v -> {
             presenter.newTodo();
-            boolean needResponse = true;
-            openBottomSheet(needResponse, REQUEST_NEW_TODO);
+            openBottomSheet(REQUEST_NEW_TODO);
         });
     }
     private void initSortingButtons() {
@@ -78,31 +87,30 @@ public class TodosFragment extends Fragment implements TodoRequestCodes {
 
     }
 
+    @Override
     public void viewTodo() {
-        boolean needResponse = true;
-        openBottomSheet(needResponse, REQUEST_EDIT_TODO);
+        openBottomSheet(REQUEST_EDIT_TODO);
     }
-
-    private void openBottomSheet(Boolean needResponse, int requestId) {
-        AddTodoBottomFragment todoBottomFragment = new AddTodoBottomFragment();
-        if (needResponse)
-            todoBottomFragment.setTargetFragment(TodosFragment.this, requestId);
-        todoBottomFragment.show(getFragmentManager(), "add_todo");
-    }
-
-    private void initRecyclerView() {
-        recyclerView = root.findViewById(R.id.todos_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new TodosRecyclerAdapter(presenter));
-
-        presenter.getTodos();
-    }
-
+    @Override
     public void notifyDataChanged() {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
+    }
+    @Override
+    public void showConfirmationDialog() {
+        AlertDialog.Builder db = new AlertDialog.Builder(getContext());
+        db.setTitle(R.string.delete_hint);
+        db.setPositiveButton(R.string.positive, (dialog, which) -> presenter.deleteTodo());
+        db.setNegativeButton(R.string.negative, (dialog, which) -> dialog.dismiss());
+        db.show();
+    }
+
+    private void openBottomSheet(int requestId) {
+        AddTodoBottomFragment todoBottomFragment = new AddTodoBottomFragment();
+        todoBottomFragment.setTargetFragment(TodosFragment.this, requestId);
+        todoBottomFragment.show(getFragmentManager(), "add_todo");
     }
 
     @Override
@@ -124,19 +132,5 @@ public class TodosFragment extends Fragment implements TodoRequestCodes {
                 presenter.editTodo(title, description, dateTime, timeChosen, action);
             }
         }
-    }
-
-    public void showConfirmationDialog() {
-        AlertDialog.Builder db = new AlertDialog.Builder(getContext());
-        db.setTitle(R.string.delete_hint);
-        db.setPositiveButton(R.string.positive, (dialog, which) -> presenter.deleteTodo());
-        db.setNegativeButton(R.string.negative, (dialog, which) -> dialog.dismiss());
-        db.show();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        System.out.println("ON RESUME");
     }
 }

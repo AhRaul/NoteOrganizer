@@ -1,74 +1,76 @@
 package ru.reliableteam.noteorganizer.todos.todos_fragment.presenter;
 
+import moxy.InjectViewState;
+import moxy.MvpPresenter;
 import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
-import ru.reliableteam.noteorganizer.todos.todos_fragment.view.TodosFragment;
+import ru.reliableteam.noteorganizer.todos.todos_fragment.view.ITodosFragment;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.IViewHolder;
 
-public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter, TodoRequestCodes {
+@InjectViewState
+public class TodosPresenter extends MvpPresenter<ITodosFragment> implements ITodoPresenter, TodoRequestCodes {
     private static final int NEW_TODO = -1;
     private SharedPreferencesManager appSettings;
-    private TodosFragment view;
+    private TodoDaoImpl todoDao;
 
-    public TodosPresenter(TodosFragment view) {
-        this.view = view;
-        appSettings = getAppSettings();
+    public TodosPresenter() {
+        todoDao = new TodoDaoImpl();
+        appSettings = todoDao.getAppSettings();
     }
 
     @Override
     public void notifyDatasetChanged(int messageId) {
         System.out.println("DATA CHANGED");
-        view.notifyDataChanged();
+        getViewState().notifyDataChanged();
     }
 
     @Override
     public void getTodos() {
-        getTodosByState(this);
+        todoDao.getTodosByState(this);
     }
 
     @Override
     public void bindView(IViewHolder viewHolder) {
         int position = viewHolder.getPos();
-        viewHolder.setTodo(todoList.get(position));
+        viewHolder.setTodo(todoDao.todoList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return todoList.size();
+        return todoDao.size();
     }
 
     @Override
     public void saveTodo(String title, String description, Long dateTime, boolean timeChosen) {
         dateTime = timeChosen ? dateTime : 0;
-        saveTodo(title, description, dateTime, this);
+        todoDao.saveTodo(title, description, dateTime, this);
     }
 
     @Override
     public void editTodo(String title, String description, Long dateTime, boolean timeChosen, int action) {
         if (action == ACTION_UPDATE)
-            update(title, description, dateTime, this);
+            todoDao.update(title, description, dateTime, this);
         if (action == ACTION_DELETE)
             deleteTodo();
     }
 
     @Override
     public void longClicked(int position) {
-        todo = todoList.get(position);
-        view.showConfirmationDialog();
+        todoDao.setTodo(position);
+        getViewState().showConfirmationDialog();
     }
     @Override
     public void deleteTodo() {
-        delete(todo, this);
+        todoDao.delete(this);
     }
 
     @Override
     public void clicked(int position) {
-        todo = todoList.get(position);
-        System.out.println(todo);
-        appSettings.setClickedTodoId(todo.id);
-        view.viewTodo();
+        todoDao.setTodo(position);
+        appSettings.setClickedTodoId(todoDao.getTodo().id);
+        getViewState().viewTodo();
     }
 
     public void newTodo() {
@@ -77,25 +79,22 @@ public class TodosPresenter extends TodoDaoImpl implements ITodoPresenter, TodoR
 
     @Override
     public void makeTodoDone(int position, boolean isDone) {
-        Todo todo = todoList.get(position);
+        todoDao.setTodo(position);
+        Todo todo = todoDao.getTodo();
         todo.isDone = isDone;
-        update(todo, this);
+        todoDao.update(todo, this);
     }
 
     public void showAllTodos() {
-        showState = STATE.ALL;
-        getTodos();
+        todoDao.showAll(this);
     }
     public void showDoneTodos() {
-        showState = STATE.DONE;
-        getTodos();
+        todoDao.showDone(this);
     }
     public void showCurrentTodos() {
-        showState = STATE.CURRENT;
-        getTodos();
+        todoDao.showCurrent(this);
     }
     public void showMissedTodos() {
-        showState = STATE.MISSED;
-        getTodos();
+        todoDao.showMissed(this);
     }
 }

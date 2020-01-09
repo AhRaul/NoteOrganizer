@@ -98,7 +98,7 @@ public class TodoDaoImpl {
                 );
     }
 
-    public void delete(Todo todo, BasePresenter presenter) {
+    public void delete(BasePresenter presenter) {
         disposable = Completable.fromAction( () -> todoDAO.delete(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -163,5 +163,33 @@ public class TodoDaoImpl {
                 );
     }
 
-    public SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
+    public int size() {
+        return todoList.size();
+    }
+    public void setTodo(int position) {
+        todo = todoList.get(position);
+    }
+    public Todo getTodo() {
+        return todo;
+    }
+    public void showAll(BasePresenter presenter) {
+        showState = TodoDaoImpl.STATE.ALL;
+        getTodosByState(presenter);
+    }
+    public void showDone(BasePresenter presenter) {
+        showState = STATE.DONE;
+        getTodosByState(presenter);
+    }
+    public void showCurrent(BasePresenter presenter) {
+        showState = STATE.CURRENT;
+        getTodosByState(presenter);
+    }
+    public void showMissed(BasePresenter presenter) {
+        showState = STATE.MISSED;
+        getTodosByState(presenter);
+    }
+
+    public SharedPreferencesManager getAppSettings() {
+        return AppConfig.getInstance().getAppSettings();
+    }
 }
