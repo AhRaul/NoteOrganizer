@@ -26,7 +26,6 @@ import ru.reliableteam.noteorganizer.utils.SortListComparator;
  * Generates sample data.
  */
 
-// todo decide how to divide into 3 presenters: base list presenter, sort presenter, extra-options presenter
 public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     private String CLASS_TAG = "RecyclerViewPresenter";
     private final int NEW_NOTE = -1;

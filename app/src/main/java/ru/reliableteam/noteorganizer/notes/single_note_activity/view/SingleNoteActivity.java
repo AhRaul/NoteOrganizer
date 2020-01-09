@@ -31,7 +31,6 @@ import ru.reliableteam.noteorganizer.notes.model.Span;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.SingleNotePresenter;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.TextSpanPresenter;
 
-// todo need text utils
 public class SingleNoteActivity extends BaseActivity
         implements MaterialButtonToggleGroup.OnButtonCheckedListener, StyleState {
     private final String CLASS_TAG = "SingleNoteActivity";
@@ -184,7 +183,6 @@ public class SingleNoteActivity extends BaseActivity
         }
     }
 
-    // todo remake with underline and strike
     protected void onSelectionChanged() {
         System.out.println("selected");
         Spannable sb = noteText.getText();

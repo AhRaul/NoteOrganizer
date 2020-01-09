@@ -118,12 +118,11 @@ public class TodosFragment extends MvpAppCompatFragment implements TodoRequestCo
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            // todo convert to todos
             String title = data.getStringExtra("title");
             String description = data.getStringExtra("description");
             Long dateTime = data.getLongExtra("endDate", 0L);
-            Boolean timeChosen = data.getBooleanExtra("timeChosen", false);
-            Integer action = data.getIntExtra("action", 0);
+            boolean timeChosen = data.getBooleanExtra("timeChosen", false);
+            int action = data.getIntExtra("action", 0);
 
             if (requestCode == REQUEST_NEW_TODO) {
                 presenter.saveTodo(title, description, dateTime, timeChosen);
