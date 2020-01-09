@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.R;
@@ -54,26 +55,25 @@ public class TodosFragment extends Fragment implements TodoRequestCodes {
         });
     }
     private void initSortingButtons() {
+        MaterialButtonToggleGroup toggleGroup = root.findViewById(R.id.selection_buttons_toggle_group);
+        toggleGroup.addOnButtonCheckedListener( (group, checkedId, isChecked) -> {
+            if (group.getCheckedButtonId() == View.NO_ID)
+                presenter.showAllTodos();
+        });
         MaterialButton showDone = root.findViewById(R.id.todos_done);
         showDone.addOnCheckedChangeListener( (button, isChecked) -> {
                 if (isChecked)
                     presenter.showDoneTodos();
-                else
-                    presenter.showAllTodos();
         });
         MaterialButton showCurrent = root.findViewById(R.id.todos_current);
         showCurrent.addOnCheckedChangeListener( (button, isChecked) -> {
             if (isChecked)
                 presenter.showCurrentTodos();
-            else
-                presenter.showAllTodos();
         });
         MaterialButton showMissing = root.findViewById(R.id.todos_missed);
         showMissing.addOnCheckedChangeListener( (button, isChecked) -> {
             if (isChecked)
                 presenter.showMissedTodos();
-            else
-                presenter.showAllTodos();
         });
 
     }
