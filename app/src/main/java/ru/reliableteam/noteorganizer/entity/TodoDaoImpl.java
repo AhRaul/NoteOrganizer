@@ -19,16 +19,16 @@ public class TodoDaoImpl {
     private TodoDAO todoDAO = dataBase.getTodoDao();
     private int NO_MESSAGE = 0;
 
-    protected List<Todo> todoList = new ArrayList<>();
-    protected Todo todo = new Todo();
+    public List<Todo> todoList = new ArrayList<>();
+    public Todo todo = new Todo();
     private Disposable disposable;
 
-    protected enum STATE {
+    public enum STATE {
         ALL, DONE, MISSED, CURRENT;
     }
-    protected STATE showState = STATE.ALL;
+    public STATE showState = STATE.ALL;
 
-    protected void getTodosByState(BasePresenter presenter) {
+    public void getTodosByState(BasePresenter presenter) {
         switch (showState) {
             case ALL:
                 getAll(presenter);
@@ -45,7 +45,7 @@ public class TodoDaoImpl {
         }
     }
 
-    protected void saveTodo(String title, String description, Long dateTime, BasePresenter presenter) {
+    public void saveTodo(String title, String description, Long dateTime, BasePresenter presenter) {
         Todo todo = new Todo();
         todo.title = title;
         todo.description = description;
@@ -56,7 +56,7 @@ public class TodoDaoImpl {
 
         insertTodo(todo, presenter);
     }
-    protected void saveTodo(Todo todo, BasePresenter presenter) {
+    public void saveTodo(Todo todo, BasePresenter presenter) {
         insertTodo(todo, presenter);
     }
 
@@ -69,7 +69,7 @@ public class TodoDaoImpl {
                 );
     }
 
-    protected void getTodo(long id, BasePresenter presenter) {
+    public void getTodo(long id, BasePresenter presenter) {
         System.out.println("id = " + id);
         disposable = todoDAO.getById(id)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -82,14 +82,14 @@ public class TodoDaoImpl {
                 );
     }
 
-    protected void update(String title, String description, Long dateTime, BasePresenter presenter) {
+    public void update(String title, String description, Long dateTime, BasePresenter presenter) {
         todo.title = title;
         todo.description = description;
         todo.endDate = dateTime;
 
         update(todo, presenter);
     }
-    protected void update(Todo todo, BasePresenter presenter) {
+    public void update(Todo todo, BasePresenter presenter) {
         disposable = Completable.fromAction( () -> todoDAO.update(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -98,7 +98,7 @@ public class TodoDaoImpl {
                 );
     }
 
-    protected void delete(Todo todo, BasePresenter presenter) {
+    public void delete(Todo todo, BasePresenter presenter) {
         disposable = Completable.fromAction( () -> todoDAO.delete(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -163,5 +163,5 @@ public class TodoDaoImpl {
                 );
     }
 
-    protected SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
+    public SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
 }

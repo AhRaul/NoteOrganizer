@@ -74,7 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Todo title" />
+            android:hint="@string/todo_title_hint"
+            android:imeOptions="flagNoExtractUi"/>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/todo_description"
@@ -82,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Description" />
+            android:imeOptions="flagNoExtractUi"
+            android:hint="@string/todo_description_hint" />
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/date_layout"
             android:layout_width="match_parent"

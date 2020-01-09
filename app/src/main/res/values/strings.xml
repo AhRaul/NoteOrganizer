@@ -42,6 +42,9 @@
     <string name="current_todo_hint">Current</string>
     <string name="done_todo_hint">Done</string>
     <string name="saved_todo_hint">Your todo was saved</string>
+    <string name="todo_title_hint">Todo title</string>
+    <string name="todo_description_hint">Description</string>
+
 
     <string name="header_sample">Trip to London</string>
     <string name="subheader_sample">

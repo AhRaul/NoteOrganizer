@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.WindowId;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -23,18 +24,23 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
+import moxy.MvpBottomSheetDialogFragment;
+import moxy.presenter.InjectPresenter;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.add_todo_fragment.presenter.AddTodoPresenter;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 
-public class AddTodoBottomFragment extends BottomSheetDialogFragment implements TodoRequestCodes {
+public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
+        implements TodoRequestCodes, IAddTodoFragment {
     private final String CLASS_TAG = "NotesBtmDialogFragment";
     private final String EMPTY_TEXT = "";
 
     private View root;
-    private AddTodoPresenter presenter;
+
+    @InjectPresenter
+    public AddTodoPresenter presenter;
 
     private TextInputEditText title, description;
 
@@ -51,14 +57,13 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment implements 
     private TextView timeTv;
     private Boolean timeChosen = false;
 
-    // todo prevent saving without title
-
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         root = View.inflate(getContext(), R.layout.fragment_add_todo, null);
-        presenter = new AddTodoPresenter(this);
+//        presenter = new AddTodoPresenter(this);
 
         BottomSheetDialog bottomSheet = initBottomSheet(savedInstanceState);
         initUI();
@@ -89,7 +94,10 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment implements 
     }
 
     private void initDatePicking() {
-        datePickerDialog = new DatePickerDialog(getContext());
+        initDatePickingLayout();
+        initDatePickingDialog();
+    }
+    private void initDatePickingLayout() {
         dateBtn = root.findViewById(R.id.date_btn);
         dateBtn.setOnClickListener( v -> datePickerDialog.show() );
         dateLayout = root.findViewById(R.id.date_layout);
@@ -100,11 +108,24 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment implements 
             clearDateLayout();
             clearTimeLayout();
         });
-        datePickerDialog.setOnDateSetListener(
-                (view, year, month, dayOfMonth) -> showDateLayout(dayOfMonth, month, year)
-        );
+    }
+    private void initDatePickingDialog() {
+        final Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH + 1);
+        int year = c.get(Calendar.YEAR);
+
+        DatePickerDialog.OnDateSetListener dateSetListener = //datePickerDialog.setOnDateSetListener(
+                (view, year_, month_, dayOfMonth_) -> showDateLayout(dayOfMonth_, month_, year_);
+        //);
+
+        datePickerDialog = new DatePickerDialog(getContext(),dateSetListener, year, month, day);
     }
     private void initTimePicking() {
+        initTimePickingLayout();
+        initTimePickingDialog();
+    }
+    private void initTimePickingLayout() {
         timeBtn = root.findViewById(R.id.time_btn);
         timeBtn.setOnClickListener( v -> timePickerDialog.show() );
         timeLayout = root.findViewById(R.id.time_layout);
@@ -112,15 +133,18 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment implements 
         timeTv.setOnClickListener( v -> timePickerDialog.show() );
         ImageButton timeDelete = root.findViewById(R.id.todo_time_delete);
         timeDelete.setOnClickListener(v -> clearTimeLayout() );
+    }
+    private void initTimePickingDialog() {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
         TimePickerDialog.OnTimeSetListener onTimeSetListener = (view, hourOfDay_, minute_) -> {
-                showTimeLayout(hourOfDay_, minute_);
+            showTimeLayout(hourOfDay_, minute_);
         };
         timePickerDialog = new TimePickerDialog(getActivity(), onTimeSetListener, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
     }
+
     private void initCancel() {
         ImageButton cancelBtn = root.findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener(v -> dismiss() );
@@ -200,20 +224,24 @@ public class AddTodoBottomFragment extends BottomSheetDialogFragment implements 
     private String getDate() {
         return dateTv.getText().toString();
     }
+    @Override
     public void setDate(String date) {
         dateLayout.setVisibility(View.VISIBLE);
         dateBtn.setEnabled(false);
         dateTv.setText(date);
         timeBtn.setVisibility(View.VISIBLE);
     }
+    @Override
     public void setTime(String time) {
         timeLayout.setVisibility(View.VISIBLE);
         timeBtn.setEnabled(false);
         timeTv.setText(time);
     }
+    @Override
     public void setTitle(String title_) {
         title.setText(title_);
     }
+    @Override
     public void setDescription(String description_) {
         description.setText(description_);
     }
