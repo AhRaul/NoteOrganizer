@@ -25,6 +25,7 @@
     <string name="migrate_notes_hint">Save all notes to .txt format</string>
     <string name="migrated_notes_dir_path_hint">dir: </string>
     <string name="cleaned_hint">Cache was cleaned</string>
+    <string name="todos_cache_size_prefix"> done</string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>
@@ -35,6 +36,12 @@
     <string name="choose_title_hint">Choose notes</string>
     <string name="saved_note_hint">Your note was saved!</string>
     <string name="deleted_note_hint">Your note was deleted!</string>
+    <string name="header_sample">Trip to London</string>
+    <string name="subheader_sample">
+            the capital and largest city of the United Kingdom of Great Britain and Northern Ireland. Administratively forms the region of England Greater London, divided into 33 self-governing territories. The population is 8 908 081 people [2] (2018) is the third [4] largest city in Europe. It forms the agglomeration Greater London and the larger metropolitan area, which are the EU population by the second urban and first regional agglomerations, respectively. Located in the southeast of the island of Great Britain, on a plain at the mouth of the Thames, near the North Sea. The main political, economic and cultural center of the United Kingdom.
+        </string>
+    <string name="search_view_hint">Search for notes</string>
+
 
     <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Todos</string>
@@ -45,13 +52,6 @@
     <string name="todo_title_hint">Todo title</string>
     <string name="todo_description_hint">Description</string>
 
-
-    <string name="header_sample">Trip to London</string>
-    <string name="subheader_sample">
-            the capital and largest city of the United Kingdom of Great Britain and Northern Ireland. Administratively forms the region of England Greater London, divided into 33 self-governing territories. The population is 8 908 081 people [2] (2018) is the third [4] largest city in Europe. It forms the agglomeration Greater London and the larger metropolitan area, which are the EU population by the second urban and first regional agglomerations, respectively. Located in the southeast of the island of Great Britain, on a plain at the mouth of the Thames, near the North Sea. The main political, economic and cultural center of the United Kingdom.
-        </string>
-
-    <string name="search_view_hint">Search for notes</string>
 
     <!--    SINGLE NOTE ACTIVITY-->
     <string name="delete">delete</string>

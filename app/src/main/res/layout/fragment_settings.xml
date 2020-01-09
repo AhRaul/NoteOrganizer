@@ -104,12 +104,13 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View style="@style/Divider" />
-                <!--RELOAD GALLERY-->
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+                    <!--todo add cloud-->
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -268,7 +269,7 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="5"
-                        android:enabled="false"
+
                         android:text="@string/clean" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

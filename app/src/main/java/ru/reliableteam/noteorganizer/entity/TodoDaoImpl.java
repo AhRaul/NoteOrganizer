@@ -2,6 +2,8 @@ package ru.reliableteam.noteorganizer.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -107,6 +109,26 @@ public class TodoDaoImpl {
                 );
     }
 
+    public void getCacheSize(Function<Integer, Void> callable) {
+        disposable = todoDAO.getCacheSize()
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        doneTodosCount -> {
+                            System.out.println("GET");
+                            callable.apply(doneTodosCount);
+                        },
+                        Throwable::printStackTrace
+                );
+    }
+    public void cleanCacheSize(Function<Integer, Void> callable) {
+        disposable = Completable.fromAction( () -> todoDAO.cleanCache() )
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> getCacheSize(callable),
+                        Throwable::printStackTrace
+                );
+    }
+
     /**
      * Getting todos from data-source
      * @param presenter, which has
@@ -130,6 +152,7 @@ public class TodoDaoImpl {
                         doneTodos -> {
                             todoList.clear();
                             todoList.addAll(doneTodos);
+                            System.out.println("GET");
                             presenter.notifyDatasetChanged(NO_MESSAGE);
                         },
                         Throwable::printStackTrace
@@ -163,7 +186,7 @@ public class TodoDaoImpl {
                 );
     }
 
-    public int size() {
+    public Integer size() {
         return todoList.size();
     }
     public void setTodo(int position) {

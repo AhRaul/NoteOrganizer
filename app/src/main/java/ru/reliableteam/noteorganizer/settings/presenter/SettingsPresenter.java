@@ -7,9 +7,16 @@ import android.widget.CompoundButton;
 import com.google.android.material.chip.ChipGroup;
 
 import java.io.File;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.BasePresenter;
 import ru.reliableteam.noteorganizer.settings.view.ISettingsView;
@@ -18,11 +25,19 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
     private final String CLASS_TAG = "SettingsPresenter";
     private SharedPreferencesManager appSettings;
     private ISettingsView view;
+    private TodoDaoImpl todoDao;
+
     private int lastCheckedId = 0;
     private int APP_THEME;
 
-    public SettingsPresenter(Context context, ISettingsView view) {
-        appSettings = new SharedPreferencesManager(context);
+    private Function<Integer, Void> todosCacheSizeListener = size -> {
+        view.setTodosCacheSize(size.toString());
+        return null;
+    };
+
+    public SettingsPresenter(ISettingsView view) {
+        todoDao = new TodoDaoImpl();
+        appSettings = todoDao.getAppSettings();//new SharedPreferencesManager(context);
         this.view = view;
         this.APP_THEME = appSettings.getAppTheme();
     }
@@ -59,10 +74,19 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
 
         return String.format("%.3f mb", space / 1024.0 / 1024.0);
     }
-
-    @Override
-    public void notifyDatasetChanged(int messageId) {
-        view.setNotesCacheSize(getNotesCacheSize());
+    public void getTodosCacheSize() {
+        Disposable disposable = Completable.fromAction( () -> todoDao.getCacheSize(todosCacheSizeListener) )
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> {
+                            System.out.println("SET");
+                            view.setTodosCacheSize(todoDao.size().toString());
+                        },
+                        Throwable::printStackTrace
+                );
+    }
+    public void cleanTodosCache() {
+        todoDao.cleanCacheSize(todosCacheSizeListener);
     }
 
     public void cleanNotesCache() {

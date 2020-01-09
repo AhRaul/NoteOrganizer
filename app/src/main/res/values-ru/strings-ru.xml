@@ -10,7 +10,6 @@
     <string name="positive">Да</string>
     <string name="empty_body_hint">Этот элемент пуст! Невозможно сохранить.</string>
 
-
     <!--    SETTINGS FRAGMENT   -->
     <string name="title_settings">Настройки</string>
     <string name="app_theme_hint">Тема приложения</string>
@@ -20,12 +19,13 @@
     <string name="last_update_hint">Последнее обновление: </string>
     <string name="not_implemented_hint">не реализовано</string>
     <string name="clean_notes_cache_hint">Очистить кеш заметок</string>
-    <string name="cache_size_hint">Размер кеша: </string>
+    <string name="cache_size_hint">Кол-во сделанных: </string>
     <string name="clean">очистить</string>
     <string name="clean_todos_cache_hint">Очистить кеш задач</string>
     <string name="migrate_notes_hint">Сохранить заметки в .txt формат</string>
     <string name="migrated_notes_dir_path_hint">путь: </string>
     <string name="cleaned_hint">Кэш очищен</string>
+    <string name="todos_cache_size_prefix"> сделанных</string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Заметки</string>
@@ -34,8 +34,11 @@
     <string name="chip_sort_by_title">По заголовку</string>
     <string name="migrated_hint">Данные были переведены в формат .TXT. Путь к файлам можно найти на вкладке Настройки.</string>
     <string name="choose_title_hint">Выберите заметки</string>
-
-
+    <string name="search_view_hint">Поиск заметок</string>
+    <string name="header_sample">Поездка в Лондон</string>
+    <string name="subheader_sample">
+        столица и крупнейший город Соединенного Королевства Великобритании и Северной Ирландии. Административно образует район Англии Большой Лондон, разделенный на 33 самоуправляющихся территории. Население составляет 8 908 081 человек [2] (2018) - третий [4] по величине город в Европе. Он образует агломерацию Большой Лондон и более крупную столичную территорию, которые составляют население ЕС по второй городской и первой региональной агломерациям соответственно. Расположен на юго-востоке острова Великобритания, на равнине в устье Темзы, недалеко от Северного моря. Главный политический, экономический и культурный центр Великобритании.
+    </string>
 
     <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Задачи</string>
@@ -46,13 +49,6 @@
     <string name="todo_title_hint">Заголовок</string>
     <string name="todo_description_hint">Описание</string>
 
-    <string name="header_sample">Поездка в Лондон</string>
-    <string name="subheader_sample">
-        столица и крупнейший город Соединенного Королевства Великобритании и Северной Ирландии. Административно образует район Англии Большой Лондон, разделенный на 33 самоуправляющихся территории. Население составляет 8 908 081 человек [2] (2018) - третий [4] по величине город в Европе. Он образует агломерацию Большой Лондон и более крупную столичную территорию, которые составляют население ЕС по второй городской и первой региональной агломерациям соответственно. Расположен на юго-востоке острова Великобритания, на равнине в устье Темзы, недалеко от Северного моря. Главный политический, экономический и культурный центр Великобритании.
-    </string>
-
-    <string name="search_view_hint">Поиск заметок</string>
-
     <!--    SINGLE NOTE ACTIVITY-->
     <string name="delete">удалить</string>
     <string name="save">сохранить</string>
@@ -61,7 +57,7 @@
     <string name="left_bracket">(</string>
     <string name="right_bracket">)</string>
     <string name="clear">C</string>
-    -<string name="back_space"><![CDATA[<--]]></string>
+    <string name="back_space"><![CDATA[<--]]></string>
     <string name="share">Поделиться</string>
     <string name="send_to">Поделиться своей заметкой</string>
     <string name="saved_note_hint">Ваша заметка была сохранена!</string>

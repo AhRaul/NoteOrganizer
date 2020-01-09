@@ -20,6 +20,9 @@ public interface TodoDAO {
     @Query("SELECT * FROM Todo WHERE id = :id")
     Single<Todo> getById(Long id);
 
+    @Query("SELECT COUNT(*) FROM Todo WHERE isDone is 1")
+    Single<Integer> getCacheSize();
+
     @Update
     void update(Todo newTodo);
 
@@ -28,6 +31,9 @@ public interface TodoDAO {
 
     @Delete
     void delete(Todo todo);
+
+    @Query("DELETE FROM Todo WHERE isDone is 1")
+    void cleanCache();
 
     @Query("SELECT * FROM Todo WHERE isDone is 1")
     Single<List<Todo>> getDoneTodos();

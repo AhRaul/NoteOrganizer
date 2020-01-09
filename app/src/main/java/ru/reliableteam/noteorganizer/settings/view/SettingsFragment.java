@@ -31,7 +31,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_settings, container, false);
-        presenter = new SettingsPresenter(getContext(), this);
+        presenter = new SettingsPresenter(this);
 
         initUI();
 
@@ -65,7 +65,9 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     }
     private void initTodosCacheSizeSettings() {
         todosCacheSize = root.findViewById(R.id.todos_cache_size_tv);
+        presenter.getTodosCacheSize();
         cleanTodosCache = root.findViewById(R.id.todos_photos_cache_size_clean_btn);
+        cleanTodosCache.setOnClickListener( v -> presenter.cleanTodosCache());
     }
     private void initNotesMigrationSettings() {
         appDirPath = root.findViewById(R.id.app_dir_path);
@@ -84,6 +86,11 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     @Override
     public void setNotesCacheSize(String size) {
         notesCacheSize.setText(size);
+    }
+
+    @Override
+    public void setTodosCacheSize(String size) {
+        todosCacheSize.setText(size + " " + getString(R.string.todos_cache_size_prefix));
     }
 
     private void setAppDirPath(String path) {
