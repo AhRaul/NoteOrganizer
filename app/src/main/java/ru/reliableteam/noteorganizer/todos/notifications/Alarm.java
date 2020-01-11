@@ -60,6 +60,7 @@ public class Alarm {
 
     /**
      * Возвращает календарь, заполненный данными даты и времени
+     * Конвертирует "%s/%s/%s" "%s:%s" в Calendar
      *
      * @param dateOutputFormat  "%s/%s/%s"  день/месяц/год
      * @param timeOutputFormat  "%s:%s"     часы:минуты
@@ -76,7 +77,7 @@ public class Alarm {
         Calendar calendar = Calendar.getInstance();
 
             calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(subStrDate[0]));
-            calendar.set(Calendar.MONTH, Integer.parseInt(subStrDate[1]));
+            calendar.set(Calendar.MONTH, (Integer.parseInt(subStrDate[1])-1));
             calendar.set(Calendar.YEAR, Integer.parseInt(subStrDate[2]));
 
             calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(subStrTime[0]));
