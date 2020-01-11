@@ -30,12 +30,12 @@ public class Alarm {
      *            c.set(Calendar.YEAR, 2020);>>        2020 год
      * @param requestCode id уведомления.
      */
-    private void startAlarm(Calendar c, int requestCode) {
+    public void startAlarm(Calendar c, int requestCode) {
         AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this.context, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, requestCode, intent, 0);
 
-        if (alarmManager != null) {
+        if (alarmManager != null && c.after(Calendar.getInstance())) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
         }
     }
@@ -47,15 +47,9 @@ public class Alarm {
      * @param timeOutputFormat  "%s:%s";    часы:минуты
      * @param requestCode        id уведомления.
      */
-    private void startAlarm(String dateOutputFormat, String timeOutputFormat, int requestCode) {
+    public void startAlarm(String dateOutputFormat, String timeOutputFormat, int requestCode) {
         Calendar c = importStringDateAndTimeToCalendar(dateOutputFormat, timeOutputFormat);
-        AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this.context, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, requestCode, intent, 0);
-
-        if (alarmManager != null) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-        }
+        startAlarm(c, requestCode);
     }
 
     /**
@@ -92,7 +86,7 @@ public class Alarm {
      *
      * @param requestCode Private request code for the sender.
      */
-    private void cancelAlarm(int requestCode) {
+    public void cancelAlarm(int requestCode) {
         AlarmManager alarmManager =(AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this.context, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, requestCode, intent, 0);

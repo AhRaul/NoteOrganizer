@@ -14,6 +14,7 @@ import ru.reliableteam.noteorganizer.entity.data_base.DataBase;
 import ru.reliableteam.noteorganizer.entity.data_base.TodoDAO;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
+import ru.reliableteam.noteorganizer.todos.notifications.Alarm;
 
 public class TodoDaoImpl {
     private final String CLASS_TAG = "TodoDaoImpl";
@@ -29,6 +30,8 @@ public class TodoDaoImpl {
         ALL, DONE, MISSED, CURRENT;
     }
     public STATE showState = STATE.ALL;
+
+    private Alarm alarm = AppConfig.getInstance().getAlarm();
 
     public void getTodosByState(BasePresenter presenter) {
         switch (showState) {
@@ -57,6 +60,7 @@ public class TodoDaoImpl {
         todo.parentId = null;
 
         insertTodo(todo, presenter);
+//        alarm.startAlarm("12/01/2020", "02:09", 1);   //first alarm test
     }
     public void saveTodo(Todo todo, BasePresenter presenter) {
         insertTodo(todo, presenter);

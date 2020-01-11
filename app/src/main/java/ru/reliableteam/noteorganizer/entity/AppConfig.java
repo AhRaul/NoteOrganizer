@@ -12,6 +12,7 @@ import java.io.File;
 
 import ru.reliableteam.noteorganizer.entity.data_base.DataBase;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
+import ru.reliableteam.noteorganizer.todos.notifications.Alarm;
 
 /**
  * class to implement singleton variables like:
@@ -27,6 +28,7 @@ public class AppConfig extends Application {
     private static AppConfig instance;
     private DataBase database;
     private SharedPreferencesManager appSettings;
+    private Alarm alarm;
 
     @Override
     public void onCreate() {
@@ -39,6 +41,8 @@ public class AppConfig extends Application {
 
         appSettings = new SharedPreferencesManager(this);
         createDirectory();
+
+        alarm = new Alarm(this);
     }
 
     public static AppConfig getInstance() {
@@ -59,5 +63,9 @@ public class AppConfig extends Application {
         if(!myDirectory.exists()) {
             myDirectory.mkdir();
         }
+    }
+
+    public Alarm getAlarm() {
+        return alarm;
     }
 }

@@ -8,6 +8,7 @@ import android.content.ContextWrapper;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+import ru.reliableteam.noteorganizer.R;
 
 /**
  * Класс NotificationHelper описывает свойства уведомления.
@@ -47,6 +48,7 @@ public class NotificationHelper extends ContextWrapper {
     public NotificationCompat.Builder getChannelNotification() {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.");
+                .setContentText("Your AlarmManager is working.")
+                .setSmallIcon(R.drawable.ic_alarm_black_24dp);
     }
 }
