@@ -35,15 +35,56 @@ public class Alarm {
         Intent intent = new Intent(this.context, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, requestCode, intent, 0);
 
-        if (c.before(Calendar.getInstance())) { //если устанавливаемое время уже наступило, то true, устанавливаем на следующий день
-
-            c.add(Calendar.DATE, 1);// при amount = 1 выбирается завтрашний день календаря.
-                                            // Например: для выбора сегодняшнего дня, сделать amount = 0.
+        if (alarmManager != null) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
         }
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
+    /**
+     * перегруженный startAlarm(Calendar c, int requestCode)
+     *
+     * @param dateOutputFormat  "%s/%s/%s"  день/месяц/год
+     * @param timeOutputFormat  "%s:%s";    часы:минуты
+     * @param requestCode        id уведомления.
+     */
+    private void startAlarm(String dateOutputFormat, String timeOutputFormat, int requestCode) {
+        Calendar c = importStringDateAndTimeToCalendar(dateOutputFormat, timeOutputFormat);
+        AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this.context, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, requestCode, intent, 0);
+
+        if (alarmManager != null) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        }
+    }
+
+    /**
+     * Возвращает календарь, заполненный данными даты и времени
+     *
+     * @param dateOutputFormat  "%s/%s/%s"  день/месяц/год
+     * @param timeOutputFormat  "%s:%s"     часы:минуты
+     * @return calendar;
+     */
+    private Calendar importStringDateAndTimeToCalendar(String dateOutputFormat, String timeOutputFormat) {
+        String[] subStrDate;
+        String[] subStrTime;
+        String delimeterDate = "/";
+        String delimeterTime = ":";
+        subStrDate = dateOutputFormat.split(delimeterDate);
+        subStrTime = timeOutputFormat.split(delimeterTime);
+
+        Calendar calendar = Calendar.getInstance();
+
+            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(subStrDate[0]));
+            calendar.set(Calendar.MONTH, Integer.parseInt(subStrDate[1]));
+            calendar.set(Calendar.YEAR, Integer.parseInt(subStrDate[2]));
+
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(subStrTime[0]));
+            calendar.set(Calendar.MINUTE, Integer.parseInt(subStrTime[1]));
+            calendar.set(Calendar.SECOND, 0);
+
+        return calendar;
+    }
 
     /**
      * Метод cancelAlarm() удаляет уведомление из планировщика по его ID (requestCode)
@@ -55,6 +96,8 @@ public class Alarm {
         Intent intent = new Intent(this.context, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, requestCode, intent, 0);
 
-        alarmManager.cancel(pendingIntent);
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
     }
 }
