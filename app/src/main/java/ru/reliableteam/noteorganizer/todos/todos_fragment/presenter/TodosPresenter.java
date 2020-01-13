@@ -8,6 +8,7 @@ import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.ITodosFragment;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.IViewHolder;
+import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 @InjectViewState
 public class TodosPresenter extends MvpPresenter<ITodosFragment> implements ITodoPresenter, TodoRequestCodes {
@@ -45,6 +46,7 @@ public class TodosPresenter extends MvpPresenter<ITodosFragment> implements ITod
     @Override
     public void saveTodo(String title, String description, Long dateTime, boolean timeChosen) {
         dateTime = timeChosen ? dateTime : 0;
+        System.out.println(DateUtils.dateToString(dateTime));
         todoDao.saveTodo(title, description, dateTime, this);
     }
 

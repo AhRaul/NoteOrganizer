@@ -5,7 +5,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import java.sql.Date;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 /**
  * Класс Alarm дает доступ приложению к созданию в планировщике системы уведомлений.
@@ -51,6 +55,14 @@ public class Alarm {
         Calendar c = importStringDateAndTimeToCalendar(dateOutputFormat, timeOutputFormat);
         startAlarm(c, requestCode);
     }
+    public void startAlarm(Long dateInMills, int requestCode) {
+        String[] dateTimeS = DateUtils.dateToString(dateInMills).split(" ");
+        String date = dateTimeS[0];
+        String time = dateTimeS[1];
+
+        System.out.println(date + "_" + time);
+        startAlarm(date, time, requestCode);
+    }
 
     /**
      * Возвращает календарь, заполненный данными даты и времени
@@ -61,22 +73,20 @@ public class Alarm {
      * @return calendar;
      */
     private Calendar importStringDateAndTimeToCalendar(String dateOutputFormat, String timeOutputFormat) {
-        String[] subStrDate;
-        String[] subStrTime;
         String delimeterDate = "/";
         String delimeterTime = ":";
-        subStrDate = dateOutputFormat.split(delimeterDate);
-        subStrTime = timeOutputFormat.split(delimeterTime);
+        String[] subStrDate = dateOutputFormat.split(delimeterDate);
+        String[] subStrTime = timeOutputFormat.split(delimeterTime);
 
         Calendar calendar = Calendar.getInstance();
 
-            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(subStrDate[0]));
-            calendar.set(Calendar.MONTH, (Integer.parseInt(subStrDate[1])-1));
-            calendar.set(Calendar.YEAR, Integer.parseInt(subStrDate[2]));
+        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(subStrDate[0]));
+        calendar.set(Calendar.MONTH, (Integer.parseInt(subStrDate[1]) - 1));
+        calendar.set(Calendar.YEAR, Integer.parseInt(subStrDate[2]));
 
-            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(subStrTime[0]));
-            calendar.set(Calendar.MINUTE, Integer.parseInt(subStrTime[1]));
-            calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(subStrTime[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(subStrTime[1]));
+        calendar.set(Calendar.SECOND, 0);
 
         return calendar;
     }

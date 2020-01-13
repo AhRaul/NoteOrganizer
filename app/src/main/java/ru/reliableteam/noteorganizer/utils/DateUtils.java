@@ -56,6 +56,9 @@ public class DateUtils {
             Integer[] timeArr = parseTime(time);
             calendar.set(Calendar.HOUR_OF_DAY, timeArr[0]);
             calendar.set(Calendar.MINUTE, timeArr[1]);
+        } else {
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
         }
 
         if (!date.equals("")) {
@@ -107,7 +110,6 @@ public class DateUtils {
         Calendar calendar = new GregorianCalendar();
         Date date = new Date(dateInMills);
         calendar.setTime(date);
-
         return calendar;
     }
 }

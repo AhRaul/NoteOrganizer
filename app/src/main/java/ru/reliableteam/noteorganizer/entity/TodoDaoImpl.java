@@ -70,7 +70,10 @@ public class TodoDaoImpl {
         disposable = Completable.fromAction( () -> todoDAO.insert(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> getTodosByState(presenter),
+                        () -> {
+                            alarm.startAlarm(todo.endDate, 1);
+                            getTodosByState(presenter);
+                        },
                         Throwable::printStackTrace
                 );
     }
