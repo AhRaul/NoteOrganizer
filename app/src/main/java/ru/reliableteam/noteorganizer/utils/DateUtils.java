@@ -17,7 +17,7 @@ public class DateUtils {
     private final static int HOURS = 24;
     private final static String DATE_OUTPUT_FORMAT = "%s/%s/%s";
     private final static String TIME_OUTPUT_FORMAT = "%s:%s";
-    private final static Long NULL_DATE = 0L;
+    private final static Long NULL_DATE = -10800000L;
     private final static Long BEGIN_DATE = 2678400000L;
     private final static String BEGIN_DATE_STRING = "01/01/1970";
     private final static String BEGIN_TIME = "00:00";
@@ -30,6 +30,7 @@ public class DateUtils {
         return notEqualsToBeginDate(dateInMills);
     }
     private static boolean notEqualsToBeginDate(Long dateInMills) {
+        System.out.println(dateInMills);
         return !NULL_DATE.equals(dateInMills);
     }
 
@@ -67,6 +68,8 @@ public class DateUtils {
             calendar.set(Calendar.MONTH, dateArr[1] - 1);
             calendar.set(Calendar.YEAR, dateArr[2]);
         }
+
+        System.out.println(calendar.toString());
 
         return calendar.getTimeInMillis();
     }

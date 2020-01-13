@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.view.WindowId;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
@@ -63,7 +61,6 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         root = View.inflate(getContext(), R.layout.fragment_add_todo, null);
-//        presenter = new AddTodoPresenter(this);
 
         BottomSheetDialog bottomSheet = initBottomSheet(savedInstanceState);
         initUI();
@@ -181,7 +178,9 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
     }
     private Intent getIntentWithExtras(int action) {
         Intent intent = new Intent();
+        System.out.println(getDate() + "_" + getTime());
         long dateTime = DateUtils.stringToDate(getTime(), getDate());
+        System.out.println("dt = " + dateTime);
         intent.putExtra("title", title.getText().toString());
         intent.putExtra("description", description.getText().toString());
         intent.putExtra("endDate", dateTime);
