@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EntranceActivity">
+
+    <ImageView
+        android:id="@+id/launcher_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/baseline_launcher_icon"
+        android:tint="@color/colorPrimary"
+        />
+
+    <TextView
+        android:id="@+id/app_name"
+        style="@style/TextView.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
+        app:layout_anchor="@id/launcher_icon"
+        app:layout_anchorGravity="bottom|center"
+        />
+    <TextView
+        android:id="@+id/team_copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="by Reliableteam \u00A9 2020"
+        style="@style/TextView.SubHeader"
+        app:layout_anchorGravity="center|bottom"
+        android:layout_gravity="center|bottom"
+        app:layout_anchor="@id/app_name"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
