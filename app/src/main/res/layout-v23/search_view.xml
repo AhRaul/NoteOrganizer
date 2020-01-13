@@ -120,23 +120,38 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:layout_width="30dp"
+
                     android:layout_height="wrap_content"
-                    android:layout_column="1"
+                    android:layout_column="2"
                     android:layout_columnWeight="2"
                     android:layout_gravity="fill">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/clear_search"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        app:icon="@drawable/ic_backspace_black_24dp"
+                        app:iconTint="?attr/colorOnSurface"
+                        app:strokeColor="@android:color/transparent"
+                        app:iconGravity="textStart"
+                        android:onClick="clearSearch"
+                        android:layout_weight="2"/>
 
                     <com.google.android.material.button.MaterialButton
                         android:layout_gravity="center"
                         android:id="@+id/sort_notes_button"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         app:icon="@drawable/baseline_sort_24"
                         app:iconGravity="textStart"
                         app:iconTint="?attr/colorOnSurface"
                         android:alpha="0.8"
-                        app:strokeColor="@android:color/transparent" />
+                        app:strokeColor="@android:color/transparent"
+                        android:layout_weight="2"/>
+
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
             </GridLayout>
