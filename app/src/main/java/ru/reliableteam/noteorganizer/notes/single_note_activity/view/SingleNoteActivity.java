@@ -39,7 +39,7 @@ public class SingleNoteActivity extends BaseActivity
     private TextSpanPresenter spanPresenter;
     CalculatorFragment calculatorFragment;
 
-    TextInputEditText noteText, noteTitle;
+    TextInputEditText noteText, noteTitle, search_text_view;
     MaterialButton boldBtn, italicBtn, underlineBtn, strikeBtn;
     ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn;
     MaterialButtonToggleGroup toggleGroup;
@@ -235,6 +235,10 @@ public class SingleNoteActivity extends BaseActivity
     public void onDestroy() {
         super.onDestroy();
         hideKeyBoard();
+    }
+
+    public void clearSearch(View view) {
+        search_text_view.setText("");
     }
 
 }
