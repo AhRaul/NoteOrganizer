@@ -13,8 +13,8 @@ import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
-import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.IViewHolder;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.NotesFragment;
+import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.IViewHolder;
 import ru.reliableteam.noteorganizer.utils.SortListComparator;
 
 /**
@@ -205,13 +205,22 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
 
     // LISTENERS
     @Override
-    public TextWatcher getTextChangeListener() {
+    public TextWatcher getTextChangeListener(View buttonClear) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setClearButtonVisibility(s);
                 searchNotes(s.toString());
+            }
+            private void setClearButtonVisibility(CharSequence s) {
+                if (s.length() == 0) {
+                    buttonClear.setVisibility(View.GONE);
+                } else {
+                    if (buttonClear.getVisibility() != View.VISIBLE)
+                        buttonClear.setVisibility(View.VISIBLE);
+                }
             }
             @Override
             public void afterTextChanged(Editable s) {}

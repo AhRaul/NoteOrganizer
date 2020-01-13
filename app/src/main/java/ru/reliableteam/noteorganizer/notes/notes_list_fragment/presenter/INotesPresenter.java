@@ -23,6 +23,6 @@ public interface INotesPresenter extends BasePresenter {
     void deleteNotes();
     void migrateSelectedNotes();
 
-    TextWatcher getTextChangeListener();
+    TextWatcher getTextChangeListener(View buttonClear);
     ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener();
 }

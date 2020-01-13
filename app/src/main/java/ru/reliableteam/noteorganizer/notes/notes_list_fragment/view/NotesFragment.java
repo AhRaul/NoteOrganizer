@@ -2,9 +2,6 @@ package ru.reliableteam.noteorganizer.notes.notes_list_fragment.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -43,6 +39,7 @@ public class NotesFragment extends Fragment {
     private FloatingActionButton writeNewNote;
     private MaterialButton sortNotes;
     private TextInputEditText searchNoteTv;
+    MaterialButton clearSearch;
 
     private INotesPresenter presenter;
 
@@ -87,8 +84,12 @@ public class NotesFragment extends Fragment {
         sortGroup.setOnCheckedChangeListener(presenter.getOnCheckedChangeListener());
     }
     private void initSearchNoteLayout() {
+        clearSearch = root.findViewById(R.id.clear_search);
+        clearSearch.setOnClickListener( v -> clearSearch() );
+        clearSearch.setVisibility(View.GONE);
+
         searchNoteTv = root.findViewById(R.id.search_text_view);
-        searchNoteTv.addTextChangedListener(presenter.getTextChangeListener());
+        searchNoteTv.addTextChangedListener(presenter.getTextChangeListener(clearSearch));
     }
     private void initExtraOptionsLayout() {
         extraOptionsLayout = root.findViewById(R.id.extra_options_group);
@@ -192,5 +193,9 @@ public class NotesFragment extends Fragment {
                     writeNewNote.show();
             }
         };
+    }
+
+    private void clearSearch() {
+        searchNoteTv.setText("");
     }
 }

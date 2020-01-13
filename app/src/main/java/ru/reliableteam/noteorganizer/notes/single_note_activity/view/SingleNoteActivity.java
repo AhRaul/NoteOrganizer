@@ -1,33 +1,24 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.view;
 
 import android.app.AlertDialog;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.StrikethroughSpan;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.material.button.*;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import ru.reliableteam.noteorganizer.BaseActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.StyleState;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view.CalculatorFragment;
-import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
-import ru.reliableteam.noteorganizer.notes.model.Span;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.SingleNotePresenter;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.TextSpanPresenter;
 
@@ -39,7 +30,7 @@ public class SingleNoteActivity extends BaseActivity
     private TextSpanPresenter spanPresenter;
     CalculatorFragment calculatorFragment;
 
-    TextInputEditText noteText, noteTitle, search_text_view;
+    TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn, underlineBtn, strikeBtn;
     ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn;
     MaterialButtonToggleGroup toggleGroup;
@@ -236,9 +227,4 @@ public class SingleNoteActivity extends BaseActivity
         super.onDestroy();
         hideKeyBoard();
     }
-
-    public void clearSearch(View view) {
-        search_text_view.setText("");
-    }
-
 }
