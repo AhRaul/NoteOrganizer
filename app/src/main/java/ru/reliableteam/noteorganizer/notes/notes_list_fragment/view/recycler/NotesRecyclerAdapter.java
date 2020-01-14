@@ -86,7 +86,12 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
         }
         @Override
         public void setNote(Note note) {
-            title.setText(note.title);
+            if (note.title.equals(""))
+                title.setVisibility(View.GONE);
+            else {
+                title.setVisibility(View.VISIBLE);
+                title.setText(note.title);
+            }
             subtitle.setText(note.body);
             date.setText(DateUtils.dateToString(note.dataTime));
         }

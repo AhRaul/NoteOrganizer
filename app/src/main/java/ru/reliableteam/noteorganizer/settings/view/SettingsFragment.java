@@ -77,7 +77,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         appDirPath.setOnClickListener( v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             Uri uri = Uri.parse(presenter.getAppFullDirPath());
-            intent.setDataAndType(uri, "*/*.txt");
+            intent.setDataAndType(uri, "*/*");
             startActivity(intent);
         });
 
