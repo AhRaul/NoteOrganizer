@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -97,7 +98,15 @@ public class NotesFragment extends Fragment {
         ImageButton deleteBtn = root.findViewById(R.id.delete_button);
         ImageButton migrateBtn = root.findViewById(R.id.migrate_to_txt);
         closeBtn.setOnClickListener(v -> presenter.disableMultiSelection() );
-        deleteBtn.setOnClickListener(v -> presenter.deleteNotes());
+        deleteBtn.setOnClickListener(v -> {
+            AlertDialog.Builder db = new AlertDialog.Builder(getContext());
+            db.setTitle(R.string.delete_hint);
+            db.setPositiveButton(R.string.positive, (dialog, which) -> {
+                presenter.deleteNotes();
+            });
+            db.setNegativeButton(R.string.negative, (dialog, which) -> dialog.dismiss());
+            db.show();
+        });
         migrateBtn.setOnClickListener(v -> presenter.migrateSelectedNotes() );
     }
 
