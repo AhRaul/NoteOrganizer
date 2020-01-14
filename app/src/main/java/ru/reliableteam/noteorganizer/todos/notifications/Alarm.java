@@ -4,11 +4,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
-import java.sql.Date;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
+import androidx.annotation.RequiresApi;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 /**
@@ -55,13 +55,15 @@ public class Alarm {
         Calendar c = importStringDateAndTimeToCalendar(dateOutputFormat, timeOutputFormat);
         startAlarm(c, requestCode);
     }
-    public void startAlarm(Long dateInMills, int requestCode) {
+
+    public void startAlarm(Long dateInMills, Long requestCode) {
         String[] dateTimeS = DateUtils.dateToString(dateInMills).split(" ");
         String date = dateTimeS[0];
         String time = dateTimeS[1];
+        long lRequestCode = requestCode;
 
         System.out.println(date + "_" + time);
-        startAlarm(date, time, requestCode);
+        startAlarm(date, time, (int)lRequestCode);
     }
 
     /**
@@ -104,5 +106,10 @@ public class Alarm {
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
+    }
+
+    public void cancelAlarm(Long requestCode) {
+        long lRequestCode = requestCode;
+        cancelAlarm((int)lRequestCode);
     }
 }
