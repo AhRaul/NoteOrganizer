@@ -11,16 +11,10 @@ import java.util.GregorianCalendar;
  * @version 2.0
  */
 public class DateUtils {
-    private final static int MILLISECONDS = 1000;
-    private final static int SECONDS = 60;
-    private final static int MINUTES = 60;
-    private final static int HOURS = 24;
     private final static String DATE_OUTPUT_FORMAT = "%s/%s/%s";
     private final static String TIME_OUTPUT_FORMAT = "%s:%s";
-    private final static Long NULL_DATE = -10800000L;
-    private final static Long BEGIN_DATE = 2678400000L;
+    private final static Long NULL_DATE = 0L;
     private final static String BEGIN_DATE_STRING = "01/01/1970";
-    private final static String BEGIN_TIME = "00:00";
 
     public static boolean isDateConfigured(String date) {
         Long dateInMills = stringToDate("", date);
