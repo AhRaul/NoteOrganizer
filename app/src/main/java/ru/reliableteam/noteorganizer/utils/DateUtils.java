@@ -24,14 +24,14 @@ public class DateUtils {
 
     public static boolean isDateConfigured(String date) {
         Long dateInMills = stringToDate("", date);
-        return notEqualsToBeginDate(dateInMills) && !date.equals(BEGIN_DATE_STRING);
+        return notEqualsToBeginDate(dateInMills) && !date.contains(BEGIN_DATE_STRING);
     }
     public static boolean isDateConfigured(Long dateInMills) {
         return notEqualsToBeginDate(dateInMills);
     }
     private static boolean notEqualsToBeginDate(Long dateInMills) {
         System.out.println(dateInMills);
-        return !NULL_DATE.equals(dateInMills);
+        return !dateToString(dateInMills).contains(BEGIN_DATE_STRING);
     }
 
     public static String dateToString(Long dateInMills) {

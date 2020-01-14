@@ -96,7 +96,16 @@ public class SettingsPresenter implements BasePresenter {
 
         notifyDatasetChanged(R.string.cleaned_hint);
     }
+    @Override
+    public void notifyDatasetChanged(int messageId) {
+        getTodosCacheSize();
+        view.setNotesCacheSize(getNotesCacheSize());
+        view.showHint(messageId);
+    }
 
+    public String getAppFullDirPath() {
+        return appSettings.getAppDataDirectory();
+    }
     public String getAppDirPath() {
         return appSettings.getAppDataDirectory().replace("/storage/emulated/0/", "");
     }

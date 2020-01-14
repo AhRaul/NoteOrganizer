@@ -163,7 +163,11 @@ public class NoteDaoImpl implements INoteDao {
         disposable = noteDao.getAll()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        list -> migration(list, presenter),
+                        list -> {
+                            System.out.println(list.size());
+                            migration(list, presenter);
+                            presenter.notifyDatasetChanged(R.string.migrated_hint);
+                        },
                         Throwable::printStackTrace
                 );
     }
@@ -190,14 +194,12 @@ public class NoteDaoImpl implements INoteDao {
     private void migration(Note note, BasePresenter presenter) {
         MigrationManager manager = new MigrationManager(getAppSettings());
         manager.saveToDir(note);
-        presenter.notifyDatasetChanged(NO_MESSAGE);
     }
 
     private void migration(List<Note> list, BasePresenter presenter) {
         MigrationManager manager = new MigrationManager(getAppSettings());
         for (Note note : list) {
             manager.saveToDir(note);
-            presenter.notifyDatasetChanged(NO_MESSAGE);
         }
     }
 }

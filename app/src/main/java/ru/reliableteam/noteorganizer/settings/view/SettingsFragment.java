@@ -1,11 +1,13 @@
 package ru.reliableteam.noteorganizer.settings.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -72,6 +74,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     private void initNotesMigrationSettings() {
         appDirPath = root.findViewById(R.id.app_dir_path);
         setAppDirPath(presenter.getAppDirPath());
+        appDirPath.setOnClickListener( v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            Uri uri = Uri.parse(presenter.getAppFullDirPath());
+            intent.setDataAndType(uri, "*/*.txt");
+            startActivity(intent);
+        });
 
         migrateToTxt = root.findViewById(R.id.migrate_to_txt);
         migrateToTxt.setOnClickListener( v -> presenter.saveToTxt() );
@@ -91,6 +99,11 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     @Override
     public void setTodosCacheSize(String size) {
         todosCacheSize.setText(size + " " + getString(R.string.todos_cache_size_prefix));
+    }
+
+    @Override
+    public void showHint(int messageId) {
+        Toast.makeText(getContext(), getString(messageId), Toast.LENGTH_LONG).show();
     }
 
     private void setAppDirPath(String path) {
