@@ -37,6 +37,7 @@ public class Alarm {
     public void startAlarm(Calendar c, int requestCode) {
         AlarmManager alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this.context, AlertReceiver.class);
+        intent.putExtra("requestCode", requestCode);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, requestCode, intent, 0);
 
         if (alarmManager != null && c.after(Calendar.getInstance())) {

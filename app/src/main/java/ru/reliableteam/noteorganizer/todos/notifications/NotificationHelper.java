@@ -46,11 +46,10 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    //TODO добавить String аргументы для заполнения Title и Text
-    public NotificationCompat.Builder getChannelNotification() {
+    public NotificationCompat.Builder getChannelNotification(String title, String description) {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
-                .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.")
+                .setContentTitle(title)
+                .setContentText(description)
                 .setSmallIcon(R.drawable.ic_alarm_black_24dp);
     }
 }

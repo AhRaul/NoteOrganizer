@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import androidx.core.app.NotificationCompat;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -15,6 +16,7 @@ import ru.reliableteam.noteorganizer.entity.data_base.dao.TodoDAO;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.notifications.Alarm;
+import ru.reliableteam.noteorganizer.todos.notifications.NotificationHelper;
 
 public class TodoDaoImpl {
     private final String CLASS_TAG = "TodoDaoImpl";
@@ -61,6 +63,7 @@ public class TodoDaoImpl {
 
         insertTodo(todo, presenter);
     }
+
     public void saveTodo(Todo todo, BasePresenter presenter) {
         insertTodo(todo, presenter);
     }
@@ -70,7 +73,7 @@ public class TodoDaoImpl {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         id -> {
-                            System.out.println("id = " + id);
+                            System.out.println("insert id = " + id);
                             if(todo.endDate > 0L) {
                                 alarm.startAlarm(todo.endDate, id);
                             } else {
@@ -90,6 +93,25 @@ public class TodoDaoImpl {
                         foundTodo -> {
                             this.todo = foundTodo;
                             presenter.notifyDatasetChanged(NO_MESSAGE);
+                        },
+                        Throwable::printStackTrace
+                );
+    }
+
+    /**
+     * Метод вывода notification
+     * @param id
+     * @param notificationHelper
+     */
+    public void getTodo(long id, NotificationHelper notificationHelper) {
+        System.out.println("id = " + id);
+        disposable = todoDAO.getById(id)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        foundTodo -> {
+                            this.todo = foundTodo;
+                            NotificationCompat.Builder nb = notificationHelper.getChannelNotification(todo.title, todo.description);
+                            notificationHelper.getManager().notify((int)id, nb.build());
                         },
                         Throwable::printStackTrace
                 );
