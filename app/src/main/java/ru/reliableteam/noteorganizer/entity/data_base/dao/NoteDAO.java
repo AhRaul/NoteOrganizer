@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.entity.data_base;
+package ru.reliableteam.noteorganizer.entity.data_base.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

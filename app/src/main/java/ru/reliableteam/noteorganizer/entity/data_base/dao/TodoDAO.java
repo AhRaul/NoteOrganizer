@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.entity.data_base;
+package ru.reliableteam.noteorganizer.entity.data_base.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,7 +8,6 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 

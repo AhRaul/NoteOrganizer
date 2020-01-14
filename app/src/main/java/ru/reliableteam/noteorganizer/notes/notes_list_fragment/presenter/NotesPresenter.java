@@ -6,11 +6,11 @@ import android.view.View;
 
 import com.google.android.material.chip.ChipGroup;
 
-import java.util.Collections;
 import java.util.Comparator;
 
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
+import ru.reliableteam.noteorganizer.entity.data_base.impl.NoteDaoImpl;
+import ru.reliableteam.noteorganizer.entity.data_base.interract.INoteDao;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.NotesFragment;
@@ -26,10 +26,12 @@ import ru.reliableteam.noteorganizer.utils.SortListComparator;
  * Generates sample data.
  */
 
-public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
+public class NotesPresenter implements INotesPresenter {
     private String CLASS_TAG = "RecyclerViewPresenter";
     private final int NEW_NOTE = -1;
     private final int NO_MESSAGE = 0;
+
+    private final INoteDao noteDao = new NoteDaoImpl();
 
     private NotesFragment fragmentView;
     private SharedPreferencesManager appSettings;
@@ -41,14 +43,13 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
 
     public NotesPresenter(NotesFragment view) {
         this.fragmentView = view;
-        appSettings = getAppSettings();
-//        getNotes();
+        appSettings = noteDao.getAppSettings();
     }
 
     public void getNotes() {
         String searchText = fragmentView.getSearchText();
         if (searchText.equals(""))
-            getFromDB(this);
+            noteDao.getFromDB(this);
         else
             searchNotes(searchText);
     }
@@ -64,13 +65,13 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     @Override
     public void bindView(IViewHolder viewHolder) {
         int position = viewHolder.getPos();
-        Note note = notesList.get(position);
+        Note note = noteDao.getNoteByPosition(position);
         viewHolder.setNote(note);
     }
 
     @Override
     public int getItemCount() {
-        return notesList.size();
+        return noteDao.size();
     }
 
     @Override
@@ -92,21 +93,23 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
         if (position == NEW_NOTE)
             appSettings.setClickedNoteId(NEW_NOTE);
         else {
-            Note note = notesList.get(position);
+            Note note = noteDao.getNoteByPosition(position);
             appSettings.setClickedNoteId(note.id);
         }
         fragmentView.viewNote();
     }
     private void selectNote(int position) {
-        Note note = notesList.get(position);
-        if (selectedNotes.contains(note)) {
-            selectedNotes.remove(note);
-            fragmentView.setCardSelected(false, position);
-        }
-        else {
-            selectedNotes.add(note);
-            fragmentView.setCardSelected(true, position);
-        }
+        Note note = noteDao.getNoteByPosition(position);
+        noteDao.selectNote(note);
+        fragmentView.setCardSelected(noteDao.wasSelected(note), position);
+//        if (selectedNotes.contains(note)) {
+//            selectedNotes.remove(note);
+//            fragmentView.setCardSelected(false, position);
+//        }
+//        else {
+//            selectedNotes.add(note);
+//            fragmentView.setCardSelected(true, position);
+//        }
     }
 
     @Override
@@ -122,7 +125,7 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
         if (s.length() == 0)
             getNotes();
         else
-            search(this, s);
+            noteDao.search(this, s);
     }
 
     @Override
@@ -157,8 +160,7 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     }
 
     private void sort() {
-        Collections.sort(notesList, comparator);
-        notifyDatasetChanged(NO_MESSAGE);
+        noteDao.sortNotes(this, comparator);
     }
 
     @Override
@@ -181,25 +183,24 @@ public class NotesPresenter extends NoteDaoImpl implements INotesPresenter {
     }
     private void updateByState() {
         if (state == State.SINGLE_SELECTION) {
-            selectedNotes.clear();
+            noteDao.clearSelected();
         }
     }
 
-    @Override
+
     public void unsubscribe() {
-        super.unsubscribe();
+        noteDao.unsubscribe();
     }
 
     @Override
     public void deleteNotes() {
-        for (Note note : selectedNotes)
-            deleteSelectedNote(this, note);
+        noteDao.deleteSelectedNotes(this);
         fragmentView.setCardsToDefaultStyle();
     }
 
     @Override
     public void migrateSelectedNotes() {
-        migrateSelected(this);
+        noteDao.migrateSelected(this);
     }
 
 

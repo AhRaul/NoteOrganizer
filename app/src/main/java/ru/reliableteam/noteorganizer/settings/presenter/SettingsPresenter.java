@@ -1,31 +1,30 @@
 package ru.reliableteam.noteorganizer.settings.presenter;
 
-import android.content.Context;
-import android.util.Log;
 import android.widget.CompoundButton;
 
 import com.google.android.material.chip.ChipGroup;
 
 import java.io.File;
-import java.util.concurrent.Callable;
 import java.util.function.Function;
 
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
-import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
-import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.entity.data_base.impl.NoteDaoImpl;
+import ru.reliableteam.noteorganizer.entity.data_base.impl.TodoDaoImpl;
+import ru.reliableteam.noteorganizer.entity.data_base.interract.INoteDao;
+import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.settings.view.ISettingsView;
 
-public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
+public class SettingsPresenter implements BasePresenter {
     private final String CLASS_TAG = "SettingsPresenter";
     private SharedPreferencesManager appSettings;
     private ISettingsView view;
     private TodoDaoImpl todoDao;
+    private final INoteDao noteDao = new NoteDaoImpl();
 
     private int lastCheckedId = 0;
     private int APP_THEME;
@@ -103,7 +102,7 @@ public class SettingsPresenter extends NoteDaoImpl implements BasePresenter {
     }
 
     public void saveToTxt() {
-        migrate(this);
+        noteDao.migrate(this);
     }
 
     public ChipGroup.OnCheckedChangeListener themeChangeListener() {

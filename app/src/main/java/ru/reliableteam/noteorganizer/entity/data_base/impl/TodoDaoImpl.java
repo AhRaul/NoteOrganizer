@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer.entity;
+package ru.reliableteam.noteorganizer.entity.data_base.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.entity.AppConfig;
 import ru.reliableteam.noteorganizer.entity.data_base.DataBase;
-import ru.reliableteam.noteorganizer.entity.data_base.TodoDAO;
+import ru.reliableteam.noteorganizer.entity.data_base.dao.TodoDAO;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.notifications.Alarm;

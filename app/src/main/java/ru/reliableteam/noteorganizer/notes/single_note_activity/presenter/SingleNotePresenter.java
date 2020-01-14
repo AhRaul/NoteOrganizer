@@ -2,35 +2,38 @@ package ru.reliableteam.noteorganizer.notes.single_note_activity.presenter;
 
 import android.content.Intent;
 
-import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.entity.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.entity.data_base.impl.NoteDaoImpl;
+import ru.reliableteam.noteorganizer.entity.data_base.interract.INoteDao;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
+import ru.reliableteam.noteorganizer.notes.model.Note;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.view.SingleNoteActivity;
 
-public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
-
+public class SingleNotePresenter implements BasePresenter {
+    private final int NEW_NOTE = -1;
     private static final int MAX_SIZE = 1000000;
     private final String MIME_TYPE_DEFAULT = "text/plain";
 
     private SingleNoteActivity view;
     private SharedPreferencesManager appSettings;
-    private final int NEW_NOTE = -1;
+    private final INoteDao noteDao = new NoteDaoImpl();
 
     public SingleNotePresenter(SingleNoteActivity activity) {
         this.view = activity;
-        appSettings = getAppSettings();
+        appSettings = noteDao.getAppSettings();
     }
 
     public void getClickedNote() {
         long id = appSettings.getClickedNoteId();
         if (id != NEW_NOTE) {
-            getNote(id, this);
+            noteDao.getNote(id, this);
         }
     }
 
     @Override
     public void notifyDatasetChanged(int messageId) {
+        Note note = noteDao.getNote();
         view.setNoteText(note.body);
         view.setNoteTitle(note.title);
     }
@@ -40,10 +43,12 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
     }
 
     public void deleteNote() {
-        super.deleteNote(note);
+        Note note = noteDao.getNote();
+        noteDao.deleteNote(note);
     }
 
     public void saveNote() {
+        Note note = noteDao.getNote();
         note.body = view.getNoteText();
         note.title = view.getNoteTitle();
         note.dataTime = System.currentTimeMillis();
@@ -54,9 +59,9 @@ public class SingleNotePresenter extends NoteDaoImpl implements BasePresenter {
         }
 
         if (isNewNote())
-            super.saveNote(note);
+            noteDao.saveNote(note);
         else
-            super.updateNote(note);
+            noteDao.updateNote(note);
 
         view.onBackPressed();
     }

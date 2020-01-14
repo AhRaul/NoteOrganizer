@@ -1,6 +1,5 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.view;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.ParcelableSpan;
@@ -10,6 +9,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -137,9 +138,15 @@ public class SingleNoteActivity extends BaseActivity
         presenter.saveNote();
     };
     private final View.OnClickListener deleteNote = v -> {
-        showHint(getResources().getString(R.string.deleted_note_hint));
-        presenter.deleteNote();
-        onBackPressed();
+        AlertDialog.Builder db = new AlertDialog.Builder(this);
+        db.setTitle(R.string.delete_hint);
+        db.setPositiveButton(R.string.positive, (dialog, which) -> {
+            presenter.deleteNote();
+            showHint(getResources().getString(R.string.deleted_note_hint));
+            onBackPressed();
+        });
+        db.setNegativeButton(R.string.negative, (dialog, which) -> dialog.dismiss());
+        db.show();
     };
 
     @Override

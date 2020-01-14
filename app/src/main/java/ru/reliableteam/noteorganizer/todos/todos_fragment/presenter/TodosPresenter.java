@@ -2,7 +2,7 @@ package ru.reliableteam.noteorganizer.todos.todos_fragment.presenter;
 
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
-import ru.reliableteam.noteorganizer.entity.TodoDaoImpl;
+import ru.reliableteam.noteorganizer.entity.data_base.impl.TodoDaoImpl;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
