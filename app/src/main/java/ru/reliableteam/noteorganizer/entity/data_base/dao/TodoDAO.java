@@ -26,7 +26,7 @@ public interface TodoDAO {
     void update(Todo newTodo);
 
     @Insert
-    void insert(Todo todo);
+    Single<Long> insert(Todo todo);
 
     @Delete
     void delete(Todo todo);

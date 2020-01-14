@@ -29,7 +29,7 @@ public class TodoDaoImpl {
     public enum STATE {
         ALL, DONE, MISSED, CURRENT;
     }
-    public STATE showState = STATE.ALL;
+    private STATE showState = STATE.ALL;
 
     private Alarm alarm = AppConfig.getInstance().getAlarm();
 
@@ -60,17 +60,18 @@ public class TodoDaoImpl {
         todo.parentId = null;
 
         insertTodo(todo, presenter);
-//        alarm.startAlarm("12/01/2020", "02:09", 1);   //first alarm test
     }
     public void saveTodo(Todo todo, BasePresenter presenter) {
         insertTodo(todo, presenter);
     }
 
     private void insertTodo(Todo todo, BasePresenter presenter) {
-        disposable = Completable.fromAction( () -> todoDAO.insert(todo) )
+        disposable = todoDAO.insert(todo)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> {
+                        id -> {
+                            System.out.println("id = " + id);
+                            // todo id for alarm
                             alarm.startAlarm(todo.endDate, 1);
                             getTodosByState(presenter);
                         },
