@@ -167,6 +167,12 @@ public class NoteDaoImpl implements INoteDao {
                         Throwable::printStackTrace
                 );
     }
+
+    @Override
+    public void migrate(Note note, BasePresenter presenter) {
+        migration(note, presenter);
+    }
+
     @Override
     public void migrateSelected(BasePresenter presenter) {
         migration(selectedNotes, presenter);
@@ -179,6 +185,12 @@ public class NoteDaoImpl implements INoteDao {
     @Override
     public void unsubscribe() {
         disposable.dispose();
+    }
+
+    private void migration(Note note, BasePresenter presenter) {
+        MigrationManager manager = new MigrationManager(getAppSettings());
+        manager.saveToDir(note);
+        presenter.notifyDatasetChanged(NO_MESSAGE);
     }
 
     private void migration(List<Note> list, BasePresenter presenter) {

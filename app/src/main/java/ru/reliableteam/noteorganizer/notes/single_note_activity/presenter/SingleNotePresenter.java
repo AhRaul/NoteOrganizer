@@ -78,6 +78,11 @@ public class SingleNotePresenter implements BasePresenter {
 
     }
 
+    public void migrate() {
+        Note note = noteDao.getNote();
+        noteDao.migrate(note, this);
+    }
+
     public void checkSharedIntent() {
         Intent externalIntent = view.getIntent();
 

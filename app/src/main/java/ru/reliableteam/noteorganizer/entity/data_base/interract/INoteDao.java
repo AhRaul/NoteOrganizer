@@ -26,6 +26,7 @@ public interface INoteDao {
      * @param presenter - base presenter for recycler {@link BasePresenter}
      */
     void migrate(BasePresenter presenter);
+    void migrate(Note note, BasePresenter presenter);
     void migrateSelected(BasePresenter presenter);
     SharedPreferencesManager getAppSettings();
     void unsubscribe();

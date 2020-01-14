@@ -31,14 +31,14 @@
             android:src="@drawable/baseline_close_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/exit"/>
 
         <ImageButton
             android:id="@+id/delete_button"
             android:layout_width="50dp"
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
-
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/delete"
             android:src="@drawable/outline_delete_24"
@@ -59,7 +59,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/cancel_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="@string/save"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -168,7 +169,8 @@
                 android:layout_height="50dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
-                android:src="@drawable/outline_calendar_today_24" />
+                android:src="@drawable/outline_calendar_today_24"
+                android:contentDescription="@string/calendar"/>
 
             <ImageButton
                 android:id="@+id/time_btn"
@@ -177,7 +179,8 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/baseline_alarm_add_24"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:contentDescription="@string/clock"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

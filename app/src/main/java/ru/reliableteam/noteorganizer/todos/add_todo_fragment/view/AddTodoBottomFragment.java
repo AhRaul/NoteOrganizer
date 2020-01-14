@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -105,6 +106,7 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
             clearDateLayout();
             clearTimeLayout();
         });
+        setDescriptions(dateBtn);
     }
     private void initDatePickingDialog() {
         final Calendar c = Calendar.getInstance();
@@ -130,6 +132,7 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
         timeTv.setOnClickListener( v -> timePickerDialog.show() );
         ImageButton timeDelete = root.findViewById(R.id.todo_time_delete);
         timeDelete.setOnClickListener(v -> clearTimeLayout() );
+        setDescriptions(timeBtn);
     }
     private void initTimePickingDialog() {
         final Calendar c = Calendar.getInstance();
@@ -145,15 +148,29 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
     private void initCancel() {
         ImageButton cancelBtn = root.findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener(v -> dismiss() );
+        setDescriptions(cancelBtn);
     }
     private void initSave() {
         ImageButton saveBtn = root.findViewById(R.id.save_button);
         saveBtn.setOnClickListener( v -> saveTodo(ACTION_UPDATE) );
+        setDescriptions(saveBtn);
     }
     private void initDelete() {
         ImageButton deleteBtn = root.findViewById(R.id.delete_button);
         deleteBtn.setOnClickListener( v -> saveTodo(ACTION_DELETE) );
         deleteBtn.setVisibility(presenter.isNewTodo() ? View.GONE : View.VISIBLE);
+        setDescriptions(deleteBtn);
+    }
+    private void setDescriptions(View... views) {
+        for (View view : views) {
+            view.setOnLongClickListener(v -> {
+                showHint(v.getContentDescription().toString());
+                return true;
+            });
+        }
+    }
+    private void showHint(String hintText) {
+        Toast.makeText(getContext(), hintText, Toast.LENGTH_LONG).show();
     }
 
     private void setUIData() {

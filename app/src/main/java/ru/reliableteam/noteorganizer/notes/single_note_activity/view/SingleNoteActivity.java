@@ -33,7 +33,7 @@ public class SingleNoteActivity extends BaseActivity
 
     TextInputEditText noteText, noteTitle;
     MaterialButton boldBtn, italicBtn, underlineBtn, strikeBtn;
-    ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn;
+    ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn, migrateBtn;
     MaterialButtonToggleGroup toggleGroup;
 
     @Override
@@ -105,6 +105,24 @@ public class SingleNoteActivity extends BaseActivity
 
         shareBtn = findViewById(R.id.share_button);
         shareBtn.setOnClickListener( v -> presenter.shareNote() );
+
+        migrateBtn = findViewById(R.id.migrate_button);
+        migrateBtn.setOnClickListener( v -> {
+            presenter.migrate();
+            showHint(getString(R.string.migrated_hint));
+            onBackPressed();
+        } );
+        migrateBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
+
+        setDescriptions(cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn, migrateBtn);
+    }
+    private void setDescriptions(View... views) {
+        for (View view : views) {
+            view.setOnLongClickListener(v -> {
+                showHint(v.getContentDescription().toString());
+                return true;
+            });
+        }
     }
 
     private void getClickedNote() {

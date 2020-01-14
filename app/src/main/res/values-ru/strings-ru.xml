@@ -48,10 +48,12 @@
     <string name="saved_todo_hint">Ваша задача сохранена</string>
     <string name="todo_title_hint">Заголовок</string>
     <string name="todo_description_hint">Описание</string>
+    <string name="calendar">Выставить дату</string>
+    <string name="clock">Выставить время</string>
 
     <!--    SINGLE NOTE ACTIVITY-->
-    <string name="delete">удалить</string>
-    <string name="save">сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="save">Сохранить</string>
     <string name="note_title_hint">Заголовок</string>
     <string name="note_body_hint">Введите текст тут</string>
     <string name="left_bracket">(</string>
@@ -62,5 +64,11 @@
     <string name="send_to">Поделиться своей заметкой</string>
     <string name="saved_note_hint">Ваша заметка была сохранена!</string>
     <string name="deleted_note_hint">Ваша заметка была удалена!</string>
+    <string name="exit">Выход</string>
+    <string name="calculator">Калькулятор</string>
+    <string name="migrate">Сохранить в формате .txt</string>
+
+
+
 
 </resources>

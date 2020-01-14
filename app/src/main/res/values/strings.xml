@@ -9,7 +9,6 @@
     <string name="positive">Yes</string>
     <string name="empty_body_hint">This item is empty! Could not be saved</string>
 
-
     <!--    SETTINGS FRAGMENT   -->
     <string name="title_settings">Settings</string>
     <string name="app_theme_hint">Select theme for app</string>
@@ -51,17 +50,22 @@
     <string name="saved_todo_hint">Your todo was saved</string>
     <string name="todo_title_hint">Todo title</string>
     <string name="todo_description_hint">Description</string>
+    <string name="calendar">Choose date</string>
+    <string name="clock">Chose time</string>
 
 
     <!--    SINGLE NOTE ACTIVITY-->
-    <string name="delete">delete</string>
-    <string name="save">save</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
     <string name="note_title_hint">Title</string>
     <string name="note_body_hint">Type the note here</string>
     <string name="left_bracket">(</string>
     <string name="right_bracket">)</string>
     <string name="clear">C</string>
-    -
+    <string name="exit">Exit the screen</string>
+    <string name="calculator">Calculator</string>
+    <string name="migrate">Save to .txt</string>
+
     <string name="back_space"><![CDATA[<--]]></string>
     <string name="share">Share</string>
     <string name="send_to">Share your note..</string>
