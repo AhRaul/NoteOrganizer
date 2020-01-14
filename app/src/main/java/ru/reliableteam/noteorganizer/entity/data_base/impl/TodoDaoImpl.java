@@ -71,8 +71,11 @@ public class TodoDaoImpl {
                 .subscribe(
                         id -> {
                             System.out.println("id = " + id);
-                            // todo id for alarm
-                            alarm.startAlarm(todo.endDate, 1);
+                            if(todo.endDate > 0L) {
+                                alarm.startAlarm(todo.endDate, id);
+                            } else {
+                                alarm.cancelAlarm(id);
+                            }
                             getTodosByState(presenter);
                         },
                         Throwable::printStackTrace
@@ -99,11 +102,19 @@ public class TodoDaoImpl {
 
         update(todo, presenter);
     }
+
     public void update(Todo todo, BasePresenter presenter) {
         disposable = Completable.fromAction( () -> todoDAO.update(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> getTodosByState(presenter),
+                        () -> {
+                            if(todo.endDate > 0L) {
+                                alarm.startAlarm(todo.endDate, todo.id);
+                            } else {
+                                alarm.cancelAlarm(todo.id);
+                            }
+                            getTodosByState(presenter);
+                        },
                         Throwable::printStackTrace
                 );
     }
@@ -112,7 +123,10 @@ public class TodoDaoImpl {
         disposable = Completable.fromAction( () -> todoDAO.delete(todo) )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> getTodosByState(presenter),
+                        () -> {
+                            alarm.cancelAlarm(todo.id);
+                            getTodosByState(presenter);
+                        },
                         Throwable::printStackTrace
                 );
     }
