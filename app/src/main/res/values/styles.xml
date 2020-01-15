@@ -26,18 +26,21 @@
         <item name="android:textAllCaps">true</item>
     </style>
     <style name="TextView.Header" parent="TextView">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingTop">4dp</item>
     </style>
     <style name="TextView.SubHeader" parent="TextView">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="TextView.Body" parent="TextView">
+        <item name="android:textSize">14sp</item>
     </style>
     <style name="TextView.Title" parent="TextView.Header">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
     <style name="TextView.Calculator" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textSize">22dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/roboto</item>
     </style>
     <style name="TextView.Calculator.Number" parent="TextView.Calculator">
@@ -53,7 +56,7 @@
     </style>
     <style name="BottomSheetDialogStyle.Dark" parent="AppBottomSheetDialogTheme.Dark">
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/colorSurfaceDark</item>
+        <item name="android:statusBarColor">#ff000000</item>
     </style>
     <style name="AppBottomSheetDialogTheme.Dark" parent="Theme.Design.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
@@ -96,7 +99,7 @@
         <item name="android:statusBarColor">#ffffff</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle.Light</item>
     </style>
-<!--     Base application theme. -->
+<!--     Dark application theme. -->
     <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
 <!--         Customize your theme here. -->
         <item name="colorSurface">@color/colorSurfaceDark</item>
@@ -113,14 +116,13 @@
         <item name="errorTextColor">@color/errorTextColorDark</item>
 
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/colorSurfaceDark</item>
+        <item name="android:statusBarColor">#00000000</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle.Dark</item>
-
-<!--        <item name="textColor">@color/colorOnBackgroundDark</item>-->
     </style>
 
+    <!--    BUTTONS     -->
     <style name="FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">?attr/colorSurface</item>
         <item name="tint">?attr/colorAccent</item>

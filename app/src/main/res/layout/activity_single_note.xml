@@ -124,7 +124,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/note_text"
-                        style="@style/TextView.SubHeader"
+                        style="@style/TextView.Body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
