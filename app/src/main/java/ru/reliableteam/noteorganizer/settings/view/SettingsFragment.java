@@ -19,71 +19,21 @@ import ru.reliableteam.noteorganizer.MainActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
-public class SettingsFragment extends Fragment implements ISettingsView {
+public class SettingsFragment extends SettingsInitializeFragment implements ISettingsView {
     private final String CLASS_TAG = "SettingsFragment";
-    private View root;
-    private TextView notesCacheSize;
-    private TextView todosCacheSize;
-    private TextView lastSyncDate;
-    private TextView appDirPath;
-    private MaterialButton cleanNotesCache, cleanTodosCache, migrateToTxt, syncBtn;
 
-    private SettingsPresenter presenter;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_settings, container, false);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         presenter = new SettingsPresenter(this);
 
-        initUI();
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        setNotesCacheSize(presenter.getNotesCacheSize());
+        setAppDirPath(presenter.getAppDirPath());
 
         return root;
     }
 
-    private void initUI() {
-        initThemeSelection();
-        initSyncWithStorage();
-        initNoteCacheSizeSettings();
-        initTodosCacheSizeSettings();
-        initNotesMigrationSettings();
-    }
-    private void initThemeSelection() {
-        ChipGroup themeSelector = root.findViewById(R.id.theme_mode_selection);
-        themeSelector.setOnCheckedChangeListener(presenter.themeChangeListener());
-        themeSelector.check(presenter.getThemeId());
-    }
-    private void initSyncWithStorage() {
-        syncBtn = root.findViewById(R.id.sync_button);
-        syncBtn.setOnClickListener( v -> presenter.makeSyncWithStorage());
-
-        lastSyncDate = root.findViewById(R.id.last_sync_date);
-        presenter.setLastSyncDate();
-    }
-    private void initNoteCacheSizeSettings() {
-        notesCacheSize = root.findViewById(R.id.notes_cache_size_tv);
-        setNotesCacheSize(presenter.getNotesCacheSize());
-        cleanNotesCache = root.findViewById(R.id.notes_cache_size_clean_btn);
-        cleanNotesCache.setOnClickListener( v -> presenter.cleanNotesCache() );
-    }
-    private void initTodosCacheSizeSettings() {
-        todosCacheSize = root.findViewById(R.id.todos_cache_size_tv);
-        presenter.getTodosCacheSize();
-        cleanTodosCache = root.findViewById(R.id.todos_photos_cache_size_clean_btn);
-        cleanTodosCache.setOnClickListener( v -> presenter.cleanTodosCache());
-    }
-    private void initNotesMigrationSettings() {
-        appDirPath = root.findViewById(R.id.app_dir_path);
-        setAppDirPath(presenter.getAppDirPath());
-        appDirPath.setOnClickListener( v -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            Uri uri = Uri.parse(presenter.getAppFullDirPath());
-            intent.setDataAndType(uri, "*/*");
-            startActivity(intent);
-        });
-
-        migrateToTxt = root.findViewById(R.id.migrate_to_txt);
-        migrateToTxt.setOnClickListener( v -> presenter.saveToTxt() );
-    }
     @Override
     public void reloadActivity(){
         Intent intent = new Intent(getContext(), MainActivity.class);
