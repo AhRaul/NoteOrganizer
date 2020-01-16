@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NoteOrganizer</string>
-    <string name="app_version">1.1.0</string>
+    <string name="app_version">2.1.0</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Настройки</string>
@@ -20,13 +20,28 @@
     <string name="not_implemented_hint">не реализовано</string>
     <string name="not_sync">не синхронизировано</string>
     <string name="clean_notes_cache_hint">Очистить кеш заметок</string>
-    <string name="cache_size_hint">Кол-во сделанных: </string>
+    <string name="cache_size_hint">Кол-во выполненных: </string>
     <string name="clean">очистить</string>
     <string name="clean_todos_cache_hint">Очистить кеш задач</string>
     <string name="migrate_notes_hint">Сохранить заметки в .txt формат</string>
     <string name="migrated_notes_dir_path_hint">путь: </string>
+    <string name="help_hint">Помощь</string>
     <string name="cleaned_hint">Кэш очищен</string>
-    <string name="todos_cache_size_prefix"> сделанных</string>
+    <string name="todos_cache_size_prefix"> выполнено</string>
+    <string name="info_sync_with_storage">
+        Нажимая на кнопку синхронизации, Вы подгрузите заметки, сохраненные в телефоне. Чтобы узнать, как правильно называть заметки пройдите в \"Помощь\" - \"Как сохранить заметку с компьютера\"
+    </string>
+    <string name="info_clean_notes_cashe">
+        Нажимая кнопку удалить, Вы удалите все заметки из памяти устройства. Все синхронизированные заметки останутся в базе данных.
+    </string>
+    <string name="info_clean_todos_cashe">
+        Нажимая удалить, Вы удалите все выполненные задачи из телефона. Остальные задачи останутся в телефоне.
+    </string>
+     <string name="info_migrate_to_txt">
+         Нажимая кнопку переноса, Вы перенесете все заметки в текстовый формат (.txt) на память телефона. Путь указан в описании. После данного действия, вы можете менять их на компьютере.
+         \n\nВнимание!!!\n\n
+         Для того, чтобы корректно сохранить заметку с компьютера, ее важно правильно назвать. Как правильно это сделать, найдете в разделе \"Помощь\" - \"Как сохранить заметку с компьютера\"
+     </string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Заметки</string>

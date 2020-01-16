@@ -3,19 +3,17 @@
     android:width="200dp"
     android:height="200dp"
     android:tint="?attr/colorControlNormal"
-    android:alpha="1"
+    android:alpha="0.1"
     android:viewportWidth="40.0"
     android:viewportHeight="40.0">
     <path
         android:fillColor="#000000"
-        android:fillAlpha="1"
-        android:pathData="M2,10 L 38,10 L 38,15 L 2,15" />
+        android:pathData="M4,12 L 40,12 L 40,17 L 4,17" />
     <path
         android:fillColor="#000000"
-        android:pathData="M2,20 L 38,20 L 38,25 L 2,25"/>
-
+        android:pathData="M4,22 L 40,22 L 40,27 L 4,27" />
     <path
         android:fillColor="#000000"
-        android:pathData="M2,30 L 25,30 L 25,35 L 2,35" />
+        android:pathData="M4,32 L 27,32 L 27,37 L 4,37" />
 
 </vector>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">NoteOrganizer</string>
-    <string name="app_version">1.1.0</string>
+    <string name="app_version">2.1.0</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
@@ -24,8 +24,23 @@
     <string name="clean_todos_cache_hint">Clean todos cache</string>
     <string name="migrate_notes_hint">Save all notes to .txt format</string>
     <string name="migrated_notes_dir_path_hint">dir: </string>
+    <string name="help_hint">Help</string>
     <string name="cleaned_hint">Cache was cleaned</string>
     <string name="todos_cache_size_prefix"> done</string>
+    <string name="info_sync_with_storage">
+        Pressing the sync button we will synchronize your notes from telephone storage. To see the proper way to name the notes in .txt format click \"Help\" - \"How to save Note from computer\"
+    </string>
+    <string name="info_clean_notes_cashe">
+        Pressing delete you will clean all your notes from mobile storage. All synchronized notes will remain in database.
+    </string>
+    <string name="info_clean_todos_cashe">
+        Pressing delete you will clean all DONE todo from app. Other todo will remain in database.
+    </string>
+    <string name="info_migrate_to_txt">
+         By pressing the transfer button, you will transfer all notes in text format (.txt) to the phone’s memory. The path is specified in the description. After this step, you can change them on the computer.
+         \n\nAttention!!!\n\n
+         In order to correctly save the note from the computer, it is important to correctly name it. You will find how to do it correctly in the \"Help\" section - \"How to save a note from the computer\"
+     </string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>

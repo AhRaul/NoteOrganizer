@@ -28,6 +28,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -154,17 +161,24 @@
                         android:layout_weight="5"
                         android:gravity="center"
                         >
-                        <com.google.android.material.button.MaterialButton
+                        <ImageButton
                             android:id="@+id/sync_button"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
-                            android:textAppearance="@style/TextView.Button"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="5"
-                            android:text="sync"
-                            />
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/baseline_sync_24"
+                            android:contentDescription="@string/storage_sync_hint"
+                            android:layout_weight="0.5"/>
+                        <ImageButton
+                            android:id="@+id/info_sync_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/info_sync_with_storage"
+                            android:src="@drawable/outline_info_24"
+                            android:layout_weight="0.5"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -210,16 +224,33 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/notes_cache_size_clean_btn"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:textAppearance="@style/TextView.Button"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="5"
-                        android:text="@string/clean" />
+                        android:gravity="center"
+                        >
+                    <ImageButton
+                        android:id="@+id/notes_cache_size_clean_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/outline_delete_24"
+                        android:contentDescription="@string/deleted_note_hint"
+                        android:layout_weight="0.5"/>
+                    <ImageButton
+                        android:id="@+id/info_notes_cache_size_clean_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/outline_info_24"
+                        android:contentDescription="@string/info_clean_notes_cashe"
+                        android:layout_weight="0.5"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View style="@style/Divider"
@@ -264,17 +295,33 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/todos_photos_cache_size_clean_btn"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:textAppearance="@style/TextView.Button"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="5"
-
-                        android:text="@string/clean" />
+                        android:gravity="center"
+                        >
+                        <ImageButton
+                            android:id="@+id/todos_photos_cache_size_clean_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/outline_delete_24"
+                            android:contentDescription="@string/deleted_note_hint"
+                            android:layout_weight="0.5"/>
+                        <ImageButton
+                            android:id="@+id/info_todos_cache_size_clean_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/outline_info_24"
+                            android:contentDescription="@string/info_clean_todos_cashe"
+                            android:layout_weight="0.5"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View
@@ -328,17 +375,32 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/migrate_to_txt"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:textAppearance="@style/TextView.Button"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="5"
-                        android:text="@string/save"
-                        android:layout_gravity="center"/>
+                        android:gravity="center"
+                        >
+                        <ImageButton
+                            android:id="@+id/migrate_to_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/outline_system_update_24"
+                            android:layout_weight="0.5"/>
+                        <ImageButton
+                            android:id="@+id/info_migrate_to_txt_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/outline_info_24"
+                            android:contentDescription="@string/info_migrate_to_txt"
+                            android:layout_weight="0.5"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View
@@ -346,5 +408,76 @@
                     android:background="@android:color/transparent" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <View
+                    style="@style/Divider"
+                    android:background="@android:color/transparent" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextView.Header"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/help_hint"
+                            android:layout_weight="0.1"/>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        >
+                        <ImageButton
+                            android:id="@+id/help_with_app"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/outline_keyboard_arrow_right_24"
+                            android:layout_weight="0.5"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    style="@style/Divider"
+                    android:background="@android:color/transparent" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </ScrollView>

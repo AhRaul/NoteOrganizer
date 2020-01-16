@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android">
+    <layer-list>
+        <item android:drawable="@drawable/baseline_launcher_icon"/>
+        <item android:drawable="@drawable/baseline_launcher_vector_back"/>
+    </layer-list>
+</inset>
