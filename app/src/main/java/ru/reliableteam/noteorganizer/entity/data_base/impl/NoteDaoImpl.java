@@ -133,7 +133,6 @@ public class NoteDaoImpl implements INoteDao {
                         () -> {
                             selectedNotes.remove(note);
                             getFromDB(presenter);
-                            //presenter.notifyDatasetChanged(NO_MESSAGE);
                         },
                         Throwable::printStackTrace
                 );

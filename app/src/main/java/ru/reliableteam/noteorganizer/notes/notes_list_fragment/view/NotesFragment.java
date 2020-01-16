@@ -40,7 +40,6 @@ public class NotesFragment extends Fragment {
     private FloatingActionButton writeNewNote;
     private MaterialButton sortNotes;
     private TextInputEditText searchNoteTv;
-    MaterialButton clearSearch;
 
     private INotesPresenter presenter;
 
@@ -85,8 +84,8 @@ public class NotesFragment extends Fragment {
         sortGroup.setOnCheckedChangeListener(presenter.getOnCheckedChangeListener());
     }
     private void initSearchNoteLayout() {
-        clearSearch = root.findViewById(R.id.clear_search);
-        clearSearch.setOnClickListener( v -> clearSearch() );
+        MaterialButton clearSearch = root.findViewById(R.id.clear_search);
+        clearSearch.setOnClickListener(v -> clearSearch() );
         clearSearch.setVisibility(View.GONE);
 
         searchNoteTv = root.findViewById(R.id.search_text_view);
@@ -202,6 +201,13 @@ public class NotesFragment extends Fragment {
                     writeNewNote.show();
             }
         };
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        System.out.println("RESUME");
+        presenter.getNotes();
     }
 
     private void clearSearch() {
