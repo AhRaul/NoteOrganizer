@@ -1,24 +1,21 @@
 package ru.reliableteam.noteorganizer.settings.view;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.chip.ChipGroup;
 
 import ru.reliableteam.noteorganizer.MainActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
+
+// todo add to help activity transition
+// todo add help info
 public class SettingsFragment extends SettingsInitializeFragment implements ISettingsView {
     private final String CLASS_TAG = "SettingsFragment";
 

@@ -8,6 +8,7 @@
     <string name="delete_hint">Уверены, что хотите удалить?</string>
     <string name="negative">Нет</string>
     <string name="positive">Да</string>
+    <string name="understand">Понятно</string>
     <string name="empty_body_hint">Этот элемент пуст! Невозможно сохранить.</string>
 
     <!--    SETTINGS FRAGMENT   -->

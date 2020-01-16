@@ -23,12 +23,12 @@ import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
 class SettingsInitializeFragment extends Fragment {
-    protected View root;
-    protected TextView notesCacheSize;
-    protected TextView todosCacheSize;
-    protected TextView lastSyncDate;
-    protected TextView appDirPath;
-    protected ImageButton cleanTodosCache, cleanNotesCache, syncBtn, migrateToTxt;
+    View root;
+    TextView notesCacheSize;
+    TextView todosCacheSize;
+    TextView lastSyncDate;
+    TextView appDirPath;
+    private ImageButton cleanTodosCache, cleanNotesCache, syncBtn, migrateToTxt;
 
     protected SettingsPresenter presenter;
 
@@ -68,7 +68,7 @@ class SettingsInitializeFragment extends Fragment {
         cleanNotesCache = root.findViewById(R.id.notes_cache_size_clean_btn);
         cleanNotesCache.setOnClickListener( v -> {
             circularReveal(cleanNotesCache);
-            presenter.cleanNotesCache();
+            showVerification( () -> presenter.cleanNotesCache() );
         });
     }
     private void initTodosCacheSizeSettings() {
@@ -77,7 +77,7 @@ class SettingsInitializeFragment extends Fragment {
         cleanTodosCache = root.findViewById(R.id.todos_photos_cache_size_clean_btn);
         cleanTodosCache.setOnClickListener( v -> {
             circularReveal(cleanTodosCache);
-            presenter.cleanTodosCache();
+            showVerification( () -> presenter.cleanTodosCache() );
         });
     }
     private void initNotesMigrationSettings() {
@@ -110,7 +110,15 @@ class SettingsInitializeFragment extends Fragment {
     private void showExplanation (View v) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         dialog.setMessage(v.getContentDescription());
-        dialog.setPositiveButton(R.string.positive, (d, w) -> d.dismiss());
+        dialog.setPositiveButton(R.string.understand, (d, w) -> d.dismiss() );
+        dialog.show();
+    }
+
+    private void showVerification(Verification callable) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setMessage(getString(R.string.delete_hint));
+        dialog.setPositiveButton(R.string.positive, (d, w) -> callable.verify() );
+        dialog.setNegativeButton(R.string.negative, (d, w) -> d.dismiss() );
         dialog.show();
     }
 
@@ -137,5 +145,9 @@ class SettingsInitializeFragment extends Fragment {
     private void fading(View v) {
         v.setAlpha(0f);
         v.animate().alpha(1f).setDuration(1000).start();
+    }
+
+    interface Verification {
+        void verify();
     }
 }

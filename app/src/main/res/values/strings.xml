@@ -7,6 +7,7 @@
     <string name="delete_hint">Sure to delete item?</string>
     <string name="negative">No</string>
     <string name="positive">Yes</string>
+    <string name="understand">Understand</string>
     <string name="empty_body_hint">This item is empty! Could not be saved</string>
 
     <!--    SETTINGS FRAGMENT   -->
