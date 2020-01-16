@@ -28,6 +28,8 @@ public interface INoteDao {
     void migrate(BasePresenter presenter);
     void migrate(Note note, BasePresenter presenter);
     void migrateSelected(BasePresenter presenter);
+    void syncDataWithStorage();
+
     SharedPreferencesManager getAppSettings();
     void unsubscribe();
 

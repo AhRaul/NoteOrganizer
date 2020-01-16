@@ -14,9 +14,10 @@
     <string name="app_theme_hint">Select theme for app</string>
     <string name="dark_theme_hint">Dark mode</string>
     <string name="light_theme_hint">Light mode</string>
-    <string name="back_app_hint">Auto back-app to cloud</string>
+    <string name="storage_sync_hint">Synchronization with storage</string>
     <string name="last_update_hint">Last update: </string>
     <string name="not_implemented_hint">not implemented</string>
+    <string name="not_sync">not synchronized</string>
     <string name="clean_notes_cache_hint">Clean notes cache</string>
     <string name="cache_size_hint">Cache size: </string>
     <string name="clean">clean</string>

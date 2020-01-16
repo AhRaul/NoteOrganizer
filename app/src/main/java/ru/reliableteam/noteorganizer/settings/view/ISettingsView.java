@@ -5,4 +5,5 @@ public interface ISettingsView {
     void setNotesCacheSize(String size);
     void setTodosCacheSize(String size);
     void showHint(int messageId);
+    void setLastSyncDate(String date);
 }

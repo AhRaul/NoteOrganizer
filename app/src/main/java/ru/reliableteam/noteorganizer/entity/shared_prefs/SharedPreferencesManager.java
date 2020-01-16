@@ -49,7 +49,15 @@ public class SharedPreferencesManager {
         editor.putBoolean("isAutosycEnabled", isEnabled);
         editor.apply();
     }
-
+    // sync with storage
+    public void setLastSyncDate(Long timeInMills) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putLong("lastSyncWithStorage", timeInMills);
+        editor.apply();
+    }
+    public Long getLastSyncDate() {
+        return sp.getLong("lastSyncWithStorage", 0L);
+    }
     // data directory
     public String getAppDataDirectory() {
         return sp.getString("appDataDirectory", "");

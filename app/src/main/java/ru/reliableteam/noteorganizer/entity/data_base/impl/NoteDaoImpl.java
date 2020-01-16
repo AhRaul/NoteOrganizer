@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -34,10 +36,12 @@ public class NoteDaoImpl implements INoteDao {
     public Note getNote() {
         return note;
     }
+
     @Override
     public Note getNoteByPosition(int position) {
         return notesList == null ? new Note() : notesList.get(position);
     }
+
     @Override
     public Integer size() {
         return notesList == null ? 0 : notesList.size();
@@ -64,32 +68,32 @@ public class NoteDaoImpl implements INoteDao {
 
     @Override
     public void saveNote(Note note) {
-        disposable = Completable.fromAction( () -> noteDao.insert(note) )
+        disposable = Completable.fromAction(() -> noteDao.insert(note))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(
-                        () ->  System.out.println("SUCCEEDED"),
+                        () -> System.out.println("NOTE SAVED"),
                         Throwable::printStackTrace
                 );
     }
 
     @Override
     public void updateNote(Note note) {
-        disposable = Completable.fromAction( () -> noteDao.update(note) )
+        disposable = Completable.fromAction(() -> noteDao.update(note))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(
-                        () ->  System.out.println("NOTE UPDATED"),
+                        () -> System.out.println("NOTE UPDATED"),
                         Throwable::printStackTrace
                 );
     }
 
     @Override
     public void deleteNote(Note note) {
-        disposable = Completable.fromAction( () -> noteDao.delete(note) )
+        disposable = Completable.fromAction(() -> noteDao.delete(note))
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        () ->  System.out.println("NOTE DELETED"),
+                        () -> System.out.println("NOTE DELETED"),
                         Throwable::printStackTrace
                 );
     }
@@ -99,13 +103,12 @@ public class NoteDaoImpl implements INoteDao {
         disposable = noteDao.getAll()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    list -> {
-                        notesList.clear();
-                        notesList.addAll(list);
-                        System.out.println(notesList.size());
-                        presenter.notifyDatasetChanged(NO_MESSAGE);
-                    },
-                    Throwable::printStackTrace
+                        list -> {
+                            notesList.clear();
+                            notesList.addAll(list);
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
+                        },
+                        Throwable::printStackTrace
                 );
     }
 
@@ -114,21 +117,23 @@ public class NoteDaoImpl implements INoteDao {
         disposable = noteDao.getById(id)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                foundNote -> {
-                    this.note = foundNote;
-                    presenter.notifyDatasetChanged(NO_MESSAGE);
-                },
-                Throwable::printStackTrace
-        );
+                        foundNote -> {
+                            this.note = foundNote;
+                            presenter.notifyDatasetChanged(NO_MESSAGE);
+                        },
+                        Throwable::printStackTrace
+                );
     }
+
     @Override
     public void deleteSelectedNote(BasePresenter presenter, Note note) {
-        disposable = Completable.fromAction( () -> noteDao.delete(note) )
+        disposable = Completable.fromAction(() -> noteDao.delete(note))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> {
                             selectedNotes.remove(note);
-                            presenter.notifyDatasetChanged(NO_MESSAGE);
+                            getFromDB(presenter);
+                            //presenter.notifyDatasetChanged(NO_MESSAGE);
                         },
                         Throwable::printStackTrace
                 );
@@ -158,6 +163,7 @@ public class NoteDaoImpl implements INoteDao {
                         Throwable::printStackTrace
                 );
     }
+
     @Override
     public void migrate(BasePresenter presenter) {
         disposable = noteDao.getAll()
@@ -183,8 +189,11 @@ public class NoteDaoImpl implements INoteDao {
         selectedNotes.clear();
         presenter.notifyDatasetChanged(R.string.migrated_hint);
     }
+
     @Override
-    public SharedPreferencesManager getAppSettings() { return AppConfig.getInstance().getAppSettings(); }
+    public SharedPreferencesManager getAppSettings() {
+        return AppConfig.getInstance().getAppSettings();
+    }
 
     @Override
     public void unsubscribe() {
@@ -200,6 +209,39 @@ public class NoteDaoImpl implements INoteDao {
         MigrationManager manager = new MigrationManager(getAppSettings());
         for (Note note : list) {
             manager.saveToDir(note);
+        }
+    }
+
+    @Override
+    public void syncDataWithStorage() {
+        MigrationManager manager = new MigrationManager(getAppSettings());
+        List<Note> notesFromStorage = manager.getNotesFromStorage();
+        disposable = noteDao.getAll()
+                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+                .subscribe(
+                        list -> {
+                            notesList.clear();
+                            notesList.addAll(list);
+                            addNotExisting(notesFromStorage);
+                            System.out.println("SYNC COMPLETED");
+                        },
+                        Throwable::printStackTrace
+                );
+    }
+    private void addNotExisting(List<Note> notesFromStorage) {
+        boolean equals;
+        for (Note noteFromStorage : notesFromStorage) {
+            equals = false;
+            for (Note noteFromList : notesList) {
+                if (noteFromList.equals(noteFromStorage)) {
+                    equals = true;
+                    break;
+                }
+            }
+            if (!equals) {
+                saveNote(noteFromStorage);
+                notesList.add(noteFromStorage);
+            }
         }
     }
 }

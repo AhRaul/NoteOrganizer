@@ -44,6 +44,7 @@ public class NotesPresenter implements INotesPresenter {
     public NotesPresenter(NotesFragment view) {
         this.fragmentView = view;
         appSettings = noteDao.getAppSettings();
+//        noteDao.syncDataWithStorage(this);
     }
 
     public void getNotes() {

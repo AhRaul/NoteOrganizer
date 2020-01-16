@@ -18,6 +18,7 @@ import ru.reliableteam.noteorganizer.entity.data_base.impl.TodoDaoImpl;
 import ru.reliableteam.noteorganizer.entity.data_base.interract.INoteDao;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.settings.view.ISettingsView;
+import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 public class SettingsPresenter implements BasePresenter {
     private final String CLASS_TAG = "SettingsPresenter";
@@ -48,10 +49,6 @@ public class SettingsPresenter implements BasePresenter {
             lastCheckedId = R.id.dark_mode_theme_selection;
 
         return lastCheckedId;
-    }
-
-    public boolean isAutoSyncEnabled() {
-        return appSettings.isAutoSyncEnabled();
     }
 
     public String getNotesCacheSize() {
@@ -144,7 +141,14 @@ public class SettingsPresenter implements BasePresenter {
         };
     }
 
-    public CompoundButton.OnCheckedChangeListener autosyncChangeListener() {
-        return (buttonView, isChecked) -> appSettings.setAutoSyncEnabled(isChecked);
+    public void makeSyncWithStorage() {
+        noteDao.syncDataWithStorage();
+        appSettings.setLastSyncDate(System.currentTimeMillis());
+        setLastSyncDate();
+    }
+
+    public void setLastSyncDate() {
+        Long date = appSettings.getLastSyncDate();
+        view.setLastSyncDate(DateUtils.isDateConfigured(date) ? DateUtils.dateToString(date) : "");
     }
 }

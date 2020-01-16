@@ -103,13 +103,13 @@
                     </com.google.android.material.chip.ChipGroup>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <View style="@style/Divider" android:visibility="gone"/>
+                <View style="@style/Divider"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    >
                     <!--todo add cloud-->
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                             style="@style/TextView.Header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/back_app_hint" />
+                            android:text="@string/storage_sync_hint" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
@@ -154,12 +154,16 @@
                         android:layout_weight="5"
                         android:gravity="center"
                         >
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/auto_synchronization_switcher"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:useMaterialThemeColors="false"
-                            android:enabled="false"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/sync_button"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:textAppearance="@style/TextView.Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="5"
+                            android:text="sync"
                             />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>

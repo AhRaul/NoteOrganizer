@@ -15,10 +15,10 @@ import ru.reliableteam.noteorganizer.notes.model.Note;
 @Dao
 public interface NoteDAO {
     @Query("SELECT * FROM NOTE")
-    Flowable<List<Note>> getAll();
+    Single<List<Note>> getAll();
 
     @Query("SELECT * FROM NOTE WHERE (title LIKE :what) OR (body like :what)")
-    Flowable<List<Note>> getAll(String what);
+    Single<List<Note>> getAll(String what);
 
     @Query("SELECT * FROM NOTE WHERE id = :id")
     Single<Note> getById(long id);

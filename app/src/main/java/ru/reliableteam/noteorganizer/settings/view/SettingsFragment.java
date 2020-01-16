@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import ru.reliableteam.noteorganizer.MainActivity;
 import ru.reliableteam.noteorganizer.R;
@@ -23,10 +22,11 @@ import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 public class SettingsFragment extends Fragment implements ISettingsView {
     private final String CLASS_TAG = "SettingsFragment";
     private View root;
-    private ChipGroup themeSelector;
-    private TextView lastSyncDate, notesCacheSize, todosCacheSize, appDirPath;
-    private SwitchMaterial autoSyncSwitcher;
-    private MaterialButton cleanNotesCache, cleanTodosCache, migrateToTxt;
+    private TextView notesCacheSize;
+    private TextView todosCacheSize;
+    private TextView lastSyncDate;
+    private TextView appDirPath;
+    private MaterialButton cleanNotesCache, cleanTodosCache, migrateToTxt, syncBtn;
 
     private SettingsPresenter presenter;
 
@@ -42,22 +42,22 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
     private void initUI() {
         initThemeSelection();
-        initAutoSyncSelection();
+        initSyncWithStorage();
         initNoteCacheSizeSettings();
         initTodosCacheSizeSettings();
         initNotesMigrationSettings();
     }
     private void initThemeSelection() {
-        themeSelector = root.findViewById(R.id.theme_mode_selection);
+        ChipGroup themeSelector = root.findViewById(R.id.theme_mode_selection);
         themeSelector.setOnCheckedChangeListener(presenter.themeChangeListener());
         themeSelector.check(presenter.getThemeId());
     }
-    private void initAutoSyncSelection() {
-        autoSyncSwitcher = root.findViewById(R.id.auto_synchronization_switcher);
-        autoSyncSwitcher.setOnCheckedChangeListener(presenter.autosyncChangeListener());
-        autoSyncSwitcher.setChecked(presenter.isAutoSyncEnabled());
+    private void initSyncWithStorage() {
+        syncBtn = root.findViewById(R.id.sync_button);
+        syncBtn.setOnClickListener( v -> presenter.makeSyncWithStorage());
 
         lastSyncDate = root.findViewById(R.id.last_sync_date);
+        presenter.setLastSyncDate();
     }
     private void initNoteCacheSizeSettings() {
         notesCacheSize = root.findViewById(R.id.notes_cache_size_tv);
@@ -99,6 +99,9 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     @Override
     public void setTodosCacheSize(String size) {
         todosCacheSize.setText(size + " " + getString(R.string.todos_cache_size_prefix));
+    }
+    public void setLastSyncDate(String date) {
+        lastSyncDate.setText(date.equals("") ? getString(R.string.not_sync) : date);
     }
 
     @Override

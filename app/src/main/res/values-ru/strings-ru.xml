@@ -15,9 +15,10 @@
     <string name="app_theme_hint">Тема приложения</string>
     <string name="dark_theme_hint">Темная тема</string>
     <string name="light_theme_hint">Светлая тема</string>
-    <string name="back_app_hint">Авто-сохранение на облако</string>
+    <string name="storage_sync_hint">Синхронизация с устройством</string>
     <string name="last_update_hint">Последнее обновление: </string>
     <string name="not_implemented_hint">не реализовано</string>
+    <string name="not_sync">не синхронизировано</string>
     <string name="clean_notes_cache_hint">Очистить кеш заметок</string>
     <string name="cache_size_hint">Кол-во сделанных: </string>
     <string name="clean">очистить</string>
