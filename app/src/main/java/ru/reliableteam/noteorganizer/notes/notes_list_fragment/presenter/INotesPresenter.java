@@ -3,7 +3,10 @@ package ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter;
 import android.text.TextWatcher;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.BasePresenter;
 import ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler.IViewHolder;
@@ -14,6 +17,8 @@ public interface INotesPresenter extends BasePresenter {
     int getItemCount ();
     void clicked (int position);
     void longClicked(int position, View v);
+
+    void clearSearch();
     void searchNotes (String what);
 
     void enableMultiSelection();
@@ -27,4 +32,5 @@ public interface INotesPresenter extends BasePresenter {
 
     TextWatcher getTextChangeListener(View buttonClear);
     ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener();
+    RecyclerView.OnScrollListener getRecyclerScrollListener(FloatingActionButton fab);
 }

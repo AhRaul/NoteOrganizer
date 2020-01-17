@@ -16,7 +16,7 @@ import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
 // todo add to help activity transition
 // todo add help info
-public class SettingsFragment extends SettingsInitializeFragment implements ISettingsView {
+public class SettingsFragment extends SettingsFragmentInitialize implements ISettingsView {
     private final String CLASS_TAG = "SettingsFragment";
 
     @Override

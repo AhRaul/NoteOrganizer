@@ -22,7 +22,7 @@ import com.google.android.material.chip.ChipGroup;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
-class SettingsInitializeFragment extends Fragment {
+class SettingsFragmentInitialize extends Fragment {
     View root;
     TextView notesCacheSize;
     TextView todosCacheSize;

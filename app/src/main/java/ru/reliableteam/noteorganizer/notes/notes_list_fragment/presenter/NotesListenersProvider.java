@@ -4,7 +4,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ru.reliableteam.noteorganizer.R;
 
@@ -15,7 +19,7 @@ public class NotesListenersProvider {
         this.presenter = iNotesPresenter;
     }
 
-    public TextWatcher getTextChangeListener(View buttonClear) {
+    TextWatcher getTextChangeListener(View buttonClear) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -37,7 +41,7 @@ public class NotesListenersProvider {
         };
     }
 
-    public ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener() {
+    ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener() {
         return (group, checkedId) -> {
             switch (checkedId) {
                 case R.id.sort_by_date:
@@ -49,6 +53,26 @@ public class NotesListenersProvider {
                 default:
                     presenter.sortByDefault();
                     break;
+            }
+        };
+    }
+
+    RecyclerView.OnScrollListener getRecyclerScrollListener(FloatingActionButton fab) {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int fabVisibility = fab.getVisibility();
+                if (dy != 0 && fabVisibility == View.VISIBLE)
+                    fab.hide();
+            }
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int STATE_STOP = 0;
+                int fabVisibility = fab.getVisibility();
+                if (newState == STATE_STOP && fabVisibility != View.VISIBLE)
+                    fab.show();
             }
         };
     }

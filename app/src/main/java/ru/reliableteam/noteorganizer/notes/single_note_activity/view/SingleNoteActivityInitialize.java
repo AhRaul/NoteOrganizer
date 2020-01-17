@@ -15,7 +15,7 @@ import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view.CalculatorFragment;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.SingleNotePresenter;
 
-class SingleNoteInitialActivity extends BaseActivity {
+class SingleNoteActivityInitialize extends BaseActivity {
     protected SingleNotePresenter presenter;
     protected CalculatorFragment calculatorFragment;
 

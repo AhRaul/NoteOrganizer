@@ -3,7 +3,10 @@ package ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter;
 import android.text.TextWatcher;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Comparator;
 
@@ -119,6 +122,10 @@ public class NotesPresenter implements INotesPresenter, INotesSortingPresenter {
         else
             noteDao.search(this, s);
     }
+    @Override
+    public void clearSearch() {
+        fragmentView.clearSearch();
+    }
 
     @Override
     public void enableSort() {
@@ -206,5 +213,10 @@ public class NotesPresenter implements INotesPresenter, INotesSortingPresenter {
     @Override
     public ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener() {
         return listenersProvider.getOnCheckedChangeListener();
+    }
+
+    @Override
+    public RecyclerView.OnScrollListener getRecyclerScrollListener(FloatingActionButton fab){
+        return listenersProvider.getRecyclerScrollListener(fab);
     }
 }
