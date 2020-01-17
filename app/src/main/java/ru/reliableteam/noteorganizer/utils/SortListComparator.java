@@ -39,7 +39,7 @@ public class SortListComparator {
     private static class NameComparator implements Comparator<Note> {
         @Override
         public int compare(Note o1, Note o2) {
-            return o1.title.compareTo(o2.title);
+            return o1.title.compareToIgnoreCase(o2.title);
 
         }
     }

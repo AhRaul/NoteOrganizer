@@ -1,6 +1,5 @@
 package ru.reliableteam.noteorganizer.notes.notes_list_fragment.presenter;
 
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
@@ -8,7 +7,6 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.Comparator;
 
-import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.data_base.impl.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.data_base.interract.INoteDao;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
@@ -26,7 +24,7 @@ import ru.reliableteam.noteorganizer.utils.SortListComparator;
  * Generates sample data.
  */
 
-public class NotesPresenter implements INotesPresenter {
+public class NotesPresenter implements INotesPresenter, INotesSortingPresenter {
     private String CLASS_TAG = "RecyclerViewPresenter";
     private final int NEW_NOTE = -1;
     private final int NO_MESSAGE = 0;
@@ -35,8 +33,9 @@ public class NotesPresenter implements INotesPresenter {
 
     private NotesFragment fragmentView;
     private SharedPreferencesManager appSettings;
+    private NotesListenersProvider listenersProvider;
 
-    enum State {MULTI_SELECTION, SINGLE_SELECTION}
+    enum State { MULTI_SELECTION, SINGLE_SELECTION }
     private State state = State.SINGLE_SELECTION;
 
     private Comparator<Note> comparator = SortListComparator.getDateComparator();
@@ -44,7 +43,7 @@ public class NotesPresenter implements INotesPresenter {
     public NotesPresenter(NotesFragment view) {
         this.fragmentView = view;
         appSettings = noteDao.getAppSettings();
-//        noteDao.syncDataWithStorage(this);
+        listenersProvider = new NotesListenersProvider(this);
     }
 
     public void getNotes() {
@@ -103,14 +102,6 @@ public class NotesPresenter implements INotesPresenter {
         Note note = noteDao.getNoteByPosition(position);
         noteDao.selectNote(note);
         fragmentView.setCardSelected(noteDao.wasSelected(note), position);
-//        if (selectedNotes.contains(note)) {
-//            selectedNotes.remove(note);
-//            fragmentView.setCardSelected(false, position);
-//        }
-//        else {
-//            selectedNotes.add(note);
-//            fragmentView.setCardSelected(true, position);
-//        }
     }
 
     @Override
@@ -130,7 +121,7 @@ public class NotesPresenter implements INotesPresenter {
     }
 
     @Override
-    public void enableSort(){
+    public void enableSort() {
         disableMultiSelection();
         fragmentView.setSortLayoutVisibility(true);
         fragmentView.setExtraOptionsLayoutVisibility(false);
@@ -145,17 +136,20 @@ public class NotesPresenter implements INotesPresenter {
         updateByState();
     }
 
-    private void sortByTitle() {
+    @Override
+    public void sortByTitle() {
         comparator = SortListComparator.getNameComparator();
         sort();
     }
 
-    private void sortByDate() {
+    @Override
+    public void sortByDate() {
         comparator = SortListComparator.getDateComparator();
         sort();
     }
 
-    private void sortByDefault() {
+    @Override
+    public void sortByDefault() {
         comparator = SortListComparator.getNumberComparator();
         sort();
     }
@@ -204,44 +198,13 @@ public class NotesPresenter implements INotesPresenter {
         noteDao.migrateSelected(this);
     }
 
-
-    // LISTENERS
     @Override
     public TextWatcher getTextChangeListener(View buttonClear) {
-        return new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setClearButtonVisibility(s);
-                searchNotes(s.toString());
-            }
-            private void setClearButtonVisibility(CharSequence s) {
-                if (s.length() == 0) {
-                    buttonClear.setVisibility(View.GONE);
-                } else {
-                    if (buttonClear.getVisibility() != View.VISIBLE)
-                        buttonClear.setVisibility(View.VISIBLE);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable s) {}
-        };
+        return listenersProvider.getTextChangeListener(buttonClear);
     }
+
     @Override
     public ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener() {
-        return (group, checkedId) -> {
-            switch (checkedId) {
-                case R.id.sort_by_date:
-                    sortByDate();
-                    break;
-                case  R.id.sort_by_title:
-                    sortByTitle();
-                    break;
-                default:
-                    sortByDefault();
-                    break;
-            }
-        };
+        return listenersProvider.getOnCheckedChangeListener();
     }
 }

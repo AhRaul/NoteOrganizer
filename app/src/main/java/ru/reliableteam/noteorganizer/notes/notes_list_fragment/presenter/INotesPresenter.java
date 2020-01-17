@@ -15,13 +15,15 @@ public interface INotesPresenter extends BasePresenter {
     void clicked (int position);
     void longClicked(int position, View v);
     void searchNotes (String what);
-    void enableSort();
-    void disableSort();
+
     void enableMultiSelection();
     void disableMultiSelection();
     void createNewNote();
     void deleteNotes();
     void migrateSelectedNotes();
+
+    void enableSort();
+    void disableSort();
 
     TextWatcher getTextChangeListener(View buttonClear);
     ChipGroup.OnCheckedChangeListener getOnCheckedChangeListener();
