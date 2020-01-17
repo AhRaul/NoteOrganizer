@@ -82,6 +82,7 @@
     <string name="exit">Exit the screen</string>
     <string name="calculator">Calculator</string>
     <string name="migrate">Save to .txt</string>
+    <string name="save_before_exit_hint">Do you want to save before exit?</string>
 
     <string name="back_space"><![CDATA[<--]]></string>
     <string name="share">Share</string>

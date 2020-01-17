@@ -47,7 +47,7 @@ public class SingleNotePresenter implements BasePresenter {
         noteDao.deleteNote(note);
     }
 
-    public void saveNote() {
+    public boolean saveNote() {
         Note note = noteDao.getNote();
         note.body = view.getNoteText();
         note.title = view.getNoteTitle();
@@ -55,7 +55,7 @@ public class SingleNotePresenter implements BasePresenter {
 
         if (note.isEmpty()) {
             view.showVerification();
-            return;
+            return false;
         }
 
         if (isNewNote())
@@ -64,6 +64,7 @@ public class SingleNotePresenter implements BasePresenter {
             noteDao.updateNote(note);
 
         view.onBackPressed();
+        return true;
     }
 
     public void shareNote() {
