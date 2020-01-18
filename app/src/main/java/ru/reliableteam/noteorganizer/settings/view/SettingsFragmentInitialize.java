@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.chip.ChipGroup;
 
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.settings.help_activity.HelpActivity;
 import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
 class SettingsFragmentInitialize extends Fragment {
@@ -105,6 +106,8 @@ class SettingsFragmentInitialize extends Fragment {
         infoCleanTodosCache.setOnClickListener(this::showExplanation);
         ImageButton infoMigrateToTxt = root.findViewById(R.id.info_migrate_to_txt_btn);
         infoMigrateToTxt.setOnClickListener(this::showExplanation);
+        ImageButton helpWithApp = root.findViewById(R.id.help_with_app);
+        helpWithApp.setOnClickListener( v -> showHelpWithAppActivity() );
     }
 
     private void showExplanation (View v) {
@@ -120,6 +123,10 @@ class SettingsFragmentInitialize extends Fragment {
         dialog.setPositiveButton(R.string.positive, (d, w) -> callable.verify() );
         dialog.setNegativeButton(R.string.negative, (d, w) -> d.dismiss() );
         dialog.show();
+    }
+
+    private void showHelpWithAppActivity() {
+        startActivity(new Intent(getContext(), HelpActivity.class));
     }
 
     private void rotate(View v) {

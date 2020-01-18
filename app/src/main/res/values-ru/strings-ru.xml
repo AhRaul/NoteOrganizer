@@ -73,10 +73,6 @@
     <string name="save">Сохранить</string>
     <string name="note_title_hint">Заголовок</string>
     <string name="note_body_hint">Введите текст тут</string>
-    <string name="left_bracket">(</string>
-    <string name="right_bracket">)</string>
-    <string name="clear">C</string>
-    <string name="back_space"><![CDATA[<--]]></string>
     <string name="share">Поделиться</string>
     <string name="send_to">Поделиться своей заметкой</string>
     <string name="saved_note_hint">Ваша заметка была сохранена!</string>
@@ -86,7 +82,22 @@
     <string name="migrate">Сохранить в формате .txt</string>
     <string name="save_before_exit_hint">Вы хотите сохранить перед выходом?</string>
 
+    <!--    CALCULATOR FRAGMENT -->
+    <string name="left_bracket">(</string>
+    <string name="right_bracket">)</string>
+    <string name="clear">C</string>
+    <string name="back_space"><![CDATA[<--]]></string>
 
+    <!--    HELP ACTIVITY   -->
+    <string name="help_how_to_name_notes">Как называть заметки?</string>
+    <string name="how_to_name_notes">При создании их на компьтере</string>
+    <string name="how_to_name_note">
+        \tКогда вы создаете заметку на компьютере, очень важно правильно назвать ее.\n\n
+        \tИмя должно начинаться с заголовка без символа подчеркивания (\"_\"), потому что он используется как символ-разделитель.\n
+        \tДалее вы можете увидеть цифры - это дата создания заметки. Вы можете написать дату в следующем формате:
+        дд/мм/год. Например, название заметки: Лучшие места Нью-Йорка_12/12/2020\n\n
+        \tЭто записка с названием «Лучшие места Нью-Йорка», созданная 12.12.2020г.
+    </string>
 
 
 </resources>

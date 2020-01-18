@@ -58,7 +58,6 @@
         </string>
     <string name="search_view_hint">Search for notes</string>
 
-
     <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Todos</string>
     <string name="missed_todo_hint">Missed</string>
@@ -76,19 +75,29 @@
     <string name="save">Save</string>
     <string name="note_title_hint">Title</string>
     <string name="note_body_hint">Type the note here</string>
-    <string name="left_bracket">(</string>
-    <string name="right_bracket">)</string>
-    <string name="clear">C</string>
     <string name="exit">Exit the screen</string>
     <string name="calculator">Calculator</string>
     <string name="migrate">Save to .txt</string>
     <string name="save_before_exit_hint">Do you want to save before exit?</string>
-
-    <string name="back_space"><![CDATA[<--]]></string>
     <string name="share">Share</string>
     <string name="send_to">Share your note..</string>
 
+    <!--    CALCULATOR FRAGMENT -->
+    <string name="back_space"><![CDATA[<--]]></string>
+    <string name="left_bracket">(</string>
+    <string name="right_bracket">)</string>
+    <string name="clear">C</string>
 
+    <!--    HELP ACTIVITY   -->
+    <string name="help_how_to_name_notes">How to name notes?</string>
+    <string name="how_to_name_notes">When you create them on PC</string>
+    <string name="how_to_name_note">
+        \tWhen you create a note on PC, It\'s very important to name it correctly.\n\n
+        \tThe name should begin with title, without underline symbols (\"_\"), because it is used like a separator symbol.\n
+        \tNext you can see the numbers - it\'s the date of note creation. You can write it in next format:
+        dd/mm/yyyy. For example, the name of note: Best places of New York_12/12/2020\n\n
+        \tThis is the note with title \"Best places of New York\", created at 12/12/2020
+    </string>
 </resources>
 
 

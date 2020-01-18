@@ -464,20 +464,5 @@
                     android:background="@android:color/transparent" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.google.android.material.card.MaterialCardView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 </ScrollView>
