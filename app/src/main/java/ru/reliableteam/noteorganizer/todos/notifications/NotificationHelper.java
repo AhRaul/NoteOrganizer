@@ -9,6 +9,7 @@ import android.content.ContextWrapper;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+
 import ru.reliableteam.noteorganizer.R;
 
 /**
@@ -17,12 +18,13 @@ import ru.reliableteam.noteorganizer.R;
  */
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "channelID";
-    public static final String channelName = "Channel Name";
+    public static String channelName;
 
     private NotificationManager mManager;
 
     public NotificationHelper(Context base) {
         super(base);
+        channelName = getString(R.string.title_todo);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
         }
@@ -34,6 +36,8 @@ public class NotificationHelper extends ContextWrapper {
     private void createChannel() {
         NotificationChannel channel = new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH);
         channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        channel.enableVibration(true);
+        channel.setVibrationPattern(new long[] {1000, 1000, 1000, 1000});
 
         getManager().createNotificationChannel(channel);
     }
@@ -50,6 +54,6 @@ public class NotificationHelper extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(title)
                 .setContentText(description)
-                .setSmallIcon(R.drawable.ic_alarm_black_24dp);
+                .setSmallIcon(R.drawable.outline_done_all_24);
     }
 }
