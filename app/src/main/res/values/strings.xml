@@ -89,14 +89,25 @@
     <string name="clear">C</string>
 
     <!--    HELP ACTIVITY   -->
-    <string name="help_how_to_name_notes">How to name notes?</string>
-    <string name="how_to_name_notes">When you create them on PC</string>
+    <string name="help_how_to_name_notes_tv">How to name notes?</string>
+    <string name="help_how_to_name_notes_tv_subheader">When you create them on PC</string>
     <string name="how_to_name_note">
-        \tWhen you create a note on PC, It\'s very important to name it correctly.\n\n
-        \tThe name should begin with title, without underline symbols (\"_\"), because it is used like a separator symbol.\n
-        \tNext you can see the numbers - it\'s the date of note creation. You can write it in next format:
+        \t\tWhen you create a note on PC, It\'s very important to name it correctly.\n\n
+        \t\tThe name should begin with title, without underline symbols (\"_\"), because it is used like a separator symbol.\n
+        \t\tNext you can see the numbers - it\'s the date of note creation. You can write it in next format:
         dd/mm/yyyy. For example, the name of note: Best places of New York_12/12/2020\n\n
-        \tThis is the note with title \"Best places of New York\", created at 12/12/2020
+        \t\tThis is the note with title \"Best places of New York\", created at 12/12/2020
+    </string>
+    <string name="where_to_save_notes_tv">Where to save notes?</string>
+    <string name="where_to_save_notes_tv_subheader">@string/help_how_to_name_notes_tv_subheader</string>
+    <string name="where_to_save_note">
+        \t\tThe settings indicate the path where your notes are saved. To check that they are saved correctly, click on the icon
+        phone opposite the phrase \"Save all notes to .txt format\". Next, follow these steps:\n
+        \t\t1. Connect the phone to the computer via the charging cable\n
+        \t\t2. Select \"USB Mode\" - \"File Transfer\"\n
+        \t\t3. On the computer, go to My Computer (This Computer) and open your phone.\n
+        \t\t4. Next, follow the path specified in the settings. So, for example, if the path \"Android/data/files\" is specified,
+        then you need to go to the Android -> data -> files folder.
     </string>
 </resources>
 
