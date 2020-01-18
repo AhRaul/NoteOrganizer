@@ -1,7 +1,5 @@
 package ru.reliableteam.noteorganizer.utils;
 
-import android.widget.ArrayAdapter;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,8 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 import ru.reliableteam.noteorganizer.notes.model.Note;
 
@@ -26,7 +22,10 @@ public class MigrationManager {
     }
 
     public void saveToDir(Note note) {
-        File f = new File(appSettings.getAppDataDirectory(), note.title + "_" + note.dataTime + ".txt");
+        String date = DateUtils.dateToString(note.dataTime).split(" ")[0].replace("/", "-");
+        System.out.println(date);
+
+        File f = new File(appSettings.getAppDataDirectory(), note.title + "_" + date + ".txt");
         f.setWritable(true);
         try {
             f.createNewFile();
@@ -66,7 +65,13 @@ public class MigrationManager {
         return note;
     }
     private Long getDate (File f) {
-        return Long.parseLong(f.getName().split("_")[1].replace(".txt", ""));
+        String[] fileName = f.getName().replace(".txt", "").split("_");
+        String date = "";
+        if (fileName.length == 2)
+            date = fileName[1];
+        date = date.replace("-", "/");
+
+        return DateUtils.stringToDate("", date);
     }
     private String getTitle (File f) {
         return f.getName().split("_")[0];

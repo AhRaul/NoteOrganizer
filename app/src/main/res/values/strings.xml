@@ -95,8 +95,8 @@
         \t\tWhen you create a note on PC, It\'s very important to name it correctly.\n\n
         \t\tThe name should begin with title, without underline symbols (\"_\"), because it is used like a separator symbol.\n
         \t\tNext you can see the numbers - it\'s the date of note creation. You can write it in next format:
-        dd/mm/yyyy. For example, the name of note: Best places of New York_12/12/2020\n\n
-        \t\tThis is the note with title \"Best places of New York\", created at 12/12/2020
+        dd-mm-yyyy. For example, the name of note: Best places of New York_12-12-2020\n\n
+        \t\tThis is the note with title \"Best places of New York\", created at December,12 2020
     </string>
     <string name="where_to_save_notes_tv">Where to save notes?</string>
     <string name="where_to_save_notes_tv_subheader">@string/help_how_to_name_notes_tv_subheader</string>

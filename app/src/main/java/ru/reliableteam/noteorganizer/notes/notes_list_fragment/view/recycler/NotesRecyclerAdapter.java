@@ -1,13 +1,12 @@
 package ru.reliableteam.noteorganizer.notes.notes_list_fragment.view.recycler;
 
 
-import android.util.Log;
-import android.view.ViewGroup;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.model.Note;
@@ -93,7 +92,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
                 title.setText(note.title);
             }
             subtitle.setText(note.body);
-            date.setText(DateUtils.dateToString(note.dataTime));
+            date.setText(DateUtils.dateToString(note.dataTime).split(" ")[0]);
         }
         @Override
         public int getPos() { return getLayoutPosition(); }
