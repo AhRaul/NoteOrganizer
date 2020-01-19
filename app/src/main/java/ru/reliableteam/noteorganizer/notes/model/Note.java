@@ -1,9 +1,7 @@
 package ru.reliableteam.noteorganizer.notes.model;
 
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -45,6 +43,6 @@ public class Note {
     public boolean equals(@Nullable Object obj) {
         Note other = (Note) obj;
         if (obj == null) return false;
-        return this.title.equals(other.title) && this.body.equals(other.body);
+        return this.title.equals(other.title) && this.body.equals(other.body) && dataTime == other.dataTime;
     }
 }

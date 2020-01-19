@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -170,7 +168,7 @@ public class NoteDaoImpl implements INoteDao {
                 .subscribe(
                         list -> {
                             System.out.println(list.size());
-                            migration(list, presenter);
+                            migration(list);
                             presenter.notifyDatasetChanged(R.string.migrated_hint);
                         },
                         Throwable::printStackTrace
@@ -179,12 +177,12 @@ public class NoteDaoImpl implements INoteDao {
 
     @Override
     public void migrate(Note note, BasePresenter presenter) {
-        migration(note, presenter);
+        migration(note);
     }
 
     @Override
     public void migrateSelected(BasePresenter presenter) {
-        migration(selectedNotes, presenter);
+        migration(selectedNotes);
         selectedNotes.clear();
         presenter.notifyDatasetChanged(R.string.migrated_hint);
     }
@@ -199,12 +197,12 @@ public class NoteDaoImpl implements INoteDao {
         disposable.dispose();
     }
 
-    private void migration(Note note, BasePresenter presenter) {
+    private void migration(Note note) {
         MigrationManager manager = new MigrationManager(getAppSettings());
         manager.saveToDir(note);
     }
 
-    private void migration(List<Note> list, BasePresenter presenter) {
+    private void migration(List<Note> list) {
         MigrationManager manager = new MigrationManager(getAppSettings());
         for (Note note : list) {
             manager.saveToDir(note);
