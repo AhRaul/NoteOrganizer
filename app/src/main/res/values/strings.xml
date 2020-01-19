@@ -82,6 +82,7 @@
     <string name="save_before_exit_hint">Do you want to save before exit?</string>
     <string name="share">Share</string>
     <string name="send_to">Share your note..</string>
+    <string name="limit_symbol_error">Imported text have too much symbols</string>
 
     <!--    CALCULATOR FRAGMENT -->
     <string name="back_space"><![CDATA[<--]]></string>
