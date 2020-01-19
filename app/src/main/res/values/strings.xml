@@ -57,6 +57,7 @@
             the capital and largest city of the United Kingdom of Great Britain and Northern Ireland. Administratively forms the region of England Greater London, divided into 33 self-governing territories. The population is 8 908 081 people [2] (2018) is the third [4] largest city in Europe. It forms the agglomeration Greater London and the larger metropolitan area, which are the EU population by the second urban and first regional agglomerations, respectively. Located in the southeast of the island of Great Britain, on a plain at the mouth of the Thames, near the North Sea. The main political, economic and cultural center of the United Kingdom.
         </string>
     <string name="search_view_hint">Search for notes</string>
+    <string name="wrong_note_name_hint">Something is wrong with name. Check it, please, there should not be underline characters (\"_\")</string>
 
     <!--    TODOS FRAGMENT   -->
     <string name="title_todo">Todos</string>

@@ -54,7 +54,11 @@ public class SingleNotePresenter implements BasePresenter {
         note.dataTime = System.currentTimeMillis();
 
         if (note.isEmpty()) {
-            view.showVerification();
+            view.showVerification(R.string.empty_body_hint);
+            return false;
+        }
+        if (note.title.contains("_")) {
+            view.showVerification(R.string.wrong_note_name_hint);
             return false;
         }
 
@@ -63,7 +67,6 @@ public class SingleNotePresenter implements BasePresenter {
         else
             noteDao.updateNote(note);
 
-        view.onBackPressed();
         return true;
     }
 

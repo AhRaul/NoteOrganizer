@@ -72,6 +72,7 @@ class SingleNoteActivityInitialize extends BaseActivity {
                 showConformation( () -> {
                     presenter.saveNote();
                     showHint(getString(R.string.saved_note_hint));
+                    onBackPressed();
                 }, R.string.save_before_exit_hint)
         );
     }
@@ -123,15 +124,15 @@ class SingleNoteActivityInitialize extends BaseActivity {
         presenter.getClickedNote();
     }
 
-    public void showVerification() {
+    public void showVerification(int messageId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.empty_body_hint);
+        builder.setMessage(messageId);
         builder.setPositiveButton(R.string.understand, (dialog, which) -> dialog.dismiss() );
         builder.show();
     }
     private void showConformation(SingleNoteActivity.Action action, int messageId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(messageId);
+        builder.setMessage(messageId);
         builder.setPositiveButton(R.string.positive, (dialog, which) -> {
             action.doAction();
             dialog.dismiss();
