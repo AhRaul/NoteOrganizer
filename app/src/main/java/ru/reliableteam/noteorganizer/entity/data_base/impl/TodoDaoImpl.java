@@ -73,16 +73,19 @@ public class TodoDaoImpl {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         id -> {
-                            System.out.println("insert id = " + id);
-                            if(todo.endDate > 0L) {
-                                alarm.startAlarm(todo.endDate, id);
-                            } else {
-                                alarm.cancelAlarm(id);
-                            }
+                            startAlarmIfNecessary(todo, id);
                             getTodosByState(presenter);
                         },
                         Throwable::printStackTrace
                 );
+    }
+
+    private void startAlarmIfNecessary(Todo todo, Long id) {
+        if (todo.endDate > 0L && !todo.isDone) {
+            alarm.startAlarm(todo.endDate, id);
+        } else {
+            alarm.cancelAlarm(id);
+        }
     }
 
     public void getTodo(long id, BasePresenter presenter) {
@@ -99,7 +102,7 @@ public class TodoDaoImpl {
     }
 
     /**
-     * Метод вывода notification
+     * Метод вывода notification с загруженными в него данными
      * @param id
      * @param notificationHelper
      */
@@ -130,11 +133,7 @@ public class TodoDaoImpl {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> {
-                            if(todo.endDate > 0L) {
-                                alarm.startAlarm(todo.endDate, todo.id);
-                            } else {
-                                alarm.cancelAlarm(todo.id);
-                            }
+                            startAlarmIfNecessary(todo, todo.id);
                             getTodosByState(presenter);
                         },
                         Throwable::printStackTrace
