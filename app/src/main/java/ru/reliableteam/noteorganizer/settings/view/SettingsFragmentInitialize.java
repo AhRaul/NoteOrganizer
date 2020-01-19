@@ -133,7 +133,7 @@ class SettingsFragmentInitialize extends Fragment {
         int pivotX = v.getWidth() / 2;
         int pivotY = v.getHeight() / 2;
 
-        Animation anim = new RotateAnimation(0, 360f, pivotX, pivotY);
+        Animation anim = new RotateAnimation(0, -360f, pivotX, pivotY);
 
         anim.setDuration(1000);
         v.startAnimation(anim);
