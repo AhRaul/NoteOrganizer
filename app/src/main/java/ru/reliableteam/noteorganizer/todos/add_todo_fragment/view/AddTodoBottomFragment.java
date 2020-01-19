@@ -114,9 +114,8 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
 
-        DatePickerDialog.OnDateSetListener dateSetListener = //datePickerDialog.setOnDateSetListener(
+        DatePickerDialog.OnDateSetListener dateSetListener =
                 (view, year_, month_, dayOfMonth_) -> showDateLayout(dayOfMonth_, month_, year_);
-        //);
 
         datePickerDialog = new DatePickerDialog(getContext(),dateSetListener, year, month, day);
     }

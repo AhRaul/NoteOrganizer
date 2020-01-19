@@ -24,7 +24,6 @@ public class DateUtils {
         return notEqualsToBeginDate(dateInMills);
     }
     private static boolean notEqualsToBeginDate(Long dateInMills) {
-        System.out.println(dateInMills);
         return !dateToString(dateInMills).contains(BEGIN_DATE_STRING);
     }
 
@@ -51,9 +50,6 @@ public class DateUtils {
             Integer[] timeArr = parseTime(time);
             calendar.set(Calendar.HOUR_OF_DAY, timeArr[0]);
             calendar.set(Calendar.MINUTE, timeArr[1]);
-        } else {
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
         }
 
         if (!date.equals("")) {
@@ -61,9 +57,8 @@ public class DateUtils {
             calendar.set(Calendar.DAY_OF_MONTH, dateArr[0]);
             calendar.set(Calendar.MONTH, dateArr[1] - 1);
             calendar.set(Calendar.YEAR, dateArr[2]);
-        }
-
-        System.out.println(calendar.toString());
+        } else
+            return 0L;
 
         return calendar.getTimeInMillis();
     }

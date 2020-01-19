@@ -1,12 +1,10 @@
 package ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler;
 
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,19 +58,17 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
         }
 
 
-    public class TodosViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
+    class TodosViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
         private View itemView;
-        private ITodoPresenter presenter;
 
         private String CLASS_TAG = "MyViewHolder";
 
         private TextView title, dateEnd;
         private MaterialCheckBox checkBoxDone;
 
-        public TodosViewHolder(View view, ITodoPresenter presenter) {
+        TodosViewHolder(View view, ITodoPresenter presenter) {
             super(view);
             this.itemView = view;
-            this.presenter = presenter;
 
             init();
             itemView.setOnClickListener(v -> presenter.clicked(getPos()));
@@ -95,6 +91,7 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
             setDate(todo.endDate);
             checkBoxDone.setChecked(todo.isDone);
             setTitle(todo.title, todo.isDone);
+            setBackground(todo);
         }
         @Override
         public int getPos() { return getLayoutPosition(); }
@@ -115,6 +112,23 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
                 e.removeSpan(new StrikethroughSpan());
             }
             title.setText(e);
+        }
+
+        private void setBackground(Todo todo) {
+            if (todo.isDone) {
+                itemView.setBackgroundColor(Color.argb(30, 0, 133, 119));
+                return;
+            }
+            if (todo.endDate > System.currentTimeMillis()) {
+                itemView.setBackgroundColor(0);
+                return;
+            }
+            if (todo.endDate < System.currentTimeMillis()) {
+                if (DateUtils.isDateConfigured(todo.endDate))
+                    itemView.setBackgroundColor(Color.argb(30, 207, 102, 121));
+                else
+                    itemView.setBackgroundColor(0);
+            }
         }
     }
 }

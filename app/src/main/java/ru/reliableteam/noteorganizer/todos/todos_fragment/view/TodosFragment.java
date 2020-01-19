@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -49,7 +50,6 @@ public class TodosFragment extends MvpAppCompatFragment implements TodoRequestCo
         recyclerView = root.findViewById(R.id.todos_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new TodosRecyclerAdapter(presenter));
-
         presenter.getTodos();
     }
     private void initUI() {

@@ -20,4 +20,6 @@
     <color name="colorDividerDark">#3a3a3a</color>
     <color name="colorPrimaryTextDark">#9a9a9a</color>
     <color name="colorSecondaryTextDark">#7a7a7a</color>
+
+    <color name="transparent">#00ffffff</color>
 </resources>
