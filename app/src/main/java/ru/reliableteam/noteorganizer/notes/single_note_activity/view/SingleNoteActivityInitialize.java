@@ -68,12 +68,10 @@ class SingleNoteActivityInitialize extends BaseActivity {
     }
     private void initCancel() {
         cancelBtn = findViewById(R.id.cancel_button);
-        cancelBtn.setOnClickListener( v ->
-                showConformation( () -> {
-                    presenter.saveNote();
-                    showHint(getString(R.string.saved_note_hint));
-                    onBackPressed();
-                }, R.string.save_before_exit_hint)
+        cancelBtn.setOnClickListener( v -> showConformation(
+                () -> saveBtn.performClick(),
+                this::finish,
+                R.string.save_before_exit_hint)
         );
     }
     private void initSave() {
@@ -86,7 +84,11 @@ class SingleNoteActivityInitialize extends BaseActivity {
     }
     private void initDelete() {
         deleteBtn = findViewById(R.id.delete_button);
-        deleteBtn.setOnClickListener( v -> showConformation( () -> presenter.deleteNote(), R.string.delete_hint ));
+        deleteBtn.setOnClickListener( v -> showConformation(
+                () -> presenter.deleteNote(),
+                this::finish,
+                R.string.delete_hint
+        ));
         deleteBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
     }
     private void initCalc() {
@@ -130,17 +132,18 @@ class SingleNoteActivityInitialize extends BaseActivity {
         builder.setPositiveButton(R.string.understand, (dialog, which) -> dialog.dismiss() );
         builder.show();
     }
-    private void showConformation(SingleNoteActivity.Action action, int messageId) {
+    private void showConformation(SingleNoteActivity.Action actionPositive, SingleNoteActivity.Action actionNegative, int messageId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(messageId);
         builder.setPositiveButton(R.string.positive, (dialog, which) -> {
-            action.doAction();
             dialog.dismiss();
-            this.finish();
+            actionPositive.doAction();
+//            this.finish();
         });
         builder.setNegativeButton(R.string.negative, (d, w) -> {
             d.dismiss();
-            this.finish();
+            actionNegative.doAction();
+//            this.finish();
         });
         builder.show();
     }
