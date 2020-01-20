@@ -78,8 +78,10 @@ class SingleNoteActivityInitialize extends BaseActivity {
         saveBtn = findViewById(R.id.save_button);
         saveBtn.setOnClickListener( v -> {
             boolean wasSaved = presenter.saveNote();
-            if (wasSaved)
+            if (wasSaved) {
                 showHint(getString(R.string.saved_note_hint));
+                this.finish();
+            }
         });
     }
     private void initDelete() {
@@ -138,12 +140,10 @@ class SingleNoteActivityInitialize extends BaseActivity {
         builder.setPositiveButton(R.string.positive, (dialog, which) -> {
             dialog.dismiss();
             actionPositive.doAction();
-//            this.finish();
         });
         builder.setNegativeButton(R.string.negative, (d, w) -> {
             d.dismiss();
             actionNegative.doAction();
-//            this.finish();
         });
         builder.show();
     }

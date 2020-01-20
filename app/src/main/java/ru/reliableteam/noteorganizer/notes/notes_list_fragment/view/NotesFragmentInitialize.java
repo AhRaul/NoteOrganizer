@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -87,6 +88,8 @@ class NotesFragmentInitialize extends Fragment {
 
         ImageButton migrateBtn = root.findViewById(R.id.migrate_to_txt);
         migrateBtn.setOnClickListener( v -> presenter.migrateSelectedNotes() );
+
+        setDescriptions(closeBtn, deleteBtn, migrateBtn);
     }
 
     private void initRecyclerView() {
@@ -105,6 +108,17 @@ class NotesFragmentInitialize extends Fragment {
             presenter.enableSort();
         else
             presenter.disableSort();
+    }
+    private void setDescriptions(View... views) {
+        for (View view : views) {
+            view.setOnLongClickListener(v -> {
+                showHint(v.getContentDescription().toString());
+                return true;
+            });
+        }
+    }
+    private void showHint(String hintText) {
+        Toast.makeText(getContext(), hintText, Toast.LENGTH_SHORT).show();
     }
 
     private void showConfirmation() {

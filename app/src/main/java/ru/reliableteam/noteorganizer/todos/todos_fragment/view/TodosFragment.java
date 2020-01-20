@@ -84,7 +84,6 @@ public class TodosFragment extends MvpAppCompatFragment implements TodoRequestCo
             if (isChecked)
                 presenter.showMissedTodos();
         });
-
     }
 
     @Override

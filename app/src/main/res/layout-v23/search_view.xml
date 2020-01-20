@@ -38,7 +38,8 @@
                     android:src="@drawable/baseline_close_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/exit"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
@@ -69,7 +70,8 @@
                     android:src="@drawable/outline_delete_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/delete"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/migrate_to_txt"
@@ -79,7 +81,8 @@
                     android:src="@drawable/outline_sd_card_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/delete_button"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/migrate"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!-- searching -->
             <GridLayout
