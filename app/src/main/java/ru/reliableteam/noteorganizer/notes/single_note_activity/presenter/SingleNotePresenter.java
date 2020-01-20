@@ -1,7 +1,6 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.presenter;
 
 import android.content.Intent;
-import android.widget.Toast;
 
 import ru.reliableteam.noteorganizer.BasePresenter;
 import ru.reliableteam.noteorganizer.R;
@@ -101,14 +100,12 @@ public class SingleNotePresenter implements BasePresenter {
         }
     }
 
-    private void getTextFromIntent(Intent outterIntent) {
-        String sharedText = outterIntent.getStringExtra(Intent.EXTRA_TEXT);
+    private void getTextFromIntent(Intent outerIntent) {
+        String sharedText = outerIntent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null && sharedText.length() < MAX_SIZE) {
            view.setNoteText(sharedText);
         } else {
-            Toast.makeText(view,
-                    view.getResources().getString(R.string.limit_symbol_error),
-                    Toast.LENGTH_SHORT).show();
+            view.showVerification(R.string.limit_symbol_error);
         }
     }
 }
