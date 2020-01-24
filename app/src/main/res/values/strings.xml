@@ -111,6 +111,7 @@
         \t\t4. Next, follow the path specified in the settings. So, for example, if the path \"Android/data/files\" is specified,
         then you need to go to the Android -> data -> files folder.
     </string>
+    <string name="button_memory">M</string>
 </resources>
 
 

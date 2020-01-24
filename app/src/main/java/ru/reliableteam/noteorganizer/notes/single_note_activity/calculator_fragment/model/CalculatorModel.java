@@ -182,6 +182,14 @@ public class CalculatorModel {
         return false;
     }
 
+    private boolean isMemoryButton(String s){
+        if(s.equals("M")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private String[] nextDouble(String str) {
         String[] result = new String[2];
         int idx = 0;

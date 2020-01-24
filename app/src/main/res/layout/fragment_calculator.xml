@@ -176,6 +176,7 @@
                     android:layout_gravity="fill"
                     android:enabled="false"/>
 
+
             <Button
                 android:id="@+id/btn_zero"
                 style="@style/TextView.Calculator.Number"
@@ -201,8 +202,16 @@
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" "
-                    android:layout_columnSpan="2"/>
+                    android:text=" "/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_calc_memory"
+                style="@style/TextView.Calculator.Actions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:enabled="false"
+                android:text="@string/button_memory"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_set_result"

@@ -54,6 +54,7 @@ public class CalculatorFragment extends DialogFragment {
         initButtonEquality();
         initButtonSetResultAndQuit();
         initExpressionAndResultTv();
+        initButtonCalcMemory();
     }
     private void initExpressionAndResultTv() {
         tvExpress = calc.findViewById(R.id.tv_express);
@@ -123,6 +124,13 @@ public class CalculatorFragment extends DialogFragment {
         btnSetResultAndQuit.setOnClickListener( v -> getResultAndQuit() );
     }
 
+    private void initButtonCalcMemory() {
+//        Button btnCalcMemory = calc.findViewById(R.id.btn_calc_memory);
+//        btnCalcMemory.setOnClickListener( v -> getMemoryPoint() );
+        Button btnCalcMemory = calc.findViewById(R.id.btn_calc_memory);
+        btnCalcMemory.setOnClickListener(this::addToExpression);
+    }
+
     private void addToExpression(View v) {
         Button b = calc.findViewById(v.getId());
         calcPresenter.buildExpress(b.getText().toString());
@@ -169,6 +177,18 @@ public class CalculatorFragment extends DialogFragment {
         tvOutResult.setSelection(endSelectionIdx + tvResult.getText().toString().length());
         dismiss();
     }
+
+    /**
+     * Получение значения, имеющего метку (например: #M1 500 )
+     * Условия получения значения: после метки #M[целое число] должен стоять пробел,
+     * далее считываемое число целое или дробное без букв или символов, далее пробел.
+     * Если условия нарушены, метка не будет считана.
+     * Разрешенные символы: "-", ".", ",", цифры.
+     */
+    private void getMemoryPoint() {
+
+    }
+
     private String appendResultWithNoteText(int endSelectionIdx) {
         StringBuilder resultStringBuilder = new StringBuilder();
 
