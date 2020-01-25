@@ -1,7 +1,5 @@
 package ru.reliableteam.noteorganizer.settings.presenter;
 
-import android.widget.CompoundButton;
-
 import com.google.android.material.chip.ChipGroup;
 
 import java.io.File;
@@ -150,5 +148,12 @@ public class SettingsPresenter implements BasePresenter {
     public void setLastSyncDate() {
         Long date = appSettings.getLastSyncDate();
         view.setLastSyncDate(DateUtils.isDateConfigured(date) ? DateUtils.dateToString(date) : "");
+    }
+
+    public boolean isTutorialPassed() {
+        return !appSettings.isAddingNoteForFirsTime();
+    }
+    public void enableTutorial() {
+        appSettings.setAddingNoteForFirsTime(true);
     }
 }

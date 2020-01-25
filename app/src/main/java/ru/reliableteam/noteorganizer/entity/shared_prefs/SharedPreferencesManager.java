@@ -34,13 +34,6 @@ public class SharedPreferencesManager {
         putInt("appTheme", appThemeId);
     }
 
-    // autosync
-    public boolean isAutoSyncEnabled() {
-        return getBoolean("isAutosycEnabled", false);
-    }
-    public void setAutoSyncEnabled(boolean isEnabled) {
-        putBoolean("isAutosycEnabled", isEnabled);
-    }
     // sync with storage
     public void setLastSyncDate(Long timeInMills) {
         putLong("lastSyncWithStorage", timeInMills);
@@ -56,12 +49,6 @@ public class SharedPreferencesManager {
         putString("appDataDirectory", path);
     }
 
-    public boolean isNotesFirstEnter() {
-        return getBoolean("isNotesFirstEnter", true);
-    }
-    public void setNotesFirstEnter(boolean value) {
-        putBoolean("isNotesFirstEnter", value);
-    }
     public boolean isAddingNoteForFirsTime() {
         return getBoolean("isAddingNoteForFirsTime", true);
     }

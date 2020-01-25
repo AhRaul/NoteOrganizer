@@ -24,10 +24,13 @@ class SingleNoteActivityInitialize extends BaseActivity {
     protected ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn, migrateBtn;
 
     private TutorialSpotlight tutorialSpotlight;
+    private boolean isTutorialShowing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isTutorialShowing = !presenter.wasAddingNoteTutorialWatched();
         initUI();
         getClickedNote();
 
@@ -77,61 +80,72 @@ class SingleNoteActivityInitialize extends BaseActivity {
 
     private void initCancel() {
         cancelBtn = findViewById(R.id.cancel_button);
-        cancelBtn.setOnClickListener(v -> showConformation(
-                () -> saveBtn.performClick(),
-                this::finish,
-                R.string.save_before_exit_hint)
-        );
+        if (!isTutorialShowing) {
+            cancelBtn.setOnClickListener(v -> showConformation(
+                    () -> saveBtn.performClick(),
+                    this::finish,
+                    R.string.save_before_exit_hint)
+            );
+        }
     }
 
     private void initSave() {
         saveBtn = findViewById(R.id.save_button);
-        saveBtn.setOnClickListener(v -> {
-            boolean wasSaved = presenter.saveNote();
-            if (wasSaved) {
-                showHint(getString(R.string.saved_note_hint));
-                this.finish();
-            }
-        });
+        if (!isTutorialShowing) {
+            saveBtn.setOnClickListener(v -> {
+                boolean wasSaved = presenter.saveNote();
+                if (wasSaved) {
+                    showHint(getString(R.string.saved_note_hint));
+                    this.finish();
+                }
+            });
+        }
     }
 
     private void initDelete() {
         deleteBtn = findViewById(R.id.delete_button);
-        deleteBtn.setOnClickListener(v -> showConformation(
-                () -> {
-                    presenter.deleteNote();
-                    this.finish();
-                },
-                this::finish,
-                R.string.delete_hint
-        ));
-        deleteBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
+        if (!isTutorialShowing) {
+            deleteBtn.setOnClickListener(v -> showConformation(
+                    () -> {
+                        presenter.deleteNote();
+                        this.finish();
+
+                    },
+                    this::finish,
+                    R.string.delete_hint
+            ));
+        }
     }
 
     private void initCalc() {
         calculatorFragment = new CalculatorFragment();
 
         calcBtn = findViewById(R.id.calc_button);
-        calcBtn.setOnClickListener(v -> {
-            calculatorFragment.show(getSupportFragmentManager(), "calculator");
-            calculatorFragment.setTvOutResult(noteText);
-        });
+        if (!isTutorialShowing) {
+            calcBtn.setOnClickListener(v -> {
+                        calculatorFragment.show(getSupportFragmentManager(), "calculator");
+                        calculatorFragment.setTvOutResult(noteText);
+                    }
+            );
+        }
     }
 
     private void initShare() {
         shareBtn = findViewById(R.id.share_button);
-        shareBtn.setOnClickListener(v -> presenter.shareNote());
-        shareBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
+        if (!isTutorialShowing) {
+            shareBtn.setOnClickListener( v -> presenter.shareNote() );
+        }
     }
 
     private void initMigrate() {
         migrateBtn = findViewById(R.id.migrate_button);
-        migrateBtn.setOnClickListener(v -> {
-            presenter.migrate();
-            showHint(getString(R.string.migrated_hint));
-            this.finish();
-        });
-        migrateBtn.setVisibility(presenter.isNewNote() ? View.GONE : View.VISIBLE);
+        if (!isTutorialShowing) {
+            migrateBtn.setOnClickListener(v -> {
+                presenter.migrate();
+                showHint(getString(R.string.migrated_hint));
+                this.finish();
+            });
+        }
     }
 
     private void setDescriptions(View... views) {
@@ -177,11 +191,30 @@ class SingleNoteActivityInitialize extends BaseActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (!presenter.wasAddingNoteTutorialWatched()) {
-            tutorialSpotlight
-                    .buildTutorialFor(cancelBtn, saveBtn, shareBtn, migrateBtn, calcBtn)
-                    .setOnEndTutorialListener( () -> presenter.setAddingNoteTutorialWatched() )
-                    .start();
+            showTutorial();
         }
+    }
+    private void showTutorial() {
+        isTutorialShowing = true;
+        tutorialSpotlight
+                .buildTutorialFor(cancelBtn, saveBtn, shareBtn, migrateBtn, calcBtn, deleteBtn)
+                .setOnEndTutorialListener(this::doWhenTutorialEnds)
+                .start();
+    }
+    private void doWhenTutorialEnds() {
+        presenter.setAddingNoteTutorialWatched();
+
+        isTutorialShowing = false;
+        initUI();
+
+        boolean isNewNote = presenter.isNewNote();
+        if (isNewNote) {
+            hideViews(shareBtn, migrateBtn, deleteBtn);
+        }
+    }
+    private void hideViews(View... views) {
+        for (View v : views)
+            v.setVisibility(View.GONE);
     }
 
     @Override

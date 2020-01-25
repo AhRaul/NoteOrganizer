@@ -42,6 +42,7 @@
          \n\nAttention!!!\n\n
          In order to correctly save the note from the computer, it is important to correctly name it. You will find how to do it correctly in the \"Help\" section - \"How to save a note from the computer\"
      </string>
+    <string name="tutorial_hint">Enable tutorial for note adding</string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>

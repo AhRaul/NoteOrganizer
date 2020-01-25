@@ -2,6 +2,7 @@ package ru.reliableteam.noteorganizer.settings.view;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ class SettingsFragmentInitialize extends Fragment {
         initTodosCacheSizeSettings();
         initNotesMigrationSettings();
         initHelp();
+        initTutorial();
     }
     private void initThemeSelection() {
         ChipGroup themeSelector = root.findViewById(R.id.theme_mode_selection);
@@ -108,6 +110,16 @@ class SettingsFragmentInitialize extends Fragment {
         infoMigrateToTxt.setOnClickListener(this::showExplanation);
         ImageButton helpWithApp = root.findViewById(R.id.help_with_app);
         helpWithApp.setOnClickListener( v -> showHelpWithAppActivity() );
+    }
+    private void initTutorial() {
+        ImageButton tutorial = root.findViewById(R.id.tutorial_button);
+        int tutorialPassed = Color.rgb(125, 125, 125);
+        int tutorialEnable = Color.rgb(0, 133, 119);
+        tutorial.setColorFilter( presenter.isTutorialPassed() ? tutorialPassed : tutorialEnable );
+        tutorial.setOnClickListener( v -> {
+            presenter.enableTutorial();
+            tutorial.setColorFilter(tutorialEnable);
+        });
     }
 
     private void showExplanation (View v) {
