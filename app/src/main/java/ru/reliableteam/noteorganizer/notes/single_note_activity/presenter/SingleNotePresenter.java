@@ -108,4 +108,11 @@ public class SingleNotePresenter implements BasePresenter {
             view.showVerification(R.string.limit_symbol_error);
         }
     }
+
+    public void setAddingNoteTutorialWatched() {
+        appSettings.setAddingNoteForFirsTime(false);
+    }
+    public boolean wasAddingNoteTutorialWatched() {
+        return !appSettings.isAddingNoteForFirsTime();
+    }
 }

@@ -101,7 +101,6 @@
     </style>
 <!--     Dark application theme. -->
     <style name="AppThemeDark" parent="Theme.MaterialComponents.NoActionBar">
-<!--         Customize your theme here. -->
         <item name="colorSurface">@color/colorSurfaceDark</item>
         <item name="background">@color/colorSurfaceDark</item>
         <item name="colorOnPrimary">@android:color/black</item>

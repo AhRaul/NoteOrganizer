@@ -83,6 +83,7 @@
     <string name="share">Share</string>
     <string name="send_to">Share your note..</string>
     <string name="limit_symbol_error">Imported text have too much symbols</string>
+    <string name="cancel">Cancel</string>
 
     <!--    CALCULATOR FRAGMENT -->
     <string name="back_space"><![CDATA[<--]]></string>
@@ -110,6 +111,14 @@
         \t\t3. On the computer, go to My Computer (This Computer) and open your phone.\n
         \t\t4. Next, follow the path specified in the settings. So, for example, if the path \"Android/data/files\" is specified,
         then you need to go to the Android -> data -> files folder.
+    </string>
+
+    <string name="close_spotlight">close</string>
+    <string name="next_spotlight">next</string>
+    <string name="tutorial_close">
+        Do you want to close tutorial?
+        \n\n
+        You can re-watch tutorial by enabling it in Settings.
     </string>
 </resources>
 
