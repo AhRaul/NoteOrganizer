@@ -16,7 +16,9 @@
     <string name="wrong_password">Неверный пароль</string>
     <string name="password_input_hint">Введите 4 и более символов</string>
     <string name="password_activity_title">Введите пароль</string>
-    <string name="remember_or_reenter_password">Этот пароль используется для входа в приложение. Подтвердить этот пароль или ввести другой?</string>
+    <string name="remember_or_reenter_password">
+        Этот пароль используется для входа в приложение. После подтверждения его нельзя будет изменить или где-то посмотреть. Подтвердить этот пароль или ввести другой?
+    </string>
     <string name="confirm">Подтверждаю</string>
     <string name="reenter">Ввести другой</string>
 

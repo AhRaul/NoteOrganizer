@@ -15,7 +15,9 @@
     <string name="wrong_password">Wrong password</string>
     <string name="password_input_hint">Input 4 symbols or more</string>
     <string name="password_activity_title">Enter password</string>
-    <string name="remember_or_reenter_password">This password is used to enter the app. Do you confirm it or want to input another?</string>
+    <string name="remember_or_reenter_password">
+        This password is used to enter the app. It can\'t be replaced with another after confirmation.\n\nDo you confirm it or want to input another?
+    </string>
     <string name="confirm">Confirm</string>
     <string name="reenter">Re-enter</string>
 
