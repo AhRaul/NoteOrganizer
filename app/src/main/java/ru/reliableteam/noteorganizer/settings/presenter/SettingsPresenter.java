@@ -81,6 +81,7 @@ public class SettingsPresenter implements BasePresenter {
     }
     public void cleanTodosCache() {
         todoDao.cleanCacheSize(todosCacheSizeListener);
+        notifyDatasetChanged(R.string.cleaned_hint);
     }
 
     public void cleanNotesCache() {
@@ -155,5 +156,14 @@ public class SettingsPresenter implements BasePresenter {
     }
     public void enableTutorial() {
         appSettings.setAddingNoteForFirsTime(true);
+    }
+
+    public boolean isSecurityEnabled() {
+        return appSettings.enterOnPassword();
+    }
+    public void changeSecuritySettings() {
+        appSettings.setEnterOnPassword( !appSettings.enterOnPassword() );
+        if (!appSettings.enterOnPassword())
+            appSettings.setLocalPassword("");
     }
 }

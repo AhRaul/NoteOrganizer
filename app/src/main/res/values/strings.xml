@@ -54,6 +54,10 @@
          In order to correctly save the note from the computer, it is important to correctly name it. You will find how to do it correctly in the \"Help\" section - \"How to save a note from the computer\"
      </string>
     <string name="tutorial_hint">Enable tutorial for note adding</string>
+    <string name="enable_password">To enter the password run the application again.</string>
+    <string name="info_enable_password">Password is used for safely entering this app.</string>
+    <string name="reset_password_hint">Do you really want to disable password?</string>
+    <string name="enter_password_hint">Do you really want to enable password?</string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>

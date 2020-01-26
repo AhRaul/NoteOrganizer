@@ -20,7 +20,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.chip.ChipGroup;
 
+import ru.reliableteam.noteorganizer.Action;
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.entering_app.PasswordActivity;
 import ru.reliableteam.noteorganizer.settings.help_activity.HelpActivity;
 import ru.reliableteam.noteorganizer.settings.presenter.SettingsPresenter;
 
@@ -50,6 +52,7 @@ class SettingsFragmentInitialize extends Fragment {
         initNotesMigrationSettings();
         initHelp();
         initTutorial();
+        initSecurity();
     }
     private void initThemeSelection() {
         ChipGroup themeSelector = root.findViewById(R.id.theme_mode_selection);
@@ -71,7 +74,7 @@ class SettingsFragmentInitialize extends Fragment {
         cleanNotesCache = root.findViewById(R.id.notes_cache_size_clean_btn);
         cleanNotesCache.setOnClickListener( v -> {
             circularReveal(cleanNotesCache);
-            showVerification( () -> presenter.cleanNotesCache() );
+            showConfirmation( () -> presenter.cleanNotesCache(), R.string.delete_hint );
         });
     }
     private void initTodosCacheSizeSettings() {
@@ -80,7 +83,7 @@ class SettingsFragmentInitialize extends Fragment {
         cleanTodosCache = root.findViewById(R.id.todos_photos_cache_size_clean_btn);
         cleanTodosCache.setOnClickListener( v -> {
             circularReveal(cleanTodosCache);
-            showVerification( () -> presenter.cleanTodosCache() );
+            showConfirmation( () -> presenter.cleanTodosCache(), R.string.delete_hint );
         });
     }
     private void initNotesMigrationSettings() {
@@ -110,6 +113,8 @@ class SettingsFragmentInitialize extends Fragment {
         infoMigrateToTxt.setOnClickListener(this::showExplanation);
         ImageButton helpWithApp = root.findViewById(R.id.help_with_app);
         helpWithApp.setOnClickListener( v -> showHelpWithAppActivity() );
+        ImageButton infoEnablePassword = root.findViewById(R.id.info_enable_password);
+        infoEnablePassword.setOnClickListener(this::showExplanation);
     }
     private void initTutorial() {
         ImageButton tutorial = root.findViewById(R.id.tutorial_button);
@@ -121,20 +126,47 @@ class SettingsFragmentInitialize extends Fragment {
             tutorial.setColorFilter(tutorialEnable);
         });
     }
+    private void initSecurity() {
+        ImageButton passwordSecurity = root.findViewById(R.id.enable_password);
+        int disabledColor = Color.rgb(125, 125, 125);
+        int enabledColor = Color.rgb(0, 133, 119);
+        passwordSecurity.setColorFilter( presenter.isSecurityEnabled() ? enabledColor : disabledColor );
+        int messageId = presenter.isSecurityEnabled() ? R.string.reset_password_hint : R.string.enter_password_hint;
+        passwordSecurity.setOnClickListener( v ->
+                showConfirmation(() -> {
+                    presenter.changeSecuritySettings();
+                    initSecurity();
+                    if (presenter.isSecurityEnabled()) {
+                        startActivity(new Intent(getActivity(), PasswordActivity.class));
+                        getActivity().finish();
+                    }
+
+                }, messageId)
+        );
+    }
 
     private void showExplanation (View v) {
+        showExplanation(v.getContentDescription().toString());
+    }
+
+    private void showExplanation(String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-        dialog.setMessage(v.getContentDescription());
-        dialog.setPositiveButton(R.string.understand, (d, w) -> d.dismiss() );
+        dialog.setMessage(message);
+        dialog.setPositiveButton(R.string.understand, (d, w) -> d.dismiss());
         dialog.show();
     }
 
-    private void showVerification(Verification callable) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-        dialog.setMessage(getString(R.string.delete_hint));
-        dialog.setPositiveButton(R.string.positive, (d, w) -> callable.verify() );
-        dialog.setNegativeButton(R.string.negative, (d, w) -> d.dismiss() );
-        dialog.show();
+    private void showConfirmation(Action action, int messageId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(messageId);
+        builder.setPositiveButton(R.string.positive, (dialog, which) -> {
+            dialog.dismiss();
+            action.doAction();
+        });
+        builder.setNegativeButton(R.string.negative, (d, w) -> {
+            d.dismiss();
+        });
+        builder.show();
     }
 
     private void showHelpWithAppActivity() {
@@ -164,9 +196,5 @@ class SettingsFragmentInitialize extends Fragment {
     private void fading(View v) {
         v.setAlpha(0f);
         v.animate().alpha(1f).setDuration(1000).start();
-    }
-
-    interface Verification {
-        void verify();
     }
 }

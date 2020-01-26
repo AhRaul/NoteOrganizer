@@ -8,10 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ru.reliableteam.noteorganizer.BaseActivity;
+import ru.reliableteam.noteorganizer.MainActivity;
 import ru.reliableteam.noteorganizer.R;
+import ru.reliableteam.noteorganizer.entity.AppConfig;
+import ru.reliableteam.noteorganizer.entity.shared_prefs.SharedPreferencesManager;
 
 
 public class EntranceActivity extends BaseActivity {
+
+    SharedPreferencesManager appSettings = AppConfig.getInstance().getAppSettings();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,9 @@ public class EntranceActivity extends BaseActivity {
         setAnimation(teamCopyright);
     }
     private void enterApp() {
-        startActivity(new Intent(this, PasswordActivity.class));
+        boolean passwordEnable = appSettings.enterOnPassword();
+        startActivity(new Intent(this,
+                passwordEnable ? PasswordActivity.class : MainActivity.class));
         this.finish();
     }
     private void resetAlpha(View v) {

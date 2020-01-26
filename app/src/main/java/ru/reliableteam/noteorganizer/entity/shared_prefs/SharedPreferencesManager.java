@@ -57,6 +57,12 @@ public class SharedPreferencesManager {
     }
 
     // local password
+    public boolean enterOnPassword() {
+        return getBoolean("enterOnPassword", false);
+    }
+    public void setEnterOnPassword(boolean toEnterOnPassword) {
+        putBoolean("enterOnPassword", toEnterOnPassword);
+    }
     public String getLocalPassword() {
         return getString("password", "");
     }
