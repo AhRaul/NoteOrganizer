@@ -1,13 +1,14 @@
 package ru.reliableteam.noteorganizer.todos.add_todo_fragment.view;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -25,6 +27,7 @@ import java.util.Calendar;
 
 import moxy.MvpBottomSheetDialogFragment;
 import moxy.presenter.InjectPresenter;
+import ru.reliableteam.noteorganizer.Action;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.add_todo_fragment.presenter.AddTodoPresenter;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
@@ -56,6 +59,8 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
     private TextView timeTv;
     private Boolean timeChosen = false;
 
+    private ImageButton cancelBtn;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -65,6 +70,8 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
 
         BottomSheetDialog bottomSheet = initBottomSheet(savedInstanceState);
         initUI();
+
+        bottomSheet.setOnKeyListener( onBackPressed() );
 
         return bottomSheet;
     }
@@ -145,8 +152,13 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
     }
 
     private void initCancel() {
-        ImageButton cancelBtn = root.findViewById(R.id.cancel_button);
-        cancelBtn.setOnClickListener(v -> dismiss() );
+        cancelBtn = root.findViewById(R.id.cancel_button);
+        cancelBtn.setOnClickListener(v -> {
+            showConfirmation(
+                    () -> saveTodo(ACTION_UPDATE),
+                    () -> dismiss(),
+                    R.string.save_before_exit_hint);
+        });
         setDescriptions(cancelBtn);
     }
     private void initSave() {
@@ -264,8 +276,32 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
     private void showVerification() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.empty_body_hint);
-        builder.setPositiveButton(R.string.positive, (dialog, which) -> dialog.dismiss() );
+        builder.setPositiveButton(R.string.understand, (dialog, which) -> dialog.dismiss() );
         builder.show();
+    }
+    private void showConfirmation(Action actionPositive, Action actionNegative, int messageId) {
+        AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        builder.setMessage(messageId);
+        builder.setPositiveButton(R.string.positive, (dialog, which) -> {
+            dialog.dismiss();
+            actionPositive.doAction();
+        });
+        builder.setNegativeButton(R.string.negative, (d, w) -> {
+            d.dismiss();
+            actionNegative.doAction();
+        });
+        builder.setNeutralButton(R.string.cancel, (d, w) -> d.dismiss() );
+        builder.show();
+    }
+
+    private DialogInterface.OnKeyListener onBackPressed() {
+        return (dialog, code, event) -> {
+            if (code == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+                cancelBtn.performClick();
+                return true;
+            } else
+                return false;
+        };
     }
 
     private BottomSheetBehavior.BottomSheetCallback getCallback() {
