@@ -17,6 +17,7 @@ import com.takusemba.spotlight.shape.Circle;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.reliableteam.noteorganizer.Action;
 import ru.reliableteam.noteorganizer.R;
 
 public class TutorialSpotlight {
@@ -98,9 +99,5 @@ public class TutorialSpotlight {
             d.dismiss();
         });
         builder.show();
-    }
-
-    public interface Action {
-        void doAction();
     }
 }

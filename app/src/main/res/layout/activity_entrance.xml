@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".EntranceActivity">
+    tools:context=".entering_app.EntranceActivity">
 
     <ImageView
         android:id="@+id/launcher_icon"

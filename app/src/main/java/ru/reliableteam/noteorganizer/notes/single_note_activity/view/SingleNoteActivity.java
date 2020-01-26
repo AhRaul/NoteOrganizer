@@ -29,8 +29,4 @@ public class SingleNoteActivity extends SingleNoteActivityInitialize {
         super.onDestroy();
         hideKeyBoard();
     }
-
-    interface Action {
-        void doAction();
-    }
 }

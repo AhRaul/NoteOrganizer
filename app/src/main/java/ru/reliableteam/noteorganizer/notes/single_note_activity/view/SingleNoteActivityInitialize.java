@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import ru.reliableteam.noteorganizer.Action;
 import ru.reliableteam.noteorganizer.BaseActivity;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view.CalculatorFragment;
@@ -168,7 +169,7 @@ class SingleNoteActivityInitialize extends BaseActivity {
         builder.show();
     }
 
-    private void showConformation(SingleNoteActivity.Action actionPositive, SingleNoteActivity.Action actionNegative, int messageId) {
+    private void showConformation(Action actionPositive, Action actionNegative, int messageId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(messageId);
         builder.setPositiveButton(R.string.positive, (dialog, which) -> {
@@ -198,7 +199,7 @@ class SingleNoteActivityInitialize extends BaseActivity {
         isTutorialShowing = true;
         tutorialSpotlight
                 .buildTutorialFor(cancelBtn, saveBtn, shareBtn, migrateBtn, calcBtn, deleteBtn)
-                .setOnEndTutorialListener(this::doWhenTutorialEnds)
+                .setOnEndTutorialListener( () -> doWhenTutorialEnds() )
                 .start();
     }
     private void doWhenTutorialEnds() {

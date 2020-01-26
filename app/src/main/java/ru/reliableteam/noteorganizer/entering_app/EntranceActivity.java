@@ -1,4 +1,4 @@
-package ru.reliableteam.noteorganizer;
+package ru.reliableteam.noteorganizer.entering_app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import ru.reliableteam.noteorganizer.BaseActivity;
+import ru.reliableteam.noteorganizer.R;
 
 
 public class EntranceActivity extends BaseActivity {
@@ -31,7 +34,7 @@ public class EntranceActivity extends BaseActivity {
         setAnimation(teamCopyright);
     }
     private void enterApp() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, PasswordActivity.class));
         this.finish();
     }
     private void resetAlpha(View v) {

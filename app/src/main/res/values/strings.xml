@@ -10,6 +10,15 @@
     <string name="understand">Understand</string>
     <string name="empty_body_hint">This item is empty! Could not be saved</string>
 
+    <!--    PASSWORD ACTIVITY   -->
+    <string name="wrong_password_hint">You have entered the wrong password. Please re-enter it again.</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="password_input_hint">Input 4 symbols or more</string>
+    <string name="password_activity_title">Enter password</string>
+    <string name="remember_or_reenter_password">This password is used to enter the app. Do you confirm it or want to input another?</string>
+    <string name="confirm">Confirm</string>
+    <string name="reenter">Re-enter</string>
+
     <!--    SETTINGS FRAGMENT   -->
     <string name="title_settings">Settings</string>
     <string name="app_theme_hint">Select theme for app</string>

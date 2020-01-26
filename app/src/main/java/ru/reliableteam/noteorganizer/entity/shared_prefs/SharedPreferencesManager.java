@@ -56,6 +56,14 @@ public class SharedPreferencesManager {
         putBoolean("isAddingNoteForFirsTime", value);
     }
 
+    // local password
+    public String getLocalPassword() {
+        return getString("password", "");
+    }
+    public void setLocalPassword(String password) {
+        putString("password", password);
+    }
+
 
 
     // BASIC FOR SP
