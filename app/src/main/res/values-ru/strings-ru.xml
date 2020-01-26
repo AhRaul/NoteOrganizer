@@ -43,6 +43,8 @@
          \n\nВнимание!!!\n\n
          Для того, чтобы корректно сохранить заметку с компьютера, ее важно правильно назвать. Как правильно это сделать, найдете в разделе \"Помощь\" - \"Как называть заметки\"
      </string>
+    <string name="tutorial_hint">Включить обучение добавления заметок</string>
+
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Заметки</string>
@@ -83,6 +85,7 @@
     <string name="save_before_exit_hint">Вы хотите сохранить перед выходом?</string>
     <string name="wrong_note_name_hint">Неправильный формат имени. Проверьте его, в нем не должны присутствовать символы подчеркивания (\"_\")</string>
     <string name="limit_symbol_error">Текст содержит слишком много символов</string>
+    <string name="cancel">Отмена</string>
 
     <!--    CALCULATOR FRAGMENT -->
     <string name="left_bracket">(</string>
@@ -110,6 +113,14 @@
         \t\t3. На компьютере перейдите в раздел Мой компьютер (Этот компьютер) и откройте свой телефон.\n
         \t\t4. Далее следуйте по указанному в настройках пути. Так, например, если указан путь \"Android/data/files\",
         значит необходимо перейти в папку Android -> data -> files.
+    </string>
+
+    <string name="close_spotlight">закрыть</string>
+    <string name="next_spotlight">следующее</string>
+    <string name="tutorial_close">
+        Вы действительно хотите закрыть обучение?
+        \n\n
+        Вы сможете просмотреть его еще раз, включив обучение в Настройках.
     </string>
 
 </resources>

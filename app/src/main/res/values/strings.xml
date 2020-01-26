@@ -42,6 +42,7 @@
          \n\nAttention!!!\n\n
          In order to correctly save the note from the computer, it is important to correctly name it. You will find how to do it correctly in the \"Help\" section - \"How to save a note from the computer\"
      </string>
+    <string name="tutorial_hint">Enable tutorial for note adding</string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>
@@ -83,6 +84,7 @@
     <string name="share">Share</string>
     <string name="send_to">Share your note..</string>
     <string name="limit_symbol_error">Imported text have too much symbols</string>
+    <string name="cancel">Cancel</string>
 
     <!--    CALCULATOR FRAGMENT -->
     <string name="back_space"><![CDATA[<--]]></string>
@@ -112,6 +114,14 @@
         then you need to go to the Android -> data -> files folder.
     </string>
     <string name="button_memory">M</string>
+
+    <string name="close_spotlight">close</string>
+    <string name="next_spotlight">next</string>
+    <string name="tutorial_close">
+        Do you want to close tutorial?
+        \n\n
+        You can re-watch tutorial by enabling it in Settings.
+    </string>
 </resources>
 
 

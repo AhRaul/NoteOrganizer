@@ -14,57 +14,82 @@ public class SharedPreferencesManager {
     }
 
     public long getClickedNoteId() {
-        return sp.getLong("clickedNoteId", -1);
+        return getLong("clickedNoteId", -1L);
     }
     public void setClickedNoteId(long id) {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putLong("clickedNoteId", id);
-        editor.apply();
+        putLong("clickedNoteId", id);
     }
     public long getClickedTodoId() {
-        return sp.getLong("clickedTodoId", -1);
+        return getLong("clickedTodoId", -1L);
     }
     public void setClickedTodoId(long id) {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putLong("clickedTodoId", id);
-        editor.apply();
+        putLong("clickedTodoId", id);
     }
 
     // theme
     public int getAppTheme() {
-        return sp.getInt("appTheme", R.style.AppTheme);
+        return getInt("appTheme", R.style.AppTheme);
     }
     public void setAppTheme(int appThemeId) {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("appTheme", appThemeId);
-        editor.apply();
+        putInt("appTheme", appThemeId);
     }
 
-    // autosync
-    public boolean isAutoSyncEnabled() {
-        return sp.getBoolean("isAutosycEnabled", false);
-    }
-    public void setAutoSyncEnabled(boolean isEnabled) {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("isAutosycEnabled", isEnabled);
-        editor.apply();
-    }
     // sync with storage
     public void setLastSyncDate(Long timeInMills) {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putLong("lastSyncWithStorage", timeInMills);
-        editor.apply();
+        putLong("lastSyncWithStorage", timeInMills);
     }
     public Long getLastSyncDate() {
-        return sp.getLong("lastSyncWithStorage", 0L);
+        return getLong("lastSyncWithStorage", 0L);
     }
     // data directory
     public String getAppDataDirectory() {
-        return sp.getString("appDataDirectory", "");
+        return getString("appDataDirectory", "");
     }
     public void setAppDataDirectory(String path) {
+        putString("appDataDirectory", path);
+    }
+
+    public boolean isAddingNoteForFirsTime() {
+        return getBoolean("isAddingNoteForFirsTime", true);
+    }
+    public void setAddingNoteForFirsTime(boolean value) {
+        putBoolean("isAddingNoteForFirsTime", value);
+    }
+
+
+
+    // BASIC FOR SP
+    private Boolean getBoolean(String key, boolean defaultValue) {
+        return sp.getBoolean(key, defaultValue);
+    }
+    private String getString(String key, String defaultValue) {
+        return sp.getString(key, defaultValue);
+    }
+    private Long getLong(String key, Long defaultValue) {
+        return sp.getLong(key, defaultValue);
+    }
+    private Integer getInt(String key, Integer defaultValue) {
+        return sp.getInt(key, defaultValue);
+    }
+
+    private void putBoolean(String key, boolean value) {
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("appDataDirectory", path);
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+    private void putString(String key, String value) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+    private void putLong(String key, Long value) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putLong(key, value);
+        editor.apply();
+    }
+    private void putInt(String key, Integer value) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(key, value);
         editor.apply();
     }
 }
