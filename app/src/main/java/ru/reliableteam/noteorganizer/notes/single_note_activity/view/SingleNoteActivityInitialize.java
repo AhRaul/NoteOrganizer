@@ -77,6 +77,8 @@ class SingleNoteActivityInitialize extends BaseActivity {
         initShare();
         initMigrate();
         setDescriptions(cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn, migrateBtn);
+        if (presenter.isNewNote() && !isTutorialShowing)
+            hideViews(deleteBtn, shareBtn, migrateBtn);
     }
 
     private void initCancel() {
