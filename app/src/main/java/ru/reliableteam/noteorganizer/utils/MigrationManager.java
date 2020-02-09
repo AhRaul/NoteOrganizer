@@ -23,9 +23,10 @@ public class MigrationManager {
     }
 
     public void saveToDir(Note note) {
-        String date = DateUtils.dateToString(note.dataTime).split(" ")[0].replace("/", "-");
-        System.out.println(date);
+        if (note.isEmpty())
+            return;
 
+        String date = DateUtils.dateToString(note.dataTime).split(" ")[0].replace("/", "-");
         File f = new File(appSettings.getAppDataDirectory(), note.title + "_" + date + ".txt");
         f.setWritable(true);
         try {
