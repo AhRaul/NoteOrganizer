@@ -37,6 +37,7 @@ public class CalcPresenter {
         }
     }
 
+    //добавить возможность добавлять M
     private String getCorrectExpress(String inExpress){
         int leng = inExpress.length();
         if (leng == 0) return "";

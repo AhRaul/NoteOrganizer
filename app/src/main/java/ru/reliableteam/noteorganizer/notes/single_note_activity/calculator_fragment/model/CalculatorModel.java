@@ -14,6 +14,7 @@ public class CalculatorModel {
         return result;
     }
 
+    //вставить логику поиска меток в тексте
     public String calcResult(String express){
         String[] strArray;
         Stack<String> stack = new Stack<>();
@@ -41,9 +42,11 @@ public class CalculatorModel {
                         double arg2 = Double.parseDouble(strArray[1]);
                         stack.push(Double.toString(arg1*Math.pow(10.0,arg2)));
                     }
+                    //TODO попробовать вставить логику обработки  кнопки М
                 }
             } else {
                 switch (currentChar) {
+                    //TODO обработка М nextDouble
                     case 'x':
                         stack.push("x");
                         break;
@@ -190,6 +193,7 @@ public class CalculatorModel {
         }
     }
 
+    //возвращает следующее число, следующее за текущим.
     private String[] nextDouble(String str) {
         String[] result = new String[2];
         int idx = 0;
