@@ -231,7 +231,7 @@ public class TodoDaoImpl {
     }
 
     // comments
-
+    // second comment
     public Integer size() {
         return todoList.size();
     }
