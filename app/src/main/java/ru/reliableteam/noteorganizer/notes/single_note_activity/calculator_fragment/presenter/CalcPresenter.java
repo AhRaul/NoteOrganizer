@@ -146,22 +146,22 @@ public class CalcPresenter {
         }
 
     }
-    public void checkInputAndReplace(String inputText) {
-        if (!inputText.contains("M"))
+    public void checkInputAndReplace() {
+        String expression = express.toString();
+        if (!expression.contains("M"))
             return;
 
         Pattern pattern = Pattern.compile("M\\d+");
-        Matcher matcher = pattern.matcher(inputText);
+        Matcher matcher = pattern.matcher(expression);
         while (matcher.find()) {
-            String key = inputText.substring(matcher.start(), matcher.end());
+            String key = expression.substring(matcher.start(), matcher.end());
             String value = mValues.get(key);
             if (value != null)
-                inputText.replace(key, value);
-            System.out.println("key = " + key + ", value = " + value);
+                expression = expression.replace(key, value);
         }
 
-        view.setExpression(inputText);
-        System.out.println("NEW TEXT = " + inputText);
+        view.setExpression(expression);
+        express = new StringBuilder(expression);
     }
 
 }

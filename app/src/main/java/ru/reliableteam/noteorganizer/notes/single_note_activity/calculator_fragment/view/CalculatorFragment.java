@@ -124,7 +124,10 @@ public class CalculatorFragment extends DialogFragment {
     }
     private void initButtonEquality() {
         Button btnEqually = calc.findViewById(R.id.btn_equally);
-        btnEqually.setOnClickListener( v -> solveExpression() );
+        btnEqually.setOnClickListener( v -> {
+            checkPreviousInput();
+            solveExpression();
+        } );
     }
     private void initButtonSetResultAndQuit() {
         Button btnSetResultAndQuit = calc.findViewById(R.id.btn_set_result);
@@ -136,12 +139,15 @@ public class CalculatorFragment extends DialogFragment {
         btnCalcMemory.setOnClickListener(this::addToExpression);
     }
 
+    private boolean isActionButton(View v) {
+        int id = v.getId();
+        return id == R.id.btn_division || id == R.id.btn_minus || id == R.id.btn_plus ||
+                id == R.id.btn_multiplication || id == R.id.btn_equally;
+    }
     private void addToExpression(View v) {
-        if (v.getId() == R.id.btn_division ||
-                v.getId() == R.id.btn_minus ||
-                v.getId() == R.id.btn_plus ||
-                v.getId() == R.id.btn_multiplication)
+        if (isActionButton(v)) {
             checkPreviousInput();
+        }
 
         Button b = calc.findViewById(v.getId());
         calcPresenter.buildExpress(b.getText().toString());
@@ -220,12 +226,13 @@ public class CalculatorFragment extends DialogFragment {
     }
 
     public void setExpression(String text) {
+        System.out.println("SEEEEET " + text + " prev = " + tvExpress.getText().toString());
         tvExpress.setText(text);
     }
 
     private void checkPreviousInput() {
         System.out.println("CHECK");
-        calcPresenter.checkInputAndReplace(tvExpress.getText().toString());
+        calcPresenter.checkInputAndReplace();
         // нужна проверка, что нет вводимого ключа
         // добавить в паттерн - точку и запятую
     }
