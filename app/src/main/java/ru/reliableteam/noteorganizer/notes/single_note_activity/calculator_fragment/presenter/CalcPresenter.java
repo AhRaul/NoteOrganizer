@@ -1,16 +1,26 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.model.CalculatorModel;
+import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view.CalculatorFragment;
 
 public class CalcPresenter {
 
     private CalculatorModel calculator;
     private StringBuilder express;
     private final int LIMIT_LEN  = 25; //ограничение числа вводимых символов;
+    private Map<String, String> mValues = new HashMap<>();
+    private CalculatorFragment view;
 
-    public CalcPresenter() {
+    public CalcPresenter(CalculatorFragment calculatorFragment) {
         express = new StringBuilder();
         calculator = new CalculatorModel();
+        this.view = calculatorFragment;
     }
 
     public String getResult(){
@@ -126,6 +136,32 @@ public class CalcPresenter {
         express.append(s);
     }
 
+    public void setSavedArguments(List<String> savedArguments) {
+        for(String s: savedArguments) {
+            String[] toMapValue = s.split(":");
+            if (toMapValue.length == 2) {
+                mValues.put(toMapValue[0].toUpperCase(), toMapValue[1]);
+                System.out.println(toMapValue[0].toUpperCase() + " --- " + toMapValue[1]);
+            }
+        }
 
+    }
+    public void checkInputAndReplace(String inputText) {
+        if (!inputText.contains("M"))
+            return;
+
+        Pattern pattern = Pattern.compile("M\\d+");
+        Matcher matcher = pattern.matcher(inputText);
+        while (matcher.find()) {
+            String key = inputText.substring(matcher.start(), matcher.end());
+            String value = mValues.get(key);
+            if (value != null)
+                inputText.replace(key, value);
+            System.out.println("key = " + key + ", value = " + value);
+        }
+
+        view.setExpression(inputText);
+        System.out.println("NEW TEXT = " + inputText);
+    }
 
 }

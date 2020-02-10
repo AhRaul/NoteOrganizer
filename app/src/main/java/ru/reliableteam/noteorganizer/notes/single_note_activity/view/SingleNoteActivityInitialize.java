@@ -1,5 +1,6 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.view.View;
@@ -126,6 +127,9 @@ class SingleNoteActivityInitialize extends BaseActivity {
         calcBtn = findViewById(R.id.calc_button);
         if (!isTutorialShowing) {
             calcBtn.setOnClickListener(v -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putStringArrayList("page_m_values", presenter.getPageParsedValues());
+                        calculatorFragment.setArguments(bundle);
                         calculatorFragment.show(getSupportFragmentManager(), "calculator");
                         calculatorFragment.setTvOutResult(noteText);
                     }

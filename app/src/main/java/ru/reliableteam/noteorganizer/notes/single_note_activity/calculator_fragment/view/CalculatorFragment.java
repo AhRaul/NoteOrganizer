@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.List;
 
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter.CalcPresenter;
@@ -27,6 +31,7 @@ public class CalculatorFragment extends DialogFragment {
     private TextInputEditText tvOutResult;
     private TextView tvExpress;
     private TextView tvResult;
+    private Spinner spinner;
 
     public void setTvOutResult(TextInputEditText tvOutResult) {
         this.tvOutResult = tvOutResult;
@@ -36,7 +41,9 @@ public class CalculatorFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         calc = inflater.inflate(R.layout.fragment_calculator, container, false);
-        calcPresenter = new CalcPresenter();
+        calcPresenter = new CalcPresenter(this);
+
+        calcPresenter.setSavedArguments(getArguments().getStringArrayList("page_m_values"));
 
         initUI();
 
@@ -125,13 +132,17 @@ public class CalculatorFragment extends DialogFragment {
     }
 
     private void initButtonCalcMemory() {
-//        Button btnCalcMemory = calc.findViewById(R.id.btn_calc_memory);
-//        btnCalcMemory.setOnClickListener( v -> getMemoryPoint() );
         Button btnCalcMemory = calc.findViewById(R.id.btn_calc_memory);
         btnCalcMemory.setOnClickListener(this::addToExpression);
     }
 
     private void addToExpression(View v) {
+        if (v.getId() == R.id.btn_division ||
+                v.getId() == R.id.btn_minus ||
+                v.getId() == R.id.btn_plus ||
+                v.getId() == R.id.btn_multiplication)
+            checkPreviousInput();
+
         Button b = calc.findViewById(v.getId());
         calcPresenter.buildExpress(b.getText().toString());
         calcPresenter.correctExpress();
@@ -206,6 +217,16 @@ public class CalculatorFragment extends DialogFragment {
         }
 
         return resultStringBuilder.toString();
+    }
 
+    public void setExpression(String text) {
+        tvExpress.setText(text);
+    }
+
+    private void checkPreviousInput() {
+        System.out.println("CHECK");
+        calcPresenter.checkInputAndReplace(tvExpress.getText().toString());
+        // нужна проверка, что нет вводимого ключа
+        // добавить в паттерн - точку и запятую
     }
 }

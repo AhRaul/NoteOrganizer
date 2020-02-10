@@ -2,6 +2,11 @@ package ru.reliableteam.noteorganizer.notes.single_note_activity.presenter;
 
 import android.content.Intent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import ru.reliableteam.noteorganizer.BasePresenter;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.data_base.impl.NoteDaoImpl;
@@ -107,6 +112,22 @@ public class SingleNotePresenter implements BasePresenter {
         } else {
             view.showVerification(R.string.limit_symbol_error);
         }
+    }
+
+    public ArrayList<String> getPageParsedValues() {
+        String text = view.getNoteText();
+        Pattern pattern = Pattern.compile("#[m|M]\\d+:\\s*\\d+");
+        Matcher matcher = pattern.matcher(text);
+        ArrayList<String> result = new ArrayList<>();
+        while (matcher.find()) {
+            String subString = text.substring(matcher.start(), matcher.end())
+                    .replace(" ", ""). replace("#", "");
+            result.add(subString);
+        }
+
+        result.stream().forEach(s -> System.out.println(s));
+
+        return result;
     }
 
     public void setAddingNoteTutorialWatched() {
