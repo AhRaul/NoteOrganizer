@@ -230,6 +230,8 @@ public class TodoDaoImpl {
                 );
     }
 
+    // comments
+
     public Integer size() {
         return todoList.size();
     }
