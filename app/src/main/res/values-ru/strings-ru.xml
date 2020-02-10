@@ -59,7 +59,7 @@
     <string name="info_enable_password">Пароль используется для защиты приложения при входе.</string>
     <string name="reset_password_hint">Вы действительно хотите сбросить пароль?</string>
     <string name="enter_password_hint">Вы действительно хотите защитить свое приложение пвролем?</string>
-
+    <string name="password_enable_hint">Включить защиту паролем при входе</string>
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Заметки</string>

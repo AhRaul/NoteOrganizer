@@ -58,6 +58,8 @@
     <string name="info_enable_password">Password is used for safely entering this app.</string>
     <string name="reset_password_hint">Do you really want to disable password?</string>
     <string name="enter_password_hint">Do you really want to enable password?</string>
+    <string name="password_enable_hint">Enable password on app entering</string>
+
 
     <!--    NOTES FRAGMENT   -->
     <string name="title_notes">Notes</string>

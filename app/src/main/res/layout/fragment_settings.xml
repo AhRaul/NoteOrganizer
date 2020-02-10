@@ -124,7 +124,7 @@
                         style="@style/TextView.Header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Enable password on enter"
+                        android:text="@string/password_enable_hint"
                         android:layout_weight="0.2"/>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
