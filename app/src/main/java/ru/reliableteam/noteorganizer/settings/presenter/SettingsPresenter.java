@@ -9,7 +9,9 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import ru.reliableteam.noteorganizer.Action;
 import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.ParameterizedAction;
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.entity.data_base.impl.NoteDaoImpl;
 import ru.reliableteam.noteorganizer.entity.data_base.impl.TodoDaoImpl;
@@ -28,14 +30,16 @@ public class SettingsPresenter implements BasePresenter {
     private int lastCheckedId = 0;
     private int APP_THEME;
 
-    private Function<Integer, Void> todosCacheSizeListener = size -> {
-        view.setTodosCacheSize(size.toString());
-        return null;
+    private ParameterizedAction todosCacheSizeListener = new ParameterizedAction() {
+        @Override
+        public void doAction(String s) {
+            view.setTodosCacheSize(s);
+        }
     };
 
     public SettingsPresenter(ISettingsView view) {
         todoDao = new TodoDaoImpl();
-        appSettings = todoDao.getAppSettings();//new SharedPreferencesManager(context);
+        appSettings = todoDao.getAppSettings();
         this.view = view;
         this.APP_THEME = appSettings.getAppTheme();
     }

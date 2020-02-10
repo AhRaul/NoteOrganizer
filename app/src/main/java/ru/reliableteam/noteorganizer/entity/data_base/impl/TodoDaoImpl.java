@@ -10,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import ru.reliableteam.noteorganizer.BasePresenter;
+import ru.reliableteam.noteorganizer.ParameterizedAction;
 import ru.reliableteam.noteorganizer.entity.AppConfig;
 import ru.reliableteam.noteorganizer.entity.data_base.DataBase;
 import ru.reliableteam.noteorganizer.entity.data_base.dao.TodoDAO;
@@ -152,22 +153,22 @@ public class TodoDaoImpl {
                 );
     }
 
-    public void getCacheSize(Function<Integer, Void> callable) {
+    public void getCacheSize(ParameterizedAction action) {
         disposable = todoDAO.getCacheSize()
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         doneTodosCount -> {
                             System.out.println("GET");
-                            callable.apply(doneTodosCount);
+                            action.doAction("" + doneTodosCount);
                         },
                         Throwable::printStackTrace
                 );
     }
-    public void cleanCacheSize(Function<Integer, Void> callable) {
+    public void cleanCacheSize(ParameterizedAction action) {
         disposable = Completable.fromAction( () -> todoDAO.cleanCache() )
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> getCacheSize(callable),
+                        () -> getCacheSize(action),
                         Throwable::printStackTrace
                 );
     }
