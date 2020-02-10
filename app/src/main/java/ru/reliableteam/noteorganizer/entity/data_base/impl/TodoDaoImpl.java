@@ -230,6 +230,8 @@ public class TodoDaoImpl {
                 );
     }
 
+    // please add comments here its bullshit code
+
     public Integer size() {
         return todoList.size();
     }
