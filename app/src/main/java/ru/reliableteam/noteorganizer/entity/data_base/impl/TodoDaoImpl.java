@@ -229,7 +229,7 @@ public class TodoDaoImpl {
                         Throwable::printStackTrace
                 );
     }
-
+    // todo comments here
     public Integer size() {
         return todoList.size();
     }
