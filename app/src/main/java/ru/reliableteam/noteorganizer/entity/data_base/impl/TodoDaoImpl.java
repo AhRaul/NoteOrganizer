@@ -230,6 +230,8 @@ public class TodoDaoImpl {
                 );
     }
 
+    // please add comments here its bullshit code
+
     // comments
     // second comment
     public Integer size() {
