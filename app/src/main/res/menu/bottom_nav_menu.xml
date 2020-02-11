@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_notes"
-        android:icon="@drawable/outline_notes_24"
+        android:icon="@drawable/notes_icon_selector"
         android:title="@string/title_notes" />
 
     <item
         android:id="@+id/navigation_todos"
-        android:icon="@drawable/outline_done_all_24"
+        android:icon="@drawable/todo_icon_selector"
         android:title="@string/title_todo" />
 
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/outline_settings_applications_24"
+        android:icon="@drawable/settings_icon_selector"
         android:title="@string/title_settings" />
 
 </menu>
