@@ -31,7 +31,6 @@ public class CalculatorFragment extends DialogFragment {
     private TextInputEditText tvOutResult;
     private TextView tvExpress;
     private TextView tvResult;
-    private Spinner spinner;
 
     public void setTvOutResult(TextInputEditText tvOutResult) {
         this.tvOutResult = tvOutResult;
@@ -195,17 +194,6 @@ public class CalculatorFragment extends DialogFragment {
         dismiss();
     }
 
-    /**
-     * Получение значения, имеющего метку (например: #M1 500 )
-     * Условия получения значения: после метки #M[целое число] должен стоять пробел,
-     * далее считываемое число целое или дробное без букв или символов, далее пробел.
-     * Если условия нарушены, метка не будет считана.
-     * Разрешенные символы: "-", ".", ",", цифры.
-     */
-    private void getMemoryPoint() {
-
-    }
-
     private String appendResultWithNoteText(int endSelectionIdx) {
         StringBuilder resultStringBuilder = new StringBuilder();
 
@@ -226,12 +214,17 @@ public class CalculatorFragment extends DialogFragment {
     }
 
     public void setExpression(String text) {
-        System.out.println("SEEEEET " + text + " prev = " + tvExpress.getText().toString());
         tvExpress.setText(text);
     }
 
+    /**
+     * Получение значения, имеющего метку (например: #M1 500 )
+     * Условия получения значения: после метки #M[целое число] должен стоять пробел,
+     * далее считываемое число целое или дробное без букв или символов, далее пробел.
+     * Если условия нарушены, метка не будет считана.
+     * Разрешенные символы: "-", ".", ",", цифры.
+     */
     private void checkPreviousInput() {
-        System.out.println("CHECK");
         calcPresenter.checkInputAndReplace();
         // нужна проверка, что нет вводимого ключа
         // добавить в паттерн - точку и запятую
