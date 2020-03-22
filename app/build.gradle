@@ -53,5 +53,7 @@ dependencies {
     implementation 'com.github.moxy-community:moxy-material:1.0.13'
     //tutorial
     implementation 'com.github.takusemba:spotlight:2.0.1'
+    // math parser
+    implementation group: 'org.mariuszgromada.math', name: 'MathParser.org-mXparser', version: '4.0.0'
 
 }
