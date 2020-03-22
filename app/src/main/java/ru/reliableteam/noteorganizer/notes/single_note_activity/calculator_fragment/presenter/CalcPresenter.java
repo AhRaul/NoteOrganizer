@@ -1,5 +1,7 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter;
 
+import android.view.View;
+
 import org.mariuszgromada.math.mxparser.Expression;
 
 import java.util.HashMap;
@@ -35,8 +37,8 @@ public class CalcPresenter {
     }
 
     public void limitLenForExpress(){
-
-        if (express.length() == LIMIT_LEN){
+        int len = getExpressLen();
+        if (len == LIMIT_LEN){
             setExpress(express.substring(0, LIMIT_LEN - 1));
         }
     }
@@ -55,18 +57,65 @@ public class CalcPresenter {
         Expression e = new Expression(express);
         return e.checkSyntax();
     }
-
-    public StringBuilder buildExpress(String s){
-        return express.append(s);
+    public boolean isNumeric(String s) throws NumberFormatException{
+        try {
+            Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    public boolean isActionButton(View v) {
+        String id = v.getTag().toString();
+        System.out.println(id);
+        return isOperator(id);//id == R.id.btn_division || id == R.id.btn_minus || id == R.id.btn_plus ||
+                //id == R.id.btn_multiplication || id == R.id.btn_equally;
     }
 
-    public StringBuilder deleteSymbol(){
-        if (express.length() == 0) return express;
-        return express.deleteCharAt(express.length() - 1);
+    private boolean isOperator(String s) {
+        return s.equals("+") || s.equals("-") || s.equals("/") || s.equals("*") || s.equals("=");
+    }
+
+    public void setExpressionTextSize() {
+        int len = getExpressLen();
+        view.setTextSize((len > 20) ? 16 : 24);
+    }
+
+
+    public StringBuilder buildExpress(String s, int insertIdx, boolean hasFocus){
+        int len = getExpressLen();
+        if (!hasFocus || len == 0)
+            return express.append(s);
+        //else if (hasFocus)
+            return express.insert(insertIdx, s.charAt(0));
+
+    }
+
+    public StringBuilder deleteSymbol(int startIdx){
+        System.out.println(startIdx);
+        int len = getExpressLen();
+        if (len == 0) return express;
+        if (startIdx != 0)
+            return express.deleteCharAt(startIdx - 1);
+
+        return express.deleteCharAt(len - 1);
+    }
+    public int getPointer(int startIdx) {
+        int len = getExpressLen();
+        if (len == 0)
+            return  0;
+        if (startIdx > 0)
+            return startIdx - 1;
+        else
+            return 0;
+
     }
 
     public String getExpress(){
         return express.toString();
+    }
+    private int getExpressLen() {
+        return express.length();
     }
 
     public void setExpress(String s){

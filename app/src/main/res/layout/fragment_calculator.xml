@@ -25,15 +25,14 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/baseline_close_24" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_express"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/TextView.Title"
+            android:background="@android:color/transparent"
             android:gravity="bottom|end"
-            android:focusable="false"
             android:longClickable="false"
-            android:clickable="false"
             tools:text="123"/>
 
         <View style="@style/Divider"/>
@@ -230,21 +229,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill"
-                android:text="@string/button_memory"/>
+                android:text="@string/button_memory"
+                android:tag="M"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_set_result"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="res"/>
+                    android:text="res"
+                    android:tag="res"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_equally"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="="/>
+                    android:text="="
+                    android:tag="="/>
 
 
         </GridLayout>
