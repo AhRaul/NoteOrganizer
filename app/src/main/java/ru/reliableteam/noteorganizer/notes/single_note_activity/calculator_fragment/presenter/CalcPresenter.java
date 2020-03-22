@@ -1,17 +1,17 @@
 package ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.presenter;
 
+import org.mariuszgromada.math.mxparser.Expression;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.model.CalculatorModel;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view.CalculatorFragment;
 
 public class CalcPresenter {
 
-    private CalculatorModel calculator;
     private StringBuilder express;
     private final int LIMIT_LEN  = 25; //ограничение числа вводимых символов;
     private Map<String, String> mValues = new HashMap<>();
@@ -19,25 +19,19 @@ public class CalcPresenter {
 
     public CalcPresenter(CalculatorFragment calculatorFragment) {
         express = new StringBuilder();
-        calculator = new CalculatorModel();
         this.view = calculatorFragment;
     }
 
     public String getResult(){
-        char currentChar;
-        String exp = express.toString();
-        if (!exp.equals("")) {
-            currentChar = exp.charAt(exp.length() - 1);
-            if (currentChar == '-' || currentChar == '+' || currentChar == 'x' || currentChar == '/') {
-                setExpress(exp.substring(0, exp.length() - 1));
-            }
-        }
-        calculator.calcResult(express.toString());
-        return calculator.getResult();
+        Expression exp = new Expression(getExpress());
+        correctExpress();
+        return exp.calculate() + "";
     }
 
-    public void correctExpress(){
-        setExpress(getCorrectExpress(express.toString()));
+    public void correctExpress() {
+        String expression = express.toString();
+        if (checkExpress(expression))
+            setExpress(expression);
     }
 
     public void limitLenForExpress(){
@@ -47,75 +41,19 @@ public class CalcPresenter {
         }
     }
 
-    //добавить возможность добавлять M
-    private String getCorrectExpress(String inExpress){
-        int leng = inExpress.length();
-        if (leng == 0) return "";
-        if (!isCorrectNumeric(inExpress)) return inExpress.substring(0,leng-1);
-        if (leng == 1) {
-            char currentChar = inExpress.charAt(0);
-            if (currentChar == 'x' || currentChar == '/' || currentChar == ')'){
-                return "";
-            }
-            if (currentChar == '.'){
-                return "0.";
-            }
-            if (currentChar == '+' || currentChar == '-'){
-                return "0" + currentChar;
-            }
+    private boolean checkExpress(String inExpress){
+        if (!isCorrect(inExpress)) {
+            view.showError();
+            return false;
+        } else {
+            view.setTvResult("");
+            return true;
         }
-        if (leng >= 2) {
-            int idxEnd = leng - 1;
-            int idxBegin = leng - 2;
-            char charBegin = inExpress.charAt(idxBegin);
-            char charEnd   = inExpress.charAt(idxEnd);
-            if (charBegin >= '0' && charBegin <= '9' && charEnd == '('){
-                return inExpress.substring(0,leng-1);
-            }
-            if (charBegin == ')'){
-                if (charEnd >= '0' && charEnd <= '9' || charEnd == '(' || charEnd == '.' ){
-                    return inExpress.substring(0,leng-1);
-                }
-
-            }
-            if (charBegin == '('){
-                if (charEnd == 'x' || charEnd == '/' || charEnd == ')'|| charEnd == '.') {
-                    return inExpress.substring(0, leng - 1);
-                }
-                if (charEnd == '+' || charEnd == '-') {
-                    inExpress = inExpress.substring(0, leng - 1);
-                    inExpress = inExpress + "0" + charEnd;
-                    return inExpress;
-
-                }
-            }
-            if (charBegin == 'x' || charBegin == '/' || charBegin == '+' || charBegin == '-'){
-                if (charEnd == '+' ||charEnd == '-' ||charEnd == 'x' || charEnd == '/' || charEnd == ')') {
-                    inExpress = inExpress.substring(0,leng-2);
-                    inExpress = inExpress + charEnd;
-                }
-                if (charEnd == '.'){
-                    inExpress = inExpress.substring(0,leng-2);
-                    inExpress = inExpress + "0.";
-                }
-            }
-        }
-        return inExpress;
     }
 
-    private boolean isCorrectNumeric(String express){
-        char currentChar = express.charAt(express.length() - 1);
-        if (currentChar == '.') {
-            express = express.substring(0,express.length()-1);
-            while (!express.isEmpty() && currentChar >= '0' && currentChar <= '9' || currentChar == '.') {
-                currentChar = express.charAt(express.length()-1);
-                if (currentChar == '.'){
-                    return false;
-                }
-                express = express.substring(0,express.length()-1);
-            }
-        }
-        return true;
+    private boolean isCorrect(String express) {
+        Expression e = new Expression(express);
+        return e.checkSyntax();
     }
 
     public StringBuilder buildExpress(String s){
@@ -124,7 +62,7 @@ public class CalcPresenter {
 
     public StringBuilder deleteSymbol(){
         if (express.length() == 0) return express;
-        return express.deleteCharAt(express.length()-1);
+        return express.deleteCharAt(express.length() - 1);
     }
 
     public String getExpress(){
@@ -136,6 +74,11 @@ public class CalcPresenter {
         express.append(s);
     }
 
+
+    /**
+     * SAVED ARGUMENTS REPLACEMENT
+     * @param savedArguments - list of saved arguments like ["M1:200", "M2:300"]
+     */
     public void setSavedArguments(List<String> savedArguments) {
         for(String s: savedArguments) {
             String[] toMapValue = s.split(":");

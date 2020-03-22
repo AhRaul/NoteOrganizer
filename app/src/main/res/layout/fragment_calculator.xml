@@ -61,28 +61,32 @@
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/left_bracket"/>
+                    android:text="@string/left_bracket"
+                    android:tag="("/>
 
                 <Button
                     android:id="@+id/btn_right_bracket"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/right_bracket"/>
+                    android:text="@string/right_bracket"
+                    android:tag=")"/>
 
                 <Button
                     android:id="@+id/btn_clear"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/clear"/>
+                    android:text="@string/clear"
+                    android:tag="C"/>
 
                 <Button
                     android:id="@+id/btn_del_num"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/back_space"/>
+                    android:text="@string/back_space"
+                    android:tag="del"/>
 
 
                 <Button
@@ -90,84 +94,96 @@
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="7"/>
+                    android:text="7"
+                    android:tag="7"/>
 
                 <Button
                     android:id="@+id/btn_eight"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8"/>
+                    android:text="8"
+                    android:tag="8"/>
 
                 <Button
                     android:id="@+id/btn_nine"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="9"/>
+                    android:text="9"
+                    android:tag="9"/>
 
                 <Button
                     android:id="@+id/btn_division"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"/>
+                    android:text="/"
+                    android:tag="/"/>
 
                 <Button
                     android:id="@+id/btn_four"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4"/>
+                    android:text="4"
+                    android:tag="4"/>
 
                 <Button
                     android:id="@+id/btn_five"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"/>
+                    android:text="5"
+                    android:tag="5"/>
 
                 <Button
                     android:id="@+id/btn_six"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6"/>
+                    android:text="6"
+                    android:tag="6"/>
 
                 <Button
                     android:id="@+id/btn_multiplication"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="x"/>
+                    android:text="x"
+                    android:tag="*"/>
 
                 <Button
                     android:id="@+id/btn_one"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"/>
+                    android:text="1"
+                    android:tag="1"/>
 
                 <Button
                     android:id="@+id/btn_two"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2"/>
+                    android:text="2"
+                    android:tag="2"/>
 
                 <Button
                     android:id="@+id/btn_three"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3"/>
+                    android:text="3"
+                    android:tag="3"/>
 
                 <Button
                     android:id="@+id/btn_plus"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"/>
+                    android:text="+"
+                    android:tag="+"/>
 
                 <Button
                     style="@style/TextView.Calculator.Number"
@@ -182,27 +198,31 @@
                 style="@style/TextView.Calculator.Number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"/>
+                android:text="0"
+                android:tag="0"/>
 
                 <Button
                     android:id="@+id/btn_separator"
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="."/>
+                    android:text="."
+                    android:tag="."/>
 
                 <Button
                     android:id="@+id/btn_minus"
                     style="@style/TextView.Calculator.Actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-"/>
+                    android:text="-"
+                    android:tag="-"/>
 
                 <Button
                     style="@style/TextView.Calculator.Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" "/>
+                    android:text=" "
+                    android:tag=" "/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_calc_memory"

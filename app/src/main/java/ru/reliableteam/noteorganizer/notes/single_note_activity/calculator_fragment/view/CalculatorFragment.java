@@ -149,7 +149,7 @@ public class CalculatorFragment extends DialogFragment {
         }
 
         Button b = calc.findViewById(v.getId());
-        calcPresenter.buildExpress(b.getText().toString());
+        calcPresenter.buildExpress(b.getTag().toString());
         calcPresenter.correctExpress();
         setExpressionTextSize();
         calcPresenter.limitLenForExpress();
@@ -228,5 +228,12 @@ public class CalculatorFragment extends DialogFragment {
         calcPresenter.checkInputAndReplace();
         // нужна проверка, что нет вводимого ключа
         // добавить в паттерн - точку и запятую
+    }
+
+    public void showError() {
+        tvResult.setText("ERROR");
+    }
+    public void setTvResult(String res) {
+        tvResult.setText(res);
     }
 }
