@@ -56,15 +56,19 @@ public class CalculatorFragmentInitialize extends DialogFragment {
         tvExpress = calc.findViewById(R.id.tv_express);
         tvResult = calc.findViewById(R.id.tv_result);
 
+        tvExpress.clearFocus();
+
         tvExpress.setOnClickListener(v -> {
             System.out.println("click");
             hideKeyBoard();
         });
-        tvExpress.setOnFocusChangeListener( (v, f) -> {
+        tvExpress.setOnFocusChangeListener( (v, isFocused) -> {
             System.out.println("FOCUS");
-            tvExpress.requestFocus();
-            tvExpress.setShowSoftInputOnFocus(false);
-            hideKeyBoard();
+            if (isFocused) {
+                tvExpress.requestFocus();
+                tvExpress.setShowSoftInputOnFocus(false);
+                hideKeyBoard();
+            }
         });
     }
     private void hideKeyBoard() {
@@ -177,6 +181,10 @@ public class CalculatorFragmentInitialize extends DialogFragment {
         calcPresenter.setExpressionTextSize();
         tvExpress.setText(calcPresenter.getExpress());
         tvExpress.setSelection(calcPresenter.getPointer(tvSelectionIdx));
+        if (tvExpress.getText().length() == 0) {
+            System.out.println("clr");
+            tvExpress.clearFocus();
+        }
     }
     private void solveExpression() {
         String result = calcPresenter.getResult();
