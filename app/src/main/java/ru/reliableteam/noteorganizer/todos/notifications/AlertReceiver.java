@@ -16,7 +16,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationHelper notificationHelper = new NotificationHelper(context);
+        NotificationHelper notificationHelper = new NotificationHelper(context, intent);
         int id = intent.getIntExtra("requestCode", -1);
 
         if(id != -1) {      //если id != -1, значит мы получили id задачи, выполняем вызов задачи

@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NoteOrganizer.iml" filepath="$PROJECT_DIR$/NoteOrganizer.iml" group="NoteOrganizer" />
-      <module fileurl="file://$PROJECT_DIR$/app/NoteOrganizer-app.iml" filepath="$PROJECT_DIR$/app/NoteOrganizer-app.iml" group="NoteOrganizer/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="NoteOrganizer/app" />
-      <module fileurl="file://$PROJECT_DIR$/geek-NoteOrganizer.iml" filepath="$PROJECT_DIR$/geek-NoteOrganizer.iml" group="NoteOrganizer" />
     </modules>
   </component>
 </project>
