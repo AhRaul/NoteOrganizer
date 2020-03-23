@@ -56,8 +56,6 @@ public class CalculatorFragmentInitialize extends DialogFragment {
         tvExpress = calc.findViewById(R.id.tv_express);
         tvResult = calc.findViewById(R.id.tv_result);
 
-        tvExpress.setText("1234567890");
-
         tvExpress.setOnClickListener(v -> {
             System.out.println("click");
             hideKeyBoard();
