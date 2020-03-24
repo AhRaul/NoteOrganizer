@@ -1,9 +1,11 @@
 package ru.reliableteam.noteorganizer.entering_app;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +27,6 @@ public class EntranceActivity extends BaseActivity {
         setContentView(R.layout.activity_entrance);
 
         initUI();
-        initEnteringAppTimer();
     }
     private void initUI() {
         ImageView launcherIcon = findViewById(R.id.launcher_icon);
@@ -49,16 +50,34 @@ public class EntranceActivity extends BaseActivity {
     }
     private void setAnimation(View v) {
         float alphaTo = 1f;
-        long duration = 1000;
+        long duration = 300;
 
         v.animate().alpha(alphaTo)
                 .setDuration(duration)
-                .setListener(null);
+                .setListener(getAnimationListener());
     }
-    private void initEnteringAppTimer() {
-        Handler delayedOpen = new Handler();
-        delayedOpen.postDelayed(
-                this::enterApp, 1000
-        );
+
+    private Animator.AnimatorListener getAnimationListener() {
+        return new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                // do nothing
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                enterApp();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                // do nothing
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                // do nothing
+            }
+        };
     }
 }
