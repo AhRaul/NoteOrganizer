@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/todo_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-<androidx.appcompat.widget.LinearLayoutCompat
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/todo_item_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="12dp"
-        />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/todo_item_title"
-        style="@style/TextView.Header"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        tools:text="todo"
-        android:ellipsize="end"
-        android:layout_gravity="center"/>
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/todo_item_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/todo_item_title"
+            style="@style/TextView.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="todo" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/todo_date_end"
+            style="@style/TextView.SubHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:text="11:53 12/12/2019"
             android:gravity="end"
-            style="@style/TextView.SubHeader"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:text="11:53 12/12/2019" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <TextView style="@style/Divider" android:layout_marginBottom="0dp"/>
+
+    <TextView
+        style="@style/Divider"
+        android:layout_marginBottom="0dp" />
 </androidx.appcompat.widget.LinearLayoutCompat>

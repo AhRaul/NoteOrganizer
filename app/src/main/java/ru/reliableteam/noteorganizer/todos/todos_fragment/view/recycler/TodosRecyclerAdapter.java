@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 
+import org.jetbrains.annotations.NotNull;
+
 import ru.reliableteam.noteorganizer.R;
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.ITodoPresenter;
@@ -30,17 +32,18 @@ import ru.reliableteam.noteorganizer.utils.DateUtils;
  *  -   onLongClick to select Note for deleting it
  */
 
-public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdapter.TodosViewHolder> {
-        private ITodoPresenter presenter;
+public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosVH> {
+        private final ITodoPresenter presenter;
 
         public TodosRecyclerAdapter(ITodoPresenter presenter) {
             this.presenter = presenter;
         }
 
+        @NotNull
         @Override
-        public TodosViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public TodosVH onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todo_item, parent, false);
-            return new TodosViewHolder(view, presenter);
+            return new TodosVH(view, presenter);
         }
 
         @Override
@@ -49,86 +52,11 @@ public class TodosRecyclerAdapter extends RecyclerView.Adapter<TodosRecyclerAdap
         }
 
         @Override
-        public void onBindViewHolder(TodosViewHolder holder, int position) {
+        public void onBindViewHolder(@NotNull TodosVH holder, int position) {
             presenter.bindView(holder);
         }
         @Override
         public int getItemViewType(int position) {
             return position;
         }
-
-
-    class TodosViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
-        private View itemView;
-
-        private String CLASS_TAG = "MyViewHolder";
-
-        private TextView title, dateEnd;
-        private MaterialCheckBox checkBoxDone;
-
-        TodosViewHolder(View view, ITodoPresenter presenter) {
-            super(view);
-            this.itemView = view;
-
-            init();
-            itemView.setOnClickListener(v -> presenter.clicked(getPos()));
-            itemView.setOnLongClickListener( v -> {
-                presenter.longClicked(getPos());
-                return true;
-            });
-            checkBoxDone.setOnCheckedChangeListener(
-                    (buttonView, isChecked) -> presenter.makeTodoDone(getPos(), checkBoxDone.isChecked())
-            );
-        }
-
-        private void init() {
-            title = itemView.findViewById(R.id.todo_item_title);
-            dateEnd = itemView.findViewById(R.id.todo_date_end);
-            checkBoxDone = itemView.findViewById(R.id.todo_item_checkbox);
-        }
-        @Override
-        public void setTodo(Todo todo) {
-            setDate(todo.endDate);
-            checkBoxDone.setChecked(todo.isDone);
-            setTitle(todo.title, todo.isDone);
-            setBackground(todo);
-        }
-        @Override
-        public int getPos() { return getLayoutPosition(); }
-
-        private void setDate(Long endDate) {
-            if (DateUtils.isDateConfigured(endDate)) {
-                dateEnd.setVisibility(View.VISIBLE);
-                dateEnd.setText(DateUtils.dateToString(endDate));
-            } else {
-                dateEnd.setVisibility(View.GONE);
-            }
-        }
-        private void setTitle(String title_, boolean isDone) {
-            Editable e = new SpannableStringBuilder(title_);
-            if (isDone) {
-                e.setSpan(new StrikethroughSpan(), 0, title_.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else {
-                e.removeSpan(new StrikethroughSpan());
-            }
-            title.setText(e);
-        }
-
-        private void setBackground(Todo todo) {
-            if (todo.isDone) {
-                itemView.setBackgroundColor(Color.argb(30, 0, 133, 119));
-                return;
-            }
-            if (todo.endDate > System.currentTimeMillis()) {
-                itemView.setBackgroundColor(0);
-                return;
-            }
-            if (todo.endDate < System.currentTimeMillis()) {
-                if (DateUtils.isDateConfigured(todo.endDate))
-                    itemView.setBackgroundColor(Color.argb(30, 207, 102, 121));
-                else
-                    itemView.setBackgroundColor(0);
-            }
-        }
-    }
 }

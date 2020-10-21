@@ -41,6 +41,9 @@ public class SingleNotePresenter implements BasePresenter {
     public boolean isNewNote() {
         return appSettings.getClickedNoteId() == NEW_NOTE;
     }
+    public boolean isNoteEmpty() {
+        return view.getNoteText().isEmpty() && view.getNoteTitle().isEmpty();
+    }
 
     public void deleteNote() {
         Note note = noteDao.getNote();

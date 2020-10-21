@@ -9,13 +9,15 @@ import ru.reliableteam.noteorganizer.todos.add_todo_fragment.view.IAddTodoFragme
 import ru.reliableteam.noteorganizer.todos.model.Todo;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
-@InjectViewState
-public class AddTodoPresenter extends MvpPresenter<IAddTodoFragment> implements BasePresenter {
+public class AddTodoPresenter implements BasePresenter {
 
     private SharedPreferencesManager appSettings;
     private TodoDaoImpl todoDao;
 
-    public AddTodoPresenter() {
+    private IAddTodoFragment view;
+
+    public AddTodoPresenter(IAddTodoFragment fragment) {
+        view = fragment;
         todoDao = new TodoDaoImpl();
         appSettings = todoDao.getAppSettings();
     }
@@ -30,11 +32,11 @@ public class AddTodoPresenter extends MvpPresenter<IAddTodoFragment> implements 
         String date = dateTime[0];
         String time = dateTime[1];
         if (DateUtils.isDateConfigured(date)) {
-            getViewState().setDate(date);
-            getViewState().setTime(time);
+            view.setDate(date);
+            view.setTime(time);
         }
-        getViewState().setTitle(todo.title);
-        getViewState().setDescription(todo.description);
+        view.setTitle(todo.title);
+        view.setDescription(todo.description);
     }
 
     public void getUIData() {

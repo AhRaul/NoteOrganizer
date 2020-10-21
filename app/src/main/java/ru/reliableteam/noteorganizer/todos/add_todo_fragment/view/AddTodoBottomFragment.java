@@ -21,6 +21,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
@@ -34,14 +35,12 @@ import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.utils.DateUtils;
 
 
-public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
-        implements TodoRequestCodes, IAddTodoFragment {
+public class AddTodoBottomFragment extends BottomSheetDialogFragment implements TodoRequestCodes, IAddTodoFragment {
     private final String CLASS_TAG = "NotesBtmDialogFragment";
     private final String EMPTY_TEXT = "";
 
     private View root;
 
-    @InjectPresenter
     public AddTodoPresenter presenter;
 
     private TextInputEditText title, description;
@@ -69,6 +68,7 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
         root = View.inflate(getContext(), R.layout.fragment_add_todo, null);
 
         BottomSheetDialog bottomSheet = initBottomSheet(savedInstanceState);
+        presenter = new AddTodoPresenter(this);
         initUI();
 
         bottomSheet.setOnKeyListener( onBackPressed() );
@@ -154,6 +154,10 @@ public class AddTodoBottomFragment extends MvpBottomSheetDialogFragment
     private void initCancel() {
         cancelBtn = root.findViewById(R.id.cancel_button);
         cancelBtn.setOnClickListener(v -> {
+            if (isTodoEmpty()) {
+                dismiss();
+                return;
+            }
             showConfirmation(
                     () -> saveTodo(ACTION_UPDATE),
                     () -> dismiss(),

@@ -30,7 +30,8 @@
         android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:itemCount="5"
-        tools:listitem="@layout/note_item" />
+        tools:listitem="@layout/note_item"
+        android:overScrollMode="never"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/notes_write_fab"

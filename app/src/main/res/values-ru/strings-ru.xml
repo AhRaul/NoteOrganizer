@@ -31,10 +31,10 @@
     <string name="last_update_hint">Последнее обновление: </string>
     <string name="not_implemented_hint">не реализовано</string>
     <string name="not_sync">не синхронизировано</string>
-    <string name="clean_notes_cache_hint">Очистить кеш заметок</string>
+    <string name="clean_notes_cache_hint">Очистить кэш заметок</string>
     <string name="cache_size_hint">Кол-во выполненных: </string>
     <string name="clean">очистить</string>
-    <string name="clean_todos_cache_hint">Очистить кеш задач</string>
+    <string name="clean_todos_cache_hint">Очистить кэш задач</string>
     <string name="migrate_notes_hint">Сохранить заметки в .txt формат</string>
     <string name="migrated_notes_dir_path_hint">путь: </string>
     <string name="help_hint">Помощь</string>

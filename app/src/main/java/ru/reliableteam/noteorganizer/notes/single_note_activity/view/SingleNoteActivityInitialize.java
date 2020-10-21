@@ -13,16 +13,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import ru.reliableteam.noteorganizer.Action;
 import ru.reliableteam.noteorganizer.BaseActivity;
 import ru.reliableteam.noteorganizer.R;
-import ru.reliableteam.noteorganizer.notes.single_note_activity.calculator_fragment.view.CalculatorFragment;
 import ru.reliableteam.noteorganizer.notes.single_note_activity.presenter.SingleNotePresenter;
 import ru.reliableteam.noteorganizer.utils.TutorialSpotlight;
 
 class SingleNoteActivityInitialize extends BaseActivity {
     protected SingleNotePresenter presenter;
-    protected CalculatorFragment calculatorFragment;
 
     protected TextInputEditText noteText, noteTitle;
-    protected ImageButton cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn, migrateBtn;
+    protected ImageButton cancelBtn, saveBtn, deleteBtn, shareBtn, migrateBtn;
 
     private TutorialSpotlight tutorialSpotlight;
     private boolean isTutorialShowing;
@@ -73,10 +71,9 @@ class SingleNoteActivityInitialize extends BaseActivity {
         initCancel();
         initSave();
         initDelete();
-        initCalc();
         initShare();
         initMigrate();
-        setDescriptions(cancelBtn, saveBtn, deleteBtn, calcBtn, shareBtn, migrateBtn);
+        setDescriptions(cancelBtn, saveBtn, deleteBtn, shareBtn, migrateBtn);
         if (presenter.isNewNote() && !isTutorialShowing)
             hideViews(deleteBtn, shareBtn, migrateBtn);
     }
@@ -84,10 +81,18 @@ class SingleNoteActivityInitialize extends BaseActivity {
     private void initCancel() {
         cancelBtn = findViewById(R.id.cancel_button);
         if (!isTutorialShowing) {
-            cancelBtn.setOnClickListener(v -> showConformation(
-                    () -> saveBtn.performClick(),
-                    this::finish,
-                    R.string.save_before_exit_hint)
+            cancelBtn.setOnClickListener(v -> {
+                        if (presenter.isNoteEmpty()) {
+                            finish();
+                            return;
+                        }
+
+                        showConformation(
+                                () -> saveBtn.performClick(),
+                                this::finish,
+                                R.string.save_before_exit_hint
+                        );
+                    }
             );
         }
     }
@@ -117,19 +122,6 @@ class SingleNoteActivityInitialize extends BaseActivity {
                     this::finish,
                     R.string.delete_hint
             ));
-        }
-    }
-
-    private void initCalc() {
-        calculatorFragment = new CalculatorFragment();
-
-        calcBtn = findViewById(R.id.calc_button);
-        if (!isTutorialShowing) {
-            calcBtn.setOnClickListener(v -> {
-                        calculatorFragment.show(getSupportFragmentManager(), "calculator");
-                        calculatorFragment.setTvOutResult(noteText);
-                    }
-            );
         }
     }
 
@@ -200,7 +192,7 @@ class SingleNoteActivityInitialize extends BaseActivity {
     private void showTutorial() {
         isTutorialShowing = true;
         tutorialSpotlight
-                .buildTutorialFor(cancelBtn, saveBtn, shareBtn, migrateBtn, calcBtn, deleteBtn)
+                .buildTutorialFor(cancelBtn, saveBtn, shareBtn, migrateBtn, deleteBtn)
                 .setOnEndTutorialListener( () -> doWhenTutorialEnds() )
                 .start();
     }

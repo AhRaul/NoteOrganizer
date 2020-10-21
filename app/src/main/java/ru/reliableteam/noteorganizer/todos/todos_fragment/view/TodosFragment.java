@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,9 +26,8 @@ import ru.reliableteam.noteorganizer.todos.todos_fragment.TodoRequestCodes;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.presenter.TodosPresenter;
 import ru.reliableteam.noteorganizer.todos.todos_fragment.view.recycler.TodosRecyclerAdapter;
 
-public class TodosFragment extends MvpAppCompatFragment implements TodoRequestCodes, ITodosFragment {
+public class TodosFragment extends Fragment implements TodoRequestCodes, ITodosFragment {
 
-    @InjectPresenter
     public TodosPresenter presenter;
 
     private View root;
@@ -36,6 +36,7 @@ public class TodosFragment extends MvpAppCompatFragment implements TodoRequestCo
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_todos, container, false);
+        presenter = new TodosPresenter(this);
 
         initialization();
 
