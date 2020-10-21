@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,9 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/baseline_launcher_icon"
-        android:tint="@color/colorPrimary"
-        />
+        android:src="@drawable/ic_noteorganaizer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/app_name"
@@ -24,17 +26,23 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/colorPrimary"
-        app:layout_anchor="@id/launcher_icon"
-        app:layout_anchorGravity="bottom|center"
-        />
+        android:textColor="@color/colorPrimaryText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/launcher_icon"
+        android:layout_marginTop="16dp"/>
+
     <TextView
         android:id="@+id/team_copyright"
+        style="@style/TextView.SubHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="by Reliableteam \u00A9 2020"
-        style="@style/TextView.SubHeader"
-        app:layout_anchorGravity="center|bottom"
         android:layout_gravity="center|bottom"
-        app:layout_anchor="@id/app_name"/>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:text="by Reliableteam \u00A9 2020"
+        app:layout_anchor="@id/app_name"
+        app:layout_anchorGravity="center|bottom"
+        app:layout_constraintEnd_toEndOf="@+id/app_name"
+        app:layout_constraintStart_toStartOf="@+id/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        android:layout_marginTop="4dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
