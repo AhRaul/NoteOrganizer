@@ -63,7 +63,7 @@ public class Alarm {
         String time = dateTimeS[1];
         long lRequestCode = requestCode;
 
-        System.out.println(date + "_" + time);
+        System.out.println(date + "_" + time + " --> code = " + requestCode);
         startAlarm(date, time, (int)lRequestCode);
     }
 

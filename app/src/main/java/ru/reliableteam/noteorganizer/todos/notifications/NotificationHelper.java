@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.Color;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -38,6 +39,7 @@ public class NotificationHelper extends ContextWrapper {
         channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
         channel.enableVibration(true);
         channel.setVibrationPattern(new long[] {1000, 1000, 1000, 1000});
+        channel.setLightColor(Color.RED);
 
         getManager().createNotificationChannel(channel);
     }
@@ -54,6 +56,8 @@ public class NotificationHelper extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(title)
                 .setContentText(description)
+                .setVibrate(new long[] {1000, 1000, 1000, 1000, 1000, 1000})
+//                .setLights(Color.RED, 3000, 3000)
                 .setSmallIcon(R.drawable.outline_done_all_24);
     }
 }
